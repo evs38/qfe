@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=MimeType
+Hidden=false
+Icon=fidonet
+MimeType=message/msg
+Patterns=*.msg;
+Comment=Fidonet MSG message
+Comment[ru]=Сообщение в формате MSG

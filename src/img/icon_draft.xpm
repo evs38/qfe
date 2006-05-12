@@ -1,0 +1,32 @@
+/* XPM */
+static char *icon_draft[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 10 1",
+"  c black",
+". c #333366",
+"X c #6666CC",
+"o c red",
+"O c yellow",
+"+ c #808080",
+"@ c #9999FF",
+"# c #C0C0C0",
+"$ c gray100",
+"% c None",
+/* pixels */
+"%%%%%%......%%%%",
+"%%%%%%.$OO.$.%%o",
+"%%%%%%.$++.O$Xo+",
+"%%%%%%.$OO..Xo+%",
+"%%%XXX.$++O$o+.%",
+"%%X@#@.$OO$o+O.%",
+"%X@#@#.$+$o+OO.%",
+"%X$$$$.$OOOOOO. ",
+"%X$#@#.$+++++O. ",
+"%X$@#@.$OOOOOO. ",
+"%X$#@#......... ",
+"%X$@#@#@#@#@#@X ",
+"%X$#@#@#@#@#@#X ",
+"%X$@#@#@#@#@#@X ",
+"%XXXXXXXXXXXXXX ",
+"%%              "
+};

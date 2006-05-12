@@ -1,0 +1,27 @@
+/* XPM */
+static char *icon_prop[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 5 1",
+"  c black",
+". c navy",
+"X c #D4D0C8",
+"o c gray100",
+"O c None",
+/* pixels */
+"OOOOOOOOOOOOOOOO",
+"OOOOOOO      O..",
+"OOOOOO XXXXXX ..",
+"OOOOO X XXXXXX..",
+"     X X XXXXX..",
+" oo X X X XXX ..",
+" o X o X X   O..",
+" oo ooo X o OOO.",
+" ooooooo oo OOOO",
+" oooooooooo OOOO",
+" o  o     o OOOO",
+" oooooooooo OOOO",
+" o  o     o OOOO",
+" oooooooooo OOOO",
+"            OOOO",
+"OOOOOOOOOOOOOOOO"
+};

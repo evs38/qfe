@@ -1,0 +1,222 @@
+Version			1.9
+
+#############################################################################
+#                              Station Description                          #
+#############################################################################
+
+Address			2:9999/999.999
+Address			1:9999/999.999
+Name			My Station
+Location		St.Petersburg, Russia
+Sysop			SysOp
+
+if "[OS]"=="UNIX"
+	SendMailCmd	/usr/sbin/sendmail $a < $f
+endif
+
+#############################################################################
+#                             Packers Description                           #
+#############################################################################
+
+Unpack			"unzip -joLqq -P '' $a -d $p $f" 0 504b0304
+Pack			zip zip -9jgqX $a $f
+
+Unpack			"unrar e -y -c- -o+ -inul -p- $a $p $f"   0 52617221
+Unpack			"unrar e -y -c- -o+ -inul -p- $a $p $f"  28 52534658
+Unpack			"rar e -y -c- -o+ -inul -p- $a $p $f" 23040 52617221
+Unpack			"rar e -y -c- -o+ -inul -p- $a $p $f"  9573 52617221
+Unpack			"rar e -y -c- -o+ -inul -p- $a $p $f"  9493 52617221
+Unpack			"rar e -y -c- -o+ -inul -p- $a $p $f" 25099 52617221
+Unpack			"rar e -y -c- -o+ -inul -p- $a $p $f" 13312 52617221
+Unpack			"rar e -y -c- -o+ -inul -p- $a $p $f" 13824 52617221
+Unpack			"rar e -y -c- -o+ -inul -p- $a $p $f" 25088 52617221
+Unpack			"rar e -y -c- -o+ -inul -p- $a $p $f" 46592 52617221
+Unpack			"rar e -y -c- -o+ -inul -p- $a $p $f" 93816 52617221
+Unpack			"rar e -y -c- -o+ -inul -p- $a $p $f" 37376 52617221
+Unpack			"rar e -y -c- -o+ -inul -p- $a $p $f" 31232 52617221
+Unpack			"rar e -y -c- -o+ -inul -p- $a $p $f" 47104 52617221
+Unpack			"rar e -y -c- -o+ -inul -p- $a $p $f" 50688 52617221
+Unpack			"rar e -y -c- -o+ -inul -p- $a $p $f" 94128 52617221
+Unpack			"rar e -y -c- -o+ -inul -p- $a $p $f" 34816 52617221
+Unpack			"rar e -y -c- -o+ -inul -p- $a $p $f" 49152 52617221
+Unpack			"rar e -y -c- -o+ -inul -p- $a $p $f" 94016 52617221
+Unpack			"rar e -y -c- -o+ -inul -p- $a $p $f" 34304 52617221
+Unpack			"rar e -y -c- -o+ -inul -p- $a $p $f" 49664 52617221
+Unpack			"rar e -y -c- -o+ -inul -p- $a $p $f" 93932 52617221
+Unpack			"rar e -y -c- -o+ -inul -p- $a $p $f" 37888 52617221
+Pack			rar rar a -ep -md1024 -m5 -mm -inul -s $a $f
+
+if "[OS]"=="UNIX"
+	Unpack		"arj e -+ -y $a $p $f > /dev/null" 0 60ea
+	Pack		arj arj a -+ -e -y $a $f > /dev/null
+else
+	Unpack		"arj e -+ -y $a $p $f > NUL" 0 60ea
+	Pack		arj arj a -+ -e -y $a $f > NUL
+endif
+
+Unpack			"cd $p && zoo e:Oq $a $f" 0 5a4f4f
+Pack			zoo zoo a:qPh $a $f
+
+if "[OS]"=="UNIX"
+	Unpack		"lha eiw=$p $a $f > /dev/null" 2 2d6c68
+	Pack		lha lha ao7 $a $f > /dev/null
+else
+	Unpack		"lha eiw=$p $a $f > NUL" 2 2d6c68
+	Pack		lha lha ao7 $a $f > NUL
+endif
+
+Unpack			"ha eyq $a $p $f" 0 4841
+Pack			ha ha a21enq $a $f
+
+if "[OS]"=="UNIX"
+	Unpack		"cd $p && arc e $a $f > /dev/null" 0 1a
+	Pack		arc arc a $a $f > /dev/null
+else
+	Unpack		"cd $p && arc e $a $f > NUL" 0 1a
+	Pack		arc arc a $a $f > NUL
+endif
+
+if "[OS]"=="UNIX"
+	Unpack		"cd $p && nulib2 -x $a $f > /dev/null" 0 4ef546
+	Pack		nulib2 nulib2 -aj $a $f > /dev/null
+endif
+
+Unpack			"jar -x $a $p $f" 14 1a4a61721b
+Pack			jar jar -u $a $f
+
+Unpack			"unace e -c- -y+ $a $p $f" 7 2a2a414345
+Unpack			"dact -d $a > $p $f" 0 444354c3
+
+if "[OS]"=="UNIX"
+	Unpack		"cabextract -q -d $p $a $f > /dev/null" 0 4d53434600000000
+else
+	Unpack		"cabextract -q -d $p $a $f > NUL" 0 4d53434600000000
+endif
+
+Unpack			"msexpand $a > $p $a" 0 535a4444
+Unpack			"msexpand $a > $p $a" 0 4b57414a
+
+#Pack			7ZIP 7za.exe a -y $a $f
+#Unpack			"7za.exe e -y $a $p $f" 0 377abcaf
+
+#############################################################################
+#                             Common Parameters                             #
+#############################################################################
+
+NotValidFileNameChars	"*/:<>?\|
+logechotoscreen
+LogLevels		013456789
+ScreenLogLevels		013456789
+LogOwner		ftn.ftn
+LogPerm			0664
+mindiskfreespace	20
+DefArcmailSize		400
+AutoPassive		on
+AdvisoryLock		10
+
+#############################################################################
+#                             Nodelist Information                          #
+#############################################################################
+
+Nodelist		net5030
+DefaultZone		2
+NodelistFormat		Standard
+
+Nodelist		pnt5030
+DefaultZone		2
+NodelistFormat		Points4D
+
+FidoUserList		fidouser.lst
+
+#############################################################################
+#                           Default Link Options                            #
+#############################################################################
+LinkDefaults Destroy
+LinkDefaults
+    AccessGrp			E
+    Packer			ZIP
+    AllowEmptyPktPwd		on
+    ForwardPkts			on
+    NetmailFlavour		Hold
+    EchomailFlavour		Hold
+    FileEchoFlavour		Hold
+    DenyUncondFwdReqAccess	on
+    AutoPause			90
+if "[OS]"=="UNIX"
+	LinkFileBaseDir		/var/fido/fileareas
+else
+	LinkFileBaseDir		C:\Fido\fileareas
+endif
+    FileAreaCreatePerms		0755
+    AvailList			UniqueOne
+    emailEncoding		MIME
+    RecodeMsgBase		off
+    delNotReceivedTIC		on
+    reducedSeenBy		on
+    AutoAreaCreateSubdirs	off
+    AutoFileCreateSubdirs	off
+LinkDefaults End
+
+#############################################################################
+#                                  Uplinks                                  #
+#############################################################################
+
+Link				My Boss
+Aka				2:9999/999
+AccessGrp			A,B,C,E
+Packer				RAR
+AutoCreate			on
+AreaFixAutoCreateDefaults	-b Squish -g E -$m 500 -dupeCheck del -dupeHistory 30 -p 30 -fowner ftn.ftn -fperm 0664 2:9999/999 -def
+FileFixAutoCreateDefaults	-fowner nobody.nobody -fperm 0664 -replace 2:9999/999 -def
+ForwardRequests			on
+FileAreaCreatePerms		0775
+PackNetmail			on
+AdvancedAreaFix			on
+Password			PASSWORD
+
+Route Hold 2:9999/999 1:* 2:* 3:* 4:* 5:* 6:*
+
+Route Hold no-pack *:*/*.*
+
+RobotsArea		NetMail
+
+PublicGroup		E
+FileDescPos		13
+FileDescName		file_id.diz
+IgnoreCapWord		on
+ExcludePassthroughCarbon off
+originInAnnounce
+LongDirNames		on
+FileSingleDescLine	on
+PackNetMailOnScan	on
+AreaFixFromPkt
+LinkWithImportLog	kill
+ReportTo		NetMail
+
+if "[OS]"=="UNIX"
+	FileBoxesDir	/var/fido/lbox
+else
+	FileBoxesDir	C:\Fido\lbox
+endif
+
+AnnAreaTag		NetMail
+AnnInclude		*
+AnnExclude		pnt5030* net5030*
+Annto			All
+Annfrom			HTick Announcer
+Annsubj			New Files on My Station...
+if "[OS]"=="UNIX"
+	AnnOrigin	`uname -sr`
+endif
+
+if "[OS]"=="UNIX"
+	NetMailArea NETMAIL	/var/fido/echoareas/netmail -b Msg -d "Personal NetMail"
+	LocalArea Carbon	/var/fido/echoareas/carbon -b Msg -g D -fowner ftn.ftn -fperm 0664 -d "Carbon Copy"
+	BadArea BadMail		/var/fido/echoareas/badmail -b Msg -g B -fowner ftn.ftn -fperm 0664 -d "Bad Bad Bad..."
+	DupeArea DupeMail	/var/fido/echoareas/dupes -b Msg -g C -fowner ftn.ftn -fperm 0664 -d "Dupes Here ;)"
+else
+	NetMailArea NETMAIL	C:\Fido\echoareas\netmail -b Msg -d "Personal NetMail"
+	LocalArea Carbon	C:\Fido\echoareas\carbon -b Msg -g D -d "Carbon Copy"
+	BadArea BadMail		C:\Fido\echoareas\badmail -b Msg -g B -d "Bad Bad Bad..."
+	DupeArea DupeMail	C:\Fido\echoareas\dupes -b Msg -g C -d "Dupes Here ;)"
+endif

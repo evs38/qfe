@@ -1,0 +1,20 @@
+TODO list:
+- Remove dependency from Fidoconfig library.
+- UU && Base64 encoder in edit window.
+- Binary version for MacOS.
+- Thread tree in messagelist.
+- Make i18n-translator for help-files.
+- Save messages to database (SQLite).
+- Porting project to Qt4.
+- Use another way than NAS on Linux for playing waves (maybe ARTS, ALSA?).
+- All stuff marked as "TODO:" in sources.
+- Add 'WhatsIs' for every menu/toolbar item.
+- Highlight quoted text in composer window.
+- View message in alien charsets.
+- Manual load messagebase.
+- "FREQ from message" option.
+- Spell checker.
+- More translations.
+- Icon themes.
+- SetUp wizard.
+- Documentation.

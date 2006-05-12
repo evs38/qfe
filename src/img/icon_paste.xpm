@@ -1,0 +1,30 @@
+/* XPM */
+static char *icon_paste[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 8 1",
+"  c black",
+". c #00007B",
+"X c #7B7B00",
+"o c #7B7B7B",
+"O c yellow",
+"+ c gray74",
+"@ c gray100",
+"# c None",
+/* pixels */
+"################",
+"#####    #######",
+"#     OO     ###",
+" XoX O  O oXo ##",
+" oo ++++++ oX ##",
+" Xo        oo ##",
+" oXoXoXoXoXoX ##",
+" XoXoX....... ##",
+" oXoXo.@@@@@..##",
+" XoXoX.@@@@@.@.#",
+" oXoXo.@...@....",
+" XoXoX.@@@@@@@@.",
+" oXoXo.@......@.",
+"#     .@@@@@@@@.",
+"######..........",
+"################"
+};

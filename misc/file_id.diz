@@ -1,0 +1,9 @@
+======= QFE - Qt FTN Message Editor. =======
+==== (C) 2005-2006 by Alexander Shiyan =====
+ QFE is an full-featured FTN message editor
+with a graphical interface. Written with
+Trolltech Qt-library.
+Program written for Linux, but it works also
+on Win32 and MacOS X, and in theory, it
+should compile and work on all Qt-supported
+platforms.

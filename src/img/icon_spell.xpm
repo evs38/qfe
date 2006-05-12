@@ -1,0 +1,26 @@
+/* XPM */
+static char *icon_spell[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 4 1",
+"  c black",
+". c navy",
+"X c gray100",
+"o c None",
+/* pixels */
+"oooooooooooooooo",
+"oo oo  ooo  oooo",
+"o o o o o oooooo",
+"o   o  oo oooo.o",
+"o o o o o ooo.Xo",
+"o o o  ooo  .Xoo",
+"ooooooooooo.Xooo",
+"oooooooooo.Xoooo",
+"ooooooooo.Xooooo",
+"oo.Xoooo.Xoooooo",
+"o...Xoo..Xoooooo",
+"oo...X..Xooooooo",
+"ooo....Xoooooooo",
+"oooo...Xoooooooo",
+"ooooo.Xooooooooo",
+"oooooooooooooooo"
+};

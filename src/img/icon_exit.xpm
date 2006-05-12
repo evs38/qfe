@@ -1,0 +1,30 @@
+/* XPM */
+static char *icon_exit[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 8 1",
+"  c black",
+". c gray43",
+"X c #279DDA",
+"o c red",
+"O c #FF9600",
+"+ c #85D4F7",
+"@ c gray100",
+"# c None",
+/* pixels */
+"################",
+"#        #######",
+"# XXXXXX #######",
+"# X++++X #.#####",
+"# X+@@+X   #####",
+"# X+@@+X O #####",
+"# X+@@X Oo     #",
+"# X+@@ OOoOOOO #",
+"# X+@X ooooooo #",
+"# X+@@X oo     #",
+"# X+@@+X o #####",
+"# X+@@+X   #####",
+"# X++++X #.#####",
+"# XXXXXX #######",
+"#        #######",
+"################"
+};

@@ -1,0 +1,463 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>TNodelistBrowser</class>
+<author>Alexander Shiyan</author>
+<widget class="QDialog">
+    <property name="name">
+        <cstring>TNodelistBrower</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>527</width>
+            <height>300</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>Nodelist Browser</string>
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="QPushButton" row="1" column="2">
+            <property name="name">
+                <cstring>BtnOk</cstring>
+            </property>
+            <property name="enabled">
+                <bool>false</bool>
+            </property>
+            <property name="sizePolicy">
+                <sizepolicy>
+                    <hsizetype>1</hsizetype>
+                    <vsizetype>0</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                </sizepolicy>
+            </property>
+            <property name="text">
+                <string>OK</string>
+            </property>
+        </widget>
+        <widget class="QPushButton" row="1" column="3">
+            <property name="name">
+                <cstring>BtnCancel</cstring>
+            </property>
+            <property name="sizePolicy">
+                <sizepolicy>
+                    <hsizetype>1</hsizetype>
+                    <vsizetype>0</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                </sizepolicy>
+            </property>
+            <property name="text">
+                <string>Cancel</string>
+            </property>
+            <property name="accel">
+                <string></string>
+            </property>
+            <property name="default">
+                <bool>true</bool>
+            </property>
+        </widget>
+        <widget class="QSplitter" row="0" column="0" rowspan="1" colspan="4">
+            <property name="name">
+                <cstring>splitter2</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Horizontal</enum>
+            </property>
+            <widget class="QLayoutWidget">
+                <property name="name">
+                    <cstring>layout4</cstring>
+                </property>
+                <vbox>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <widget class="QListView">
+                        <column>
+                            <property name="text">
+                                <string>Nodelist Tree</string>
+                            </property>
+                            <property name="clickable">
+                                <bool>false</bool>
+                            </property>
+                            <property name="resizable">
+                                <bool>false</bool>
+                            </property>
+                        </column>
+                        <property name="name">
+                            <cstring>NodeTree</cstring>
+                        </property>
+                        <property name="rootIsDecorated">
+                            <bool>true</bool>
+                        </property>
+                        <property name="resizeMode">
+                            <enum>AllColumns</enum>
+                        </property>
+                    </widget>
+                    <widget class="QGroupBox">
+                        <property name="name">
+                            <cstring>AddrSearchGroup</cstring>
+                        </property>
+                        <property name="title">
+                            <string> Search by Address </string>
+                        </property>
+                        <grid>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <widget class="QLineEdit" row="0" column="0">
+                                <property name="name">
+                                    <cstring>FindAddrEdit</cstring>
+                                </property>
+                                <property name="sizePolicy">
+                                    <sizepolicy>
+                                        <hsizetype>7</hsizetype>
+                                        <vsizetype>0</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
+                                    </sizepolicy>
+                                </property>
+                            </widget>
+                            <widget class="QPushButton" row="0" column="1">
+                                <property name="name">
+                                    <cstring>BtnFindAddr</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
+                                <property name="sizePolicy">
+                                    <sizepolicy>
+                                        <hsizetype>1</hsizetype>
+                                        <vsizetype>0</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
+                                    </sizepolicy>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                        </grid>
+                    </widget>
+                </vbox>
+            </widget>
+            <widget class="QLayoutWidget">
+                <property name="name">
+                    <cstring>layout3</cstring>
+                </property>
+                <vbox>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <widget class="QGroupBox">
+                        <property name="name">
+                            <cstring>InfoGroup</cstring>
+                        </property>
+                        <property name="sizePolicy">
+                            <sizepolicy>
+                                <hsizetype>7</hsizetype>
+                                <vsizetype>7</vsizetype>
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                            </sizepolicy>
+                        </property>
+                        <property name="title">
+                            <string></string>
+                        </property>
+                        <grid>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <widget class="QLabel" row="0" column="0">
+                                <property name="name">
+                                    <cstring>NameLabel</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Station:</string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="1" column="0">
+                                <property name="name">
+                                    <cstring>SysOpLabel</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>SysOp:</string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="2" column="0">
+                                <property name="name">
+                                    <cstring>LocationLabel</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Location:</string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="3" column="0">
+                                <property name="name">
+                                    <cstring>PhoneLabel</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Phone:</string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="4" column="0">
+                                <property name="name">
+                                    <cstring>SpeedLabel</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Speed:</string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="5" column="0">
+                                <property name="name">
+                                    <cstring>FlagsLabel</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Flags:</string>
+                                </property>
+                            </widget>
+                            <widget class="QLineEdit" row="6" column="1">
+                                <property name="name">
+                                    <cstring>WorkTimeEdit</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
+                                <property name="readOnly">
+                                    <bool>true</bool>
+                                </property>
+                            </widget>
+                            <widget class="QLineEdit" row="5" column="1">
+                                <property name="name">
+                                    <cstring>FlagsEdit</cstring>
+                                </property>
+                                <property name="readOnly">
+                                    <bool>true</bool>
+                                </property>
+                            </widget>
+                            <widget class="QLineEdit" row="4" column="1">
+                                <property name="name">
+                                    <cstring>SpeedEdit</cstring>
+                                </property>
+                                <property name="readOnly">
+                                    <bool>true</bool>
+                                </property>
+                            </widget>
+                            <widget class="QLineEdit" row="3" column="1">
+                                <property name="name">
+                                    <cstring>PhoneEdit</cstring>
+                                </property>
+                                <property name="readOnly">
+                                    <bool>true</bool>
+                                </property>
+                            </widget>
+                            <widget class="QLineEdit" row="2" column="1">
+                                <property name="name">
+                                    <cstring>LocationEdit</cstring>
+                                </property>
+                                <property name="readOnly">
+                                    <bool>true</bool>
+                                </property>
+                            </widget>
+                            <widget class="QLineEdit" row="1" column="1">
+                                <property name="name">
+                                    <cstring>SysOpEdit</cstring>
+                                </property>
+                                <property name="readOnly">
+                                    <bool>true</bool>
+                                </property>
+                            </widget>
+                            <widget class="QLineEdit" row="0" column="1">
+                                <property name="name">
+                                    <cstring>NameEdit</cstring>
+                                </property>
+                                <property name="readOnly">
+                                    <bool>true</bool>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="6" column="0">
+                                <property name="name">
+                                    <cstring>WorkTimeLabel</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>WorkTime:</string>
+                                </property>
+                            </widget>
+                        </grid>
+                    </widget>
+                    <widget class="QGroupBox">
+                        <property name="name">
+                            <cstring>NameSearchGroup</cstring>
+                        </property>
+                        <property name="title">
+                            <string> Search by Name </string>
+                        </property>
+                        <grid>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <widget class="QLineEdit" row="0" column="0">
+                                <property name="name">
+                                    <cstring>FindNameEdit</cstring>
+                                </property>
+                                <property name="sizePolicy">
+                                    <sizepolicy>
+                                        <hsizetype>7</hsizetype>
+                                        <vsizetype>0</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
+                                    </sizepolicy>
+                                </property>
+                            </widget>
+                            <widget class="QPushButton" row="0" column="1">
+                                <property name="name">
+                                    <cstring>BtnFindName</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
+                                <property name="sizePolicy">
+                                    <sizepolicy>
+                                        <hsizetype>1</hsizetype>
+                                        <vsizetype>0</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
+                                    </sizepolicy>
+                                </property>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                            </widget>
+                        </grid>
+                    </widget>
+                </vbox>
+            </widget>
+        </widget>
+        <widget class="QLabel" row="1" column="0">
+            <property name="name">
+                <cstring>ResultLabel</cstring>
+            </property>
+        </widget>
+        <spacer row="1" column="1">
+            <property name="name">
+                <cstring>spacer12</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Horizontal</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>160</width>
+                    <height>25</height>
+                </size>
+            </property>
+        </spacer>
+    </grid>
+</widget>
+<connections>
+    <connection>
+        <sender>BtnOk</sender>
+        <signal>clicked()</signal>
+        <receiver>TNodelistBrower</receiver>
+        <slot>accept()</slot>
+    </connection>
+    <connection>
+        <sender>BtnCancel</sender>
+        <signal>clicked()</signal>
+        <receiver>TNodelistBrower</receiver>
+        <slot>reject()</slot>
+    </connection>
+    <connection>
+        <sender>NodeTree</sender>
+        <signal>selectionChanged(QListViewItem*)</signal>
+        <receiver>TNodelistBrower</receiver>
+        <slot>TreeSelectionChanged(QListViewItem*)</slot>
+    </connection>
+    <connection>
+        <sender>NodeTree</sender>
+        <signal>doubleClicked(QListViewItem*)</signal>
+        <receiver>TNodelistBrower</receiver>
+        <slot>TreeDoubleClicked(QListViewItem*)</slot>
+    </connection>
+    <connection>
+        <sender>BtnFindAddr</sender>
+        <signal>clicked()</signal>
+        <receiver>TNodelistBrower</receiver>
+        <slot>BtnFindAddrClicked()</slot>
+    </connection>
+    <connection>
+        <sender>BtnFindName</sender>
+        <signal>clicked()</signal>
+        <receiver>TNodelistBrower</receiver>
+        <slot>BtnFindNameClicked()</slot>
+    </connection>
+    <connection>
+        <sender>FindAddrEdit</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>TNodelistBrower</receiver>
+        <slot>FindAddrEditChanged(const QString&amp;)</slot>
+    </connection>
+    <connection>
+        <sender>FindNameEdit</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>TNodelistBrower</receiver>
+        <slot>FindNameEditChanged(const QString&amp;)</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>FindAddrEdit</tabstop>
+    <tabstop>BtnFindAddr</tabstop>
+    <tabstop>FindNameEdit</tabstop>
+    <tabstop>BtnFindName</tabstop>
+    <tabstop>NodeTree</tabstop>
+    <tabstop>BtnOk</tabstop>
+    <tabstop>BtnCancel</tabstop>
+    <tabstop>NameEdit</tabstop>
+    <tabstop>SysOpEdit</tabstop>
+    <tabstop>LocationEdit</tabstop>
+    <tabstop>PhoneEdit</tabstop>
+    <tabstop>SpeedEdit</tabstop>
+    <tabstop>FlagsEdit</tabstop>
+</tabstops>
+<includes>
+    <include location="local" impldecl="in declaration">tnodes.h</include>
+    <include location="global" impldecl="in implementation">qfile.h</include>
+    <include location="global" impldecl="in implementation">qvalidator.h</include>
+    <include location="local" impldecl="in implementation">utils.h</include>
+    <include location="local" impldecl="in implementation">tconfig.h</include>
+    <include location="local" impldecl="in implementation">nodelistbrowser.ui.h</include>
+</includes>
+<variables>
+    <variable access="private">bool FirstTimeInit;</variable>
+    <variable access="private">TNodes *Nodes;</variable>
+    <variable access="private">bool SelectMode;</variable>
+    <variable access="public">TNodeItem *Selected;</variable>
+    <variable>TNodeItem *Finded;</variable>
+</variables>
+<slots>
+    <slot access="protected">showEvent( QShowEvent * )</slot>
+    <slot access="protected">closeEvent( QCloseEvent * e )</slot>
+    <slot>TreeSelectionChanged( QListViewItem * It )</slot>
+    <slot>TreeDoubleClicked( QListViewItem * It )</slot>
+    <slot>FindAddrEditChanged( const QString &amp; txt )</slot>
+    <slot>BtnFindAddrClicked()</slot>
+    <slot>FindNameEditChanged( const QString &amp; txt )</slot>
+    <slot>BtnFindNameClicked()</slot>
+</slots>
+<functions>
+    <function access="private" specifier="non virtual">init()</function>
+    <function access="private" specifier="non virtual">destroy()</function>
+    <function specifier="non virtual">SetSelectMode( bool Value )</function>
+    <function specifier="non virtual" returnType="bool">TestLists()</function>
+    <function access="private" specifier="non virtual">ClearResult()</function>
+</functions>
+<pixmapinproject/>
+<layoutdefaults spacing="2" margin="6"/>
+</UI>

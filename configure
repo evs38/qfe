@@ -1,0 +1,62 @@
+#!/bin/bash
+
+##############################################################################
+# Configure script for Unix & MacOS targets                                  #
+##############################################################################
+
+QMAKE_OPTIONS="debug_off staticlibs"
+MACOS_TEST=`uname -s | grep "Darwin" -`
+
+if [ -f Makefile ]; then
+	rm -f Makefile
+fi
+
+if [ -f src/Makefile ]; then
+	rm -f src/Makefile
+fi
+
+HAVE_ASPELL=
+ASPELLINC=
+ASPELLLIB=
+
+if [ -f /usr/include/aspell.h ]; then
+	if [ -f /usr/lib/libaspell.so ]; then
+		HAVE_ASPELL=aspell
+	fi
+	if [ -f /usr/lib64/libaspell.so ]; then
+		HAVE_ASPELL=aspell
+	fi
+	if [ -f /usr/lib/libaspell.dylib ]; then
+		HAVE_ASPELL=aspell
+	fi
+fi
+if [ -f /usr/local/include/aspell.h ]; then
+	if [ -f /usr/local/lib/libaspell.so ]; then
+		HAVE_ASPELL=aspell
+	fi
+	if [ -f /usr/local/lib/libaspell.dylib ]; then
+		HAVE_ASPELL=aspell
+	fi
+	if [ -f /usr/local/lib64/libaspell.so ]; then
+		HAVE_ASPELL=aspell
+	fi
+fi
+if [ -f /opt/local/include/aspell.h ]; then
+	ASPELLINC=/opt/local/include
+	ASPELLLIB=-L/opt/local/lib
+	if [ -f /opt/local/lib/libaspell.so ]; then
+		HAVE_ASPELL=aspell
+	fi
+	if [ -f /opt/local/lib/libaspell.dylib ]; then
+		HAVE_ASPELL=aspell
+	fi
+fi
+
+MACOS_PATCH=
+if [ "$MACOS_TEST" != "" ]; then
+	MACOS_PATCH="-macx"
+fi
+
+qmake $MACOS_PATCH "ASPELLINC=$ASPELLINC" "ASPELLLIB=$ASPELLLIB" "CONFIG+=$QMAKE_OPTIONS $HAVE_ASPELL $1 $2 $3 $4 $5" qfe.pro
+
+exit 0

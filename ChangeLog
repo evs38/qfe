@@ -1,0 +1,110 @@
+QFE version  CVS  ============================================================
+- Fix crash when append address from main list into AddressBook.
+- Added support for view JPEG-images in GIF-kludge.
+- Added example fidoconf configuration file.
+- Added "group description" field to area-property dialog.
+- Added Geek viewer (Read about 'Geek' on http://www.geekcode.com/).
+- Win32 binary version now contain some HUSKY-related utilites.
+- Implement "Archive area". Important messages may stored in this local area.
+- Proper error messages when errors found in fidoconf configuration file.
+- Added "clipboard.tpl" template for format texts included from clipboard.
+- Extend some debug messages in "Debug"-mode.
+- Fixes for PID-kludge as described in FSC-0046.
+- Fixes for quoting as described in FSC-0032.
+- QFE now not use SMAPI! We use own classes and functions for access to
+  messagebases.
+- Fixes for compile on MacOS X.
+- Fixes for compile on x86_64 platform.
+- Update Binreloc library.
+- Major fixes and enhancements.
+...
+
+QFE version 0.4.6 === Released 12.12.2005 ====================================
+- Fixed incorrect handle "Read/Unread" flags.
+- Added Nodelist browser.
+- Added "-h" (Help) command line option.
+- Added "@hostname@" macro.
+- Added "-e" switch to commandline options, allow jump to selected area after
+  program started.
+- First Win32 public binary release.
+
+QFE version 0.4.5 === Released 31.10.2005 ====================================
+- Keep & update "RFC-References"-kludge.
+- Added summary statistics to area-property dialog.
+- Added option for view kludges in editor on reply. (Feature request #1219855)
+- Fixed decode more than one UUE-sections in single message.
+- Fixed quoted text wrapping.
+- Speedup areas rescan.
+- Added "Add sender to AddressBook" option to popupmenu on selected message.
+- Added progress indicator to bottom bar (for rescan & find).
+- Added option for replace smilies to icons in viewer window.
+- Major fixes and enhancements.
+
+QFE version 0.4.3 === Released 27.09.2005 ====================================
+- Added first-start welcome dialog.
+- Added support for HTML-messages.
+- Block running second instance of QFE (All platforms).
+- Fixes for "Intel C++" and "Microsoft Visual Studio 2003 .NET" compilers.
+- Fixed store/restore window position and size.
+- Debug information now puts only to file (~/qfe/debug.log).
+- Minor fixes.
+
+QFE version 0.4.2 === Released 01.08.2005 ====================================
+- Fixed wrong regular expression for check email-address in addressbook.
+- Multimedia bitmaps & sounds support, such as in FIPS, DVMEDIT.
+- Handle messages with "RRQ".
+- Added "Confirmations" page in options window.
+- EMail addresses now clickable in view vindow. Configuration option "External
+  EMail program" added to Options dialog.
+- Minor fixes.
+
+QFE version 0.4.1 === Released 11.07.2005 ====================================
+- Fixed view messages with alien charsets in subject line.
+- Fixed rescanning when window is taken from focus.
+- Fixed wrong MSGID generation.
+- Added option "Next unread message" to main vindow. (Feature request #1218490)
+- Fixed incorrect Url parsing. (Bug #1218473)
+- After wrote message, rescan only modified areas. (Feature request #1217322)
+- Fixed incorrect wordwrap in viewer. (Bug #1217323)
+- Fixed incorrect template update.
+
+QFE version 0.4 === Released 08.06.2005 ======================================
+- Russian translation corrected.
+- Added "--configdir" startup option.
+- Handle "kludges.lst" for append individual kludges in message.
+- Block running second instance of QFE (Linux & Mac only).
+- Implemented random Origin insertion in message editor.
+- "Print message" option completed.
+- "Save message" option completed. Supported formats are TXT, HTML.
+- Added "Templates" page in options window. It contains template editor.
+- Hyperlinks now clickable in view vindow. Configuration option "External HTML
+  browser" added to Options dialog.
+- Minor fixes and enhancements. Speedup rescan areas.
+
+QFE version 0.3 === Released 18.05.2005 ======================================
+- Added "@command@" macro.
+- Add first-time start "select config" dialog.
+- Check invalid characters in output name for UU/Base64-decoded files.
+- QFE now compiles & works on Win32.
+- Minor fixes.
+
+QFE version 0.2 === Released 22.04.2005 ======================================
+- Handle EchoTossLogFile (fidoconfig).
+- Added "Insert text file" option to editor window.
+- Added addressbook.
+- Added "Find message" dialog.
+- Added highlight in MessageList if mail is for us.
+- Added highlight URLs in view windows.
+- Hide "Via" kludges.
+- QFE now may link static fidoconfig-library.
+- Added "Wrap Text" option in view window.
+- Added "Unsubscribe" option to AreaList.
+- Added UU && Base64 decoder.
+- Fixed incorrect view multiline "from", "to", "subject" etc..
+- Install fixes.
+- Major enhancements and bug fixes.
+
+QFE version 0.1 === Released 30.03.2005 ======================================
+- First public version.
+
+QFE develop started 03.03.2005 ===============================================

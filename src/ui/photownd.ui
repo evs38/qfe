@@ -1,0 +1,80 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>TPhotoWnd</class>
+<author>Alexander Shiyan</author>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>TPhotoWnd</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>124</width>
+            <height>121</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>Photo</string>
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <property name="resizeMode">
+            <enum>Fixed</enum>
+        </property>
+        <widget class="QLabel" row="0" column="0">
+            <property name="name">
+                <cstring>SysopImage</cstring>
+            </property>
+            <property name="sizePolicy">
+                <sizepolicy>
+                    <hsizetype>0</hsizetype>
+                    <vsizetype>0</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                </sizepolicy>
+            </property>
+            <property name="minimumSize">
+                <size>
+                    <width>110</width>
+                    <height>110</height>
+                </size>
+            </property>
+            <property name="maximumSize">
+                <size>
+                    <width>110</width>
+                    <height>110</height>
+                </size>
+            </property>
+            <property name="frameShape">
+                <enum>TabWidgetPanel</enum>
+            </property>
+            <property name="scaledContents">
+                <bool>true</bool>
+            </property>
+            <property name="alignment">
+                <set>AlignCenter</set>
+            </property>
+        </widget>
+    </grid>
+</widget>
+<includes>
+    <include location="global" impldecl="in implementation">qapplication.h</include>
+    <include location="local" impldecl="in implementation">tconfig.h</include>
+    <include location="local" impldecl="in implementation">photownd.ui.h</include>
+</includes>
+<variables>
+    <variable access="private">bool FirstTimeInit;</variable>
+</variables>
+<slots>
+    <slot access="protected">showEvent( QShowEvent * )</slot>
+    <slot access="protected">hideEvent( QHideEvent * )</slot>
+    <slot access="protected" returnType="bool">eventFilter( QObject * o, QEvent * e )</slot>
+</slots>
+<functions>
+    <function access="private" specifier="non virtual">init()</function>
+</functions>
+<pixmapinproject/>
+<layoutdefaults spacing="2" margin="6"/>
+</UI>

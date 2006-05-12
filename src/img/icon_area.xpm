@@ -1,0 +1,27 @@
+/* XPM */
+static char *icon_area[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 5 1",
+"  c black",
+". c #800000",
+"X c yellow",
+"o c gray91",
+"O c None",
+/* pixels */
+"OOOOOO O  OOOOOO",
+"OOOO  X oo OOOOO",
+"OOO OXO oo OOOOO",
+"OO  O  oooo OOOO",
+"O oo oooo.o OOOO",
+"O ooooooo.oo OOO",
+"OO oooooo.oo OOO",
+"OO ooooo.oooo OO",
+"OOO oooo.oooo OO",
+"OOO oo...ooooo O",
+"OOOO oo..ooooo O",
+"OOOO ooooooo  OO",
+"OOOOO oooo  OOOO",
+"OOOOO oo  OOOOOO",
+"OOOOOO  OOOOOOOO",
+"OOOOOOOOOOOOOOOO"
+};

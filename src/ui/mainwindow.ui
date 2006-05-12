@@ -1,0 +1,1567 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>TMainWindow</class>
+<author>Alexander Shiyan</author>
+<widget class="QMainWindow">
+    <property name="name">
+        <cstring>TMainWindow</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>790</width>
+            <height>546</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>Qt FTN Message Editor</string>
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="QSplitter" row="0" column="0">
+            <property name="name">
+                <cstring>VerSplitter</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Vertical</enum>
+            </property>
+            <widget class="QSplitter">
+                <property name="name">
+                    <cstring>HorSplitter</cstring>
+                </property>
+                <property name="orientation">
+                    <enum>Horizontal</enum>
+                </property>
+                <widget class="QListView">
+                    <column>
+                        <property name="text">
+                            <string></string>
+                        </property>
+                        <property name="clickable">
+                            <bool>true</bool>
+                        </property>
+                        <property name="resizable">
+                            <bool>true</bool>
+                        </property>
+                    </column>
+                    <column>
+                        <property name="text">
+                            <string></string>
+                        </property>
+                        <property name="clickable">
+                            <bool>true</bool>
+                        </property>
+                        <property name="resizable">
+                            <bool>true</bool>
+                        </property>
+                    </column>
+                    <column>
+                        <property name="text">
+                            <string></string>
+                        </property>
+                        <property name="clickable">
+                            <bool>true</bool>
+                        </property>
+                        <property name="resizable">
+                            <bool>true</bool>
+                        </property>
+                    </column>
+                    <property name="name">
+                        <cstring>AreaList</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>1</hsizetype>
+                            <vsizetype>5</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                        <size>
+                            <width>150</width>
+                            <height>0</height>
+                        </size>
+                    </property>
+                    <property name="frameShape">
+                        <enum>StyledPanel</enum>
+                    </property>
+                    <property name="frameShadow">
+                        <enum>Sunken</enum>
+                    </property>
+                    <property name="resizePolicy">
+                        <enum>Manual</enum>
+                    </property>
+                    <property name="allColumnsShowFocus">
+                        <bool>true</bool>
+                    </property>
+                    <property name="showSortIndicator">
+                        <bool>true</bool>
+                    </property>
+                    <property name="rootIsDecorated">
+                        <bool>false</bool>
+                    </property>
+                    <property name="resizeMode">
+                        <enum>LastColumn</enum>
+                    </property>
+                </widget>
+                <widget class="QLayoutWidget">
+                    <property name="name">
+                        <cstring>layout6</cstring>
+                    </property>
+                    <grid>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <widget class="QListView" row="0" column="0">
+                            <column>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                                <property name="clickable">
+                                    <bool>true</bool>
+                                </property>
+                                <property name="resizable">
+                                    <bool>true</bool>
+                                </property>
+                            </column>
+                            <column>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                                <property name="clickable">
+                                    <bool>false</bool>
+                                </property>
+                                <property name="resizable">
+                                    <bool>false</bool>
+                                </property>
+                            </column>
+                            <column>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                                <property name="clickable">
+                                    <bool>true</bool>
+                                </property>
+                                <property name="resizable">
+                                    <bool>true</bool>
+                                </property>
+                            </column>
+                            <column>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                                <property name="clickable">
+                                    <bool>true</bool>
+                                </property>
+                                <property name="resizable">
+                                    <bool>true</bool>
+                                </property>
+                            </column>
+                            <column>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                                <property name="clickable">
+                                    <bool>true</bool>
+                                </property>
+                                <property name="resizable">
+                                    <bool>true</bool>
+                                </property>
+                            </column>
+                            <column>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                                <property name="clickable">
+                                    <bool>true</bool>
+                                </property>
+                                <property name="resizable">
+                                    <bool>true</bool>
+                                </property>
+                            </column>
+                            <column>
+                                <property name="text">
+                                    <string></string>
+                                </property>
+                                <property name="clickable">
+                                    <bool>true</bool>
+                                </property>
+                                <property name="resizable">
+                                    <bool>true</bool>
+                                </property>
+                            </column>
+                            <property name="name">
+                                <cstring>MessageList</cstring>
+                            </property>
+                            <property name="sizePolicy">
+                                <sizepolicy>
+                                    <hsizetype>1</hsizetype>
+                                    <vsizetype>1</vsizetype>
+                                    <horstretch>0</horstretch>
+                                    <verstretch>0</verstretch>
+                                </sizepolicy>
+                            </property>
+                            <property name="minimumSize">
+                                <size>
+                                    <width>300</width>
+                                    <height>110</height>
+                                </size>
+                            </property>
+                            <property name="frameShape">
+                                <enum>StyledPanel</enum>
+                            </property>
+                            <property name="allColumnsShowFocus">
+                                <bool>true</bool>
+                            </property>
+                            <property name="showSortIndicator">
+                                <bool>true</bool>
+                            </property>
+                            <property name="resizeMode">
+                                <enum>LastColumn</enum>
+                            </property>
+                        </widget>
+                        <widget class="QFrame" row="1" column="0">
+                            <property name="name">
+                                <cstring>frame17</cstring>
+                            </property>
+                            <property name="sizePolicy">
+                                <sizepolicy>
+                                    <hsizetype>3</hsizetype>
+                                    <vsizetype>4</vsizetype>
+                                    <horstretch>1</horstretch>
+                                    <verstretch>0</verstretch>
+                                </sizepolicy>
+                            </property>
+                            <property name="frameShape">
+                                <enum>StyledPanel</enum>
+                            </property>
+                            <property name="frameShadow">
+                                <enum>Raised</enum>
+                            </property>
+                            <property name="lineWidth">
+                                <number>1</number>
+                            </property>
+                            <grid>
+                                <property name="name">
+                                    <cstring>unnamed</cstring>
+                                </property>
+                                <widget class="QLabel" row="1" column="4">
+                                    <property name="name">
+                                        <cstring>FLabel</cstring>
+                                    </property>
+                                    <property name="sizePolicy">
+                                        <sizepolicy>
+                                            <hsizetype>5</hsizetype>
+                                            <vsizetype>1</vsizetype>
+                                            <horstretch>0</horstretch>
+                                            <verstretch>0</verstretch>
+                                        </sizepolicy>
+                                    </property>
+                                    <property name="frameShape">
+                                        <enum>StyledPanel</enum>
+                                    </property>
+                                    <property name="frameShadow">
+                                        <enum>Sunken</enum>
+                                    </property>
+                                    <property name="alignment">
+                                        <set>AlignCenter</set>
+                                    </property>
+                                    <property name="toolTip" stdset="0">
+                                        <string>Message Attributes</string>
+                                    </property>
+                                    <property name="whatsThis" stdset="0">
+                                        <string>Message Attributes</string>
+                                    </property>
+                                </widget>
+                                <widget class="QLabel" row="0" column="4">
+                                    <property name="name">
+                                        <cstring>DLabel</cstring>
+                                    </property>
+                                    <property name="sizePolicy">
+                                        <sizepolicy>
+                                            <hsizetype>5</hsizetype>
+                                            <vsizetype>1</vsizetype>
+                                            <horstretch>0</horstretch>
+                                            <verstretch>0</verstretch>
+                                        </sizepolicy>
+                                    </property>
+                                    <property name="frameShape">
+                                        <enum>StyledPanel</enum>
+                                    </property>
+                                    <property name="frameShadow">
+                                        <enum>Sunken</enum>
+                                    </property>
+                                    <property name="alignment">
+                                        <set>AlignCenter</set>
+                                    </property>
+                                    <property name="toolTip" stdset="0">
+                                        <string>Date &amp; Time of this Message</string>
+                                    </property>
+                                    <property name="whatsThis" stdset="0">
+                                        <string>Date &amp; Time of this Message</string>
+                                    </property>
+                                </widget>
+                                <widget class="QLabel" row="0" column="1">
+                                    <property name="name">
+                                        <cstring>FNLabel</cstring>
+                                    </property>
+                                    <property name="sizePolicy">
+                                        <sizepolicy>
+                                            <hsizetype>5</hsizetype>
+                                            <vsizetype>1</vsizetype>
+                                            <horstretch>0</horstretch>
+                                            <verstretch>0</verstretch>
+                                        </sizepolicy>
+                                    </property>
+                                    <property name="frameShape">
+                                        <enum>StyledPanel</enum>
+                                    </property>
+                                    <property name="frameShadow">
+                                        <enum>Sunken</enum>
+                                    </property>
+                                    <property name="alignment">
+                                        <set>AlignVCenter|AlignLeft</set>
+                                    </property>
+                                    <property name="toolTip" stdset="0">
+                                        <string>Sender Name</string>
+                                    </property>
+                                    <property name="whatsThis" stdset="0">
+                                        <string>Sender Name</string>
+                                    </property>
+                                </widget>
+                                <widget class="QLabel" row="1" column="0">
+                                    <property name="name">
+                                        <cstring>Label2</cstring>
+                                    </property>
+                                    <property name="sizePolicy">
+                                        <sizepolicy>
+                                            <hsizetype>5</hsizetype>
+                                            <vsizetype>1</vsizetype>
+                                            <horstretch>0</horstretch>
+                                            <verstretch>0</verstretch>
+                                        </sizepolicy>
+                                    </property>
+                                    <property name="lineWidth">
+                                        <number>0</number>
+                                    </property>
+                                    <property name="text">
+                                        <string>To:</string>
+                                    </property>
+                                </widget>
+                                <widget class="QLabel" row="0" column="3">
+                                    <property name="name">
+                                        <cstring>Label4</cstring>
+                                    </property>
+                                    <property name="lineWidth">
+                                        <number>0</number>
+                                    </property>
+                                    <property name="text">
+                                        <string>Date:</string>
+                                    </property>
+                                </widget>
+                                <widget class="QLabel" row="1" column="3">
+                                    <property name="name">
+                                        <cstring>Label5</cstring>
+                                    </property>
+                                    <property name="lineWidth">
+                                        <number>0</number>
+                                    </property>
+                                    <property name="text">
+                                        <string>Attributes:</string>
+                                    </property>
+                                </widget>
+                                <widget class="QLabel" row="0" column="2">
+                                    <property name="name">
+                                        <cstring>FALabel</cstring>
+                                    </property>
+                                    <property name="sizePolicy">
+                                        <sizepolicy>
+                                            <hsizetype>5</hsizetype>
+                                            <vsizetype>1</vsizetype>
+                                            <horstretch>0</horstretch>
+                                            <verstretch>0</verstretch>
+                                        </sizepolicy>
+                                    </property>
+                                    <property name="frameShape">
+                                        <enum>StyledPanel</enum>
+                                    </property>
+                                    <property name="frameShadow">
+                                        <enum>Sunken</enum>
+                                    </property>
+                                    <property name="alignment">
+                                        <set>AlignCenter</set>
+                                    </property>
+                                    <property name="toolTip" stdset="0">
+                                        <string>Sender Address</string>
+                                    </property>
+                                    <property name="whatsThis" stdset="0">
+                                        <string>Sender Address</string>
+                                    </property>
+                                </widget>
+                                <widget class="QLabel" row="1" column="2">
+                                    <property name="name">
+                                        <cstring>TALabel</cstring>
+                                    </property>
+                                    <property name="sizePolicy">
+                                        <sizepolicy>
+                                            <hsizetype>5</hsizetype>
+                                            <vsizetype>1</vsizetype>
+                                            <horstretch>0</horstretch>
+                                            <verstretch>0</verstretch>
+                                        </sizepolicy>
+                                    </property>
+                                    <property name="frameShape">
+                                        <enum>StyledPanel</enum>
+                                    </property>
+                                    <property name="frameShadow">
+                                        <enum>Sunken</enum>
+                                    </property>
+                                    <property name="alignment">
+                                        <set>AlignCenter</set>
+                                    </property>
+                                    <property name="toolTip" stdset="0">
+                                        <string>Receiver Address</string>
+                                    </property>
+                                    <property name="whatsThis" stdset="0">
+                                        <string>Receiver Address</string>
+                                    </property>
+                                </widget>
+                                <widget class="QLabel" row="0" column="0">
+                                    <property name="name">
+                                        <cstring>Label1</cstring>
+                                    </property>
+                                    <property name="sizePolicy">
+                                        <sizepolicy>
+                                            <hsizetype>5</hsizetype>
+                                            <vsizetype>1</vsizetype>
+                                            <horstretch>0</horstretch>
+                                            <verstretch>0</verstretch>
+                                        </sizepolicy>
+                                    </property>
+                                    <property name="lineWidth">
+                                        <number>0</number>
+                                    </property>
+                                    <property name="text">
+                                        <string>From:</string>
+                                    </property>
+                                </widget>
+                                <widget class="QLabel" row="2" column="0">
+                                    <property name="name">
+                                        <cstring>Label3</cstring>
+                                    </property>
+                                    <property name="sizePolicy">
+                                        <sizepolicy>
+                                            <hsizetype>5</hsizetype>
+                                            <vsizetype>1</vsizetype>
+                                            <horstretch>0</horstretch>
+                                            <verstretch>0</verstretch>
+                                        </sizepolicy>
+                                    </property>
+                                    <property name="lineWidth">
+                                        <number>0</number>
+                                    </property>
+                                    <property name="text">
+                                        <string>Subject:</string>
+                                    </property>
+                                </widget>
+                                <widget class="QLabel" row="1" column="1">
+                                    <property name="name">
+                                        <cstring>TNLabel</cstring>
+                                    </property>
+                                    <property name="sizePolicy">
+                                        <sizepolicy>
+                                            <hsizetype>5</hsizetype>
+                                            <vsizetype>1</vsizetype>
+                                            <horstretch>0</horstretch>
+                                            <verstretch>0</verstretch>
+                                        </sizepolicy>
+                                    </property>
+                                    <property name="frameShape">
+                                        <enum>StyledPanel</enum>
+                                    </property>
+                                    <property name="frameShadow">
+                                        <enum>Sunken</enum>
+                                    </property>
+                                    <property name="alignment">
+                                        <set>AlignVCenter|AlignLeft</set>
+                                    </property>
+                                    <property name="toolTip" stdset="0">
+                                        <string>Receiver Name</string>
+                                    </property>
+                                    <property name="whatsThis" stdset="0">
+                                        <string>Receiver Name</string>
+                                    </property>
+                                </widget>
+                                <widget class="QLabel" row="2" column="1" rowspan="1" colspan="4">
+                                    <property name="name">
+                                        <cstring>SLabel</cstring>
+                                    </property>
+                                    <property name="sizePolicy">
+                                        <sizepolicy>
+                                            <hsizetype>7</hsizetype>
+                                            <vsizetype>1</vsizetype>
+                                            <horstretch>0</horstretch>
+                                            <verstretch>0</verstretch>
+                                        </sizepolicy>
+                                    </property>
+                                    <property name="frameShape">
+                                        <enum>StyledPanel</enum>
+                                    </property>
+                                    <property name="frameShadow">
+                                        <enum>Sunken</enum>
+                                    </property>
+                                    <property name="alignment">
+                                        <set>AlignVCenter|AlignLeft</set>
+                                    </property>
+                                    <property name="toolTip" stdset="0">
+                                        <string>Message Subject</string>
+                                    </property>
+                                    <property name="whatsThis" stdset="0">
+                                        <string>Message Subject</string>
+                                    </property>
+                                </widget>
+                            </grid>
+                        </widget>
+                    </grid>
+                </widget>
+            </widget>
+            <widget class="QTextBrowser">
+                <property name="name">
+                    <cstring>TextEdit</cstring>
+                </property>
+                <property name="sizePolicy">
+                    <sizepolicy>
+                        <hsizetype>7</hsizetype>
+                        <vsizetype>1</vsizetype>
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                    </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                    <size>
+                        <width>0</width>
+                        <height>250</height>
+                    </size>
+                </property>
+                <property name="paletteForegroundColor">
+                    <color>
+                        <red>224</red>
+                        <green>224</green>
+                        <blue>224</blue>
+                    </color>
+                </property>
+                <property name="paletteBackgroundColor">
+                    <color>
+                        <red>0</red>
+                        <green>0</green>
+                        <blue>0</blue>
+                    </color>
+                </property>
+                <property name="font">
+                    <font>
+                        <family>console8x16</family>
+                        <pointsize>12</pointsize>
+                    </font>
+                </property>
+                <property name="mouseTracking">
+                    <bool>true</bool>
+                </property>
+                <property name="lineWidth">
+                    <number>0</number>
+                </property>
+                <property name="resizePolicy">
+                    <enum>AutoOneFit</enum>
+                </property>
+                <property name="textFormat">
+                    <enum>RichText</enum>
+                </property>
+                <property name="readOnly">
+                    <bool>true</bool>
+                </property>
+            </widget>
+        </widget>
+    </grid>
+</widget>
+<menubar>
+    <property name="name">
+        <cstring>MainMenuBar</cstring>
+    </property>
+    <item text="File" name="FileMenu">
+        <action name="OpenAction"/>
+        <action name="PrintAction"/>
+        <separator/>
+        <action name="SaveAction"/>
+        <action name="DataBaseAction"/>
+        <action name="ArchiveAction"/>
+        <separator/>
+        <action name="OptionsAction"/>
+        <separator/>
+        <action name="ExitAction"/>
+    </item>
+    <item text="Message" name="MessageMenu">
+        <action name="NewAction"/>
+        <separator/>
+        <action name="EditAction"/>
+        <separator/>
+        <action name="ReplyAction"/>
+        <action name="ReplyNetmailAction"/>
+        <action name="ForwardAction"/>
+        <action name="DeleteAction"/>
+        <separator/>
+        <action name="PreviousMessAction"/>
+        <action name="NextMessAction"/>
+        <action name="NextUnreadAction"/>
+        <separator/>
+        <action name="MarkMessAction"/>
+        <separator/>
+        <action name="AddToBookAction"/>
+        <separator/>
+        <action name="MessagePropAction"/>
+    </item>
+    <item text="Area" name="AreaMenu">
+        <action name="RescanAction"/>
+        <separator/>
+        <action name="PreviousAreaAction"/>
+        <action name="NextAreaAction"/>
+        <separator/>
+        <action name="MarkAllAsReadAction"/>
+        <separator/>
+        <action name="UnsubscribeAction"/>
+        <separator/>
+        <action name="AreaPropAction"/>
+    </item>
+    <item text="View" name="ViewMenu">
+        <action name="ViewToolBarAction"/>
+        <action name="ViewStatusBarAction"/>
+        <separator/>
+        <action name="ViewKludgesAction"/>
+        <action name="ViewHighlightAction"/>
+        <action name="WordWrapAction"/>
+    </item>
+    <item text="Tools" name="ToolsMenu">
+        <action name="RescanAllAction"/>
+        <separator/>
+        <action name="FindAction"/>
+        <separator/>
+        <action name="DecodeAction"/>
+        <separator/>
+        <action name="NodelistBrowserAction"/>
+        <action name="AddressBookAction"/>
+        <separator/>
+        <action name="ExtensionsAction"/>
+    </item>
+    <item text="Help" name="HelpMenu">
+        <action name="HelpAction"/>
+        <separator/>
+        <action name="AboutAction"/>
+        <action name="AboutQtAction"/>
+        <separator/>
+        <action name="BugReportAction"/>
+        <separator/>
+        <action name="WhatsThisAction"/>
+    </item>
+</menubar>
+<toolbars>
+    <toolbar dock="2">
+        <property name="name">
+            <cstring>MainToolBar</cstring>
+        </property>
+        <property name="enabled">
+            <bool>true</bool>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>625</width>
+                <height>34</height>
+            </rect>
+        </property>
+        <property name="label">
+            <string>Tools</string>
+        </property>
+        <action name="NewAction"/>
+        <separator/>
+        <action name="EditAction"/>
+        <separator/>
+        <action name="ReplyAction"/>
+        <action name="ReplyNetmailAction"/>
+        <action name="ForwardAction"/>
+        <separator/>
+        <action name="DeleteAction"/>
+        <separator/>
+        <action name="PreviousMessAction"/>
+        <action name="NextMessAction"/>
+        <separator/>
+        <action name="RescanAllAction"/>
+        <separator/>
+        <action name="PreviousAreaAction"/>
+        <action name="NextAreaAction"/>
+        <separator/>
+        <action name="FindAction"/>
+        <action name="PrintAction"/>
+        <action name="SaveAction"/>
+        <action name="DataBaseAction"/>
+        <action name="ArchiveAction"/>
+        <separator/>
+        <action name="HelpAction"/>
+        <action name="AboutAction"/>
+    </toolbar>
+</toolbars>
+<actions>
+    <action>
+        <property name="name">
+            <cstring>NewAction</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="text">
+            <string>New</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>ReplyAction</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="text">
+            <string>Reply</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>ReplyNetmailAction</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="text">
+            <string>Reply to Netmail</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>SaveAction</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="text">
+            <string>Save as...</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>PrintAction</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="text">
+            <string>Print Message</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>ExitAction</cstring>
+        </property>
+        <property name="text">
+            <string>Exit</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>OptionsAction</cstring>
+        </property>
+        <property name="text">
+            <string>Options</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>ExtensionsAction</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="text">
+            <string>Extensions</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>HelpAction</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="text">
+            <string>Contents...</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>AboutAction</cstring>
+        </property>
+        <property name="text">
+            <string>About...</string>
+        </property>
+        <property name="accel">
+            <string></string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>AboutQtAction</cstring>
+        </property>
+        <property name="text">
+            <string>About Qt...</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>ViewToolBarAction</cstring>
+        </property>
+        <property name="toggleAction">
+            <bool>true</bool>
+        </property>
+        <property name="on">
+            <bool>true</bool>
+        </property>
+        <property name="text">
+            <string>Show ToolBar</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>ViewStatusBarAction</cstring>
+        </property>
+        <property name="toggleAction">
+            <bool>true</bool>
+        </property>
+        <property name="on">
+            <bool>true</bool>
+        </property>
+        <property name="text">
+            <string>Show StatusBar</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>WhatsThisAction</cstring>
+        </property>
+        <property name="text">
+            <string>What's This?</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>ForwardAction</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="text">
+            <string>Forward</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>DeleteAction</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="text">
+            <string>Delete</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>NextMessAction</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="text">
+            <string>Next Message</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>PreviousMessAction</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="text">
+            <string>Previous Message</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>MarkMessAction</cstring>
+        </property>
+        <property name="text">
+            <string>Mark Message</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>ViewKludgesAction</cstring>
+        </property>
+        <property name="toggleAction">
+            <bool>true</bool>
+        </property>
+        <property name="on">
+            <bool>false</bool>
+        </property>
+        <property name="text">
+            <string>View Kludges</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>ViewHighlightAction</cstring>
+        </property>
+        <property name="toggleAction">
+            <bool>true</bool>
+        </property>
+        <property name="on">
+            <bool>true</bool>
+        </property>
+        <property name="text">
+            <string>Highlight Message</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>EditAction</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="text">
+            <string>Edit</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>FindAction</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="text">
+            <string>Find</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>RescanAction</cstring>
+        </property>
+        <property name="text">
+            <string>Rescan</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>RescanAllAction</cstring>
+        </property>
+        <property name="text">
+            <string>Rescan All</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>OpenAction</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="text">
+            <string>Open...</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>NextAreaAction</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="text">
+            <string>Next Area</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>PreviousAreaAction</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="text">
+            <string>Previous Area</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>AreaPropAction</cstring>
+        </property>
+        <property name="text">
+            <string>Properties</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>MessagePropAction</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="text">
+            <string>Properties</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>NodelistBrowserAction</cstring>
+        </property>
+        <property name="text">
+            <string>Nodelist Browser</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>AddressBookAction</cstring>
+        </property>
+        <property name="text">
+            <string>AddressBook</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>MarkAllAsReadAction</cstring>
+        </property>
+        <property name="text">
+            <string>Mark All As Read</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>DecodeAction</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="text">
+            <string>Decode UUE</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>WordWrapAction</cstring>
+        </property>
+        <property name="toggleAction">
+            <bool>true</bool>
+        </property>
+        <property name="on">
+            <bool>true</bool>
+        </property>
+        <property name="text">
+            <string>Wrap Text</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>UnsubscribeAction</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="text">
+            <string>Unsubscribe from Area</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>NextUnreadAction</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="text">
+            <string>Next Unread</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>BugReportAction</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="text">
+            <string>Report a Bug...</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>AddToBookAction</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="text">
+            <string>Add sender to AddressBook</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>DataBaseAction</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="text">
+            <string>Save to Database</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>ArchiveAction</cstring>
+        </property>
+        <property name="text">
+            <string>Save to Archive Area</string>
+        </property>
+    </action>
+</actions>
+<connections>
+    <connection>
+        <sender>NewAction</sender>
+        <signal>activated()</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>ActionNew()</slot>
+    </connection>
+    <connection>
+        <sender>ReplyAction</sender>
+        <signal>activated()</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>ActionReply()</slot>
+    </connection>
+    <connection>
+        <sender>ReplyNetmailAction</sender>
+        <signal>activated()</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>ActionReplyNetmail()</slot>
+    </connection>
+    <connection>
+        <sender>SaveAction</sender>
+        <signal>activated()</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>ActionSave()</slot>
+    </connection>
+    <connection>
+        <sender>PrintAction</sender>
+        <signal>activated()</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>ActionPrint()</slot>
+    </connection>
+    <connection>
+        <sender>OptionsAction</sender>
+        <signal>activated()</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>ActionOptions()</slot>
+    </connection>
+    <connection>
+        <sender>ExtensionsAction</sender>
+        <signal>activated()</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>ActionExtensions()</slot>
+    </connection>
+    <connection>
+        <sender>AboutQtAction</sender>
+        <signal>activated()</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>ActionAboutQt()</slot>
+    </connection>
+    <connection>
+        <sender>HelpAction</sender>
+        <signal>activated()</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>ActionHelp()</slot>
+    </connection>
+    <connection>
+        <sender>AboutAction</sender>
+        <signal>activated()</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>ActionAbout()</slot>
+    </connection>
+    <connection>
+        <sender>ViewToolBarAction</sender>
+        <signal>activated()</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>ActionViewToolBar()</slot>
+    </connection>
+    <connection>
+        <sender>ViewStatusBarAction</sender>
+        <signal>activated()</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>ActionViewStatusBar()</slot>
+    </connection>
+    <connection>
+        <sender>AreaList</sender>
+        <signal>selectionChanged(QListViewItem*)</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>AreaChanged(QListViewItem*)</slot>
+    </connection>
+    <connection>
+        <sender>WhatsThisAction</sender>
+        <signal>activated()</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>ActionWhatsThis()</slot>
+    </connection>
+    <connection>
+        <sender>ExitAction</sender>
+        <signal>activated()</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>ActionClose()</slot>
+    </connection>
+    <connection>
+        <sender>MessageList</sender>
+        <signal>selectionChanged(QListViewItem*)</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>MessageChanged(QListViewItem*)</slot>
+    </connection>
+    <connection>
+        <sender>ForwardAction</sender>
+        <signal>activated()</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>ActionForward()</slot>
+    </connection>
+    <connection>
+        <sender>DeleteAction</sender>
+        <signal>activated()</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>ActionDelete()</slot>
+    </connection>
+    <connection>
+        <sender>NextMessAction</sender>
+        <signal>activated()</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>ActionNextMess()</slot>
+    </connection>
+    <connection>
+        <sender>PreviousMessAction</sender>
+        <signal>activated()</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>ActionPreviousMess()</slot>
+    </connection>
+    <connection>
+        <sender>ViewKludgesAction</sender>
+        <signal>activated()</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>ActionRedrawMessage()</slot>
+    </connection>
+    <connection>
+        <sender>ViewHighlightAction</sender>
+        <signal>activated()</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>ActionRedrawMessage()</slot>
+    </connection>
+    <connection>
+        <sender>EditAction</sender>
+        <signal>activated()</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>ActionEdit()</slot>
+    </connection>
+    <connection>
+        <sender>FindAction</sender>
+        <signal>activated()</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>ActionFind()</slot>
+    </connection>
+    <connection>
+        <sender>RescanAction</sender>
+        <signal>activated()</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>ActionRescan()</slot>
+    </connection>
+    <connection>
+        <sender>RescanAllAction</sender>
+        <signal>activated()</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>ActionRescanAll()</slot>
+    </connection>
+    <connection>
+        <sender>OpenAction</sender>
+        <signal>activated()</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>ActionOpen()</slot>
+    </connection>
+    <connection>
+        <sender>PreviousAreaAction</sender>
+        <signal>activated()</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>ActionPreviousArea()</slot>
+    </connection>
+    <connection>
+        <sender>NextAreaAction</sender>
+        <signal>activated()</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>ActionNextArea()</slot>
+    </connection>
+    <connection>
+        <sender>AreaPropAction</sender>
+        <signal>activated()</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>ActionAreaProp()</slot>
+    </connection>
+    <connection>
+        <sender>MarkMessAction</sender>
+        <signal>activated()</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>ActionMarkMessage()</slot>
+    </connection>
+    <connection>
+        <sender>MessagePropAction</sender>
+        <signal>activated()</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>ActionMessageProp()</slot>
+    </connection>
+    <connection>
+        <sender>NodelistBrowserAction</sender>
+        <signal>activated()</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>ActionNodelistBrowser()</slot>
+    </connection>
+    <connection>
+        <sender>AddressBookAction</sender>
+        <signal>activated()</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>ActionAddressBook()</slot>
+    </connection>
+    <connection>
+        <sender>AreaList</sender>
+        <signal>contextMenuRequested(QListViewItem*,const QPoint&amp;,int)</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>AreaListContextMenuRequested(QListViewItem*,const QPoint&amp;,int)</slot>
+    </connection>
+    <connection>
+        <sender>MessageList</sender>
+        <signal>contextMenuRequested(QListViewItem*,const QPoint&amp;,int)</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>MessageListContextMenuRequested(QListViewItem*,const QPoint&amp;,int)</slot>
+    </connection>
+    <connection>
+        <sender>MarkAllAsReadAction</sender>
+        <signal>activated()</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>ActionMarkAllAsRead()</slot>
+    </connection>
+    <connection>
+        <sender>DecodeAction</sender>
+        <signal>activated()</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>ActionDecode()</slot>
+    </connection>
+    <connection>
+        <sender>WordWrapAction</sender>
+        <signal>activated()</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>ActionWordWrap()</slot>
+    </connection>
+    <connection>
+        <sender>UnsubscribeAction</sender>
+        <signal>activated()</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>ActionUnsubscribe()</slot>
+    </connection>
+    <connection>
+        <sender>TextEdit</sender>
+        <signal>linkClicked(const QString&amp;)</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>TextEditLinkClicked(const QString&amp;)</slot>
+    </connection>
+    <connection>
+        <sender>NextUnreadAction</sender>
+        <signal>activated()</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>ActionNextUnread()</slot>
+    </connection>
+    <connection>
+        <sender>BugReportAction</sender>
+        <signal>activated()</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>ActionBugReport()</slot>
+    </connection>
+    <connection>
+        <sender>AddToBookAction</sender>
+        <signal>activated()</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>ActionAddToBook()</slot>
+    </connection>
+    <connection>
+        <sender>DataBaseAction</sender>
+        <signal>activated()</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>ActionSaveToDataBase()</slot>
+    </connection>
+    <connection>
+        <sender>ArchiveAction</sender>
+        <signal>activated()</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>ActionSaveToArchive()</slot>
+    </connection>
+</connections>
+<includes>
+    <include location="global" impldecl="in declaration">qstylesheet.h</include>
+    <include location="global" impldecl="in declaration">qprogressbar.h</include>
+    <include location="local" impldecl="in declaration">tarea.h</include>
+    <include location="local" impldecl="in declaration">tareaitem.h</include>
+    <include location="local" impldecl="in declaration">tactions.h</include>
+    <include location="local" impldecl="in declaration">tfinditem.h</include>
+    <include location="local" impldecl="in declaration">photownd.h</include>
+    <include location="local" impldecl="in declaration">helpwindow.h</include>
+    <include location="global" impldecl="in implementation">qtimer.h</include>
+    <include location="global" impldecl="in implementation">qregexp.h</include>
+    <include location="global" impldecl="in implementation">qgroupbox.h</include>
+    <include location="global" impldecl="in implementation">qeventloop.h</include>
+    <include location="global" impldecl="in implementation">qstatusbar.h</include>
+    <include location="global" impldecl="in implementation">qfiledialog.h</include>
+    <include location="global" impldecl="in implementation">qmessagebox.h</include>
+    <include location="global" impldecl="in implementation">qapplication.h</include>
+    <include location="global" impldecl="in implementation">qsplashscreen.h</include>
+    <include location="local" impldecl="in implementation">funchider.h</include>
+    <include location="local" impldecl="in implementation">tareas.h</include>
+    <include location="local" impldecl="in implementation">tconfig.h</include>
+    <include location="local" impldecl="in implementation">tmessageitem.h</include>
+    <include location="local" impldecl="in implementation">tcloseevent.h</include>
+    <include location="local" impldecl="in implementation">tareaselectitem.h</include>
+    <include location="local" impldecl="in implementation">tftncodec.h</include>
+    <include location="local" impldecl="in implementation">utils.h</include>
+    <include location="local" impldecl="in implementation">options.h</include>
+    <include location="local" impldecl="in implementation">about.h</include>
+    <include location="local" impldecl="in implementation">finddlg.h</include>
+    <include location="local" impldecl="in implementation">editwindow.h</include>
+    <include location="local" impldecl="in implementation">addressbook.h</include>
+    <include location="local" impldecl="in implementation">nodelistbrowser.h</include>
+    <include location="local" impldecl="in implementation">areaprop.h</include>
+    <include location="local" impldecl="in implementation">areaselect.h</include>
+    <include location="local" impldecl="in implementation">geekform.h</include>
+    <include location="local" impldecl="in implementation">sndwrapper.h</include>
+    <include location="local" impldecl="in implementation">mainwindow.ui.h</include>
+</includes>
+<variables>
+    <variable access="public">TActions *MainActions;</variable>
+    <variable access="public">QStyleSheetItem *KludgeItem;</variable>
+    <variable access="public">QStyleSheetItem *OriginItem;</variable>
+    <variable access="public">QStyleSheetItem *TaglineItem;</variable>
+    <variable access="public">QStyleSheetItem *TearlineItem;</variable>
+    <variable access="public">QStyleSheetItem *QuoteItem;</variable>
+    <variable access="public">QStyleSheetItem *UrlItem;</variable>
+    <variable access="public">QStyleSheetItem *GoldedColorTextItem[15];</variable>
+    <variable access="public">QStyleSheetItem *FipsColorTextItem[3];</variable>
+    <variable access="private">QLabel *MessageStatusBar;</variable>
+    <variable access="private">QLabel *PositionStatusBar;</variable>
+    <variable access="private">QLabel *GeekStatusBar;</variable>
+    <variable access="private">QLabel *HtmlStatusBar;</variable>
+    <variable access="private">QLabel *ChrsStatusBar;</variable>
+    <variable access="private">QProgressBar *ProgressBar;</variable>
+    <variable access="private">bool FirstTimeInit;</variable>
+    <variable access="private">QString LastAreaName;</variable>
+    <variable access="private">QString MessageGeekBuffer;</variable>
+    <variable access="private">bool MessageGeekR;</variable>
+    <variable access="private">volatile uint ActiveEditCnt;</variable>
+    <variable access="private">QPopupMenu *AreaListPopup;</variable>
+    <variable access="private">QPopupMenu *MessListPopup;</variable>
+    <variable access="private">TMessage *Current;</variable>
+    <variable access="private">THelpWindow *HelpWindow;</variable>
+    <variable access="private">TPhotoWnd *PhotoWnd;</variable>
+</variables>
+<slots>
+    <slot>statusBarMessageChanged( const QString &amp; string )</slot>
+    <slot>ActionHideProgress()</slot>
+    <slot access="protected">showEvent( QShowEvent * )</slot>
+    <slot access="protected">closeEvent( QCloseEvent * e )</slot>
+    <slot access="protected">customEvent( QCustomEvent * e )</slot>
+    <slot access="protected" returnType="bool">eventFilter( QObject * o, QEvent * e )</slot>
+    <slot>ActionClose()</slot>
+    <slot>AreaListContextMenuRequested( QListViewItem * Item, const QPoint &amp; Pt, int )</slot>
+    <slot>MessageListContextMenuRequested( QListViewItem * Item, const QPoint &amp; Pt, int )</slot>
+    <slot>ActionOpen()</slot>
+    <slot>ActionSave()</slot>
+    <slot>ActionSaveToDataBase()</slot>
+    <slot>ActionSaveToArchive()</slot>
+    <slot>ActionNew()</slot>
+    <slot>ActionEdit()</slot>
+    <slot>ActionReply()</slot>
+    <slot>ActionReplyNetmail()</slot>
+    <slot>ActionForward()</slot>
+    <slot>ActionDelete()</slot>
+    <slot>ActionFind()</slot>
+    <slot>ActionPreviousMess()</slot>
+    <slot>ActionNextMess()</slot>
+    <slot>ActionNextUnread()</slot>
+    <slot>ActionMarkMessage()</slot>
+    <slot>ActionAddToBook()</slot>
+    <slot>ActionDecode()</slot>
+    <slot>ActionWordWrap()</slot>
+    <slot>ActionMessageProp()</slot>
+    <slot>ActionPreviousArea()</slot>
+    <slot>ActionNextArea()</slot>
+    <slot>ActionMarkAllAsRead()</slot>
+    <slot>ActionUnsubscribe()</slot>
+    <slot>ActionAreaProp()</slot>
+    <slot>ActionPrint()</slot>
+    <slot>ActionNodelistBrowser()</slot>
+    <slot>ActionAddressBook()</slot>
+    <slot>ActionExtensions()</slot>
+    <slot>ActionOptions()</slot>
+    <slot>ActionAboutQt()</slot>
+    <slot>ActionHelp()</slot>
+    <slot>ActionAbout()</slot>
+    <slot>ActionWhatsThis()</slot>
+    <slot>ToolBarVisibilityChanged( bool )</slot>
+    <slot>ActionViewToolBar()</slot>
+    <slot>ActionViewStatusBar()</slot>
+    <slot>ActionRescan()</slot>
+    <slot>ActionRescanAll()</slot>
+    <slot>ActionRedrawMessage()</slot>
+    <slot>AreaChanged( QListViewItem * Item )</slot>
+    <slot>MessageChanged( QListViewItem * Item )</slot>
+    <slot>ActionBugReport()</slot>
+    <slot>TextEditLinkClicked( const QString &amp; Link )</slot>
+</slots>
+<functions>
+    <function access="private" specifier="non virtual">init()</function>
+    <function access="private" specifier="non virtual">destroy()</function>
+    <function specifier="non virtual">ShowProgress( uint Percent, QString Name, uint ProgressType )</function>
+    <function specifier="non virtual">HideProgress()</function>
+    <function access="private" specifier="non virtual">LoadSettings()</function>
+    <function specifier="non virtual">LoadTemplate( QString Name, QString Area, QString * Buff )</function>
+    <function access="private" specifier="non virtual">RunEditor( TArea * Area, TMessage * Message, uint Operation, void * tmp )</function>
+    <function access="private" specifier="non virtual">ClearMessageView()</function>
+    <function access="private" specifier="non virtual">ClearMessageList()</function>
+    <function access="private" specifier="non virtual">AddBase(void * FconfBase, Area_Type atype )</function>
+    <function access="private" specifier="non virtual">RescanArea( TAreaItem * It, bool DoItActive )</function>
+    <function specifier="non virtual">FindCallBack( TFindItem * Item )</function>
+    <function access="private" specifier="non virtual">ParseColorLine( QString * Line, uint Start )</function>
+    <function access="private" specifier="non virtual">SetUserPixmap( QPixmap pix )</function>
+    <function access="private" specifier="non virtual">SetGeek( bool DoSet )</function>
+    <function access="private" specifier="non virtual">SetHtml( bool DoSet )</function>
+    <function access="private" specifier="non virtual">ReplaceSmilies( QString * Buffer )</function>
+    <function access="private" specifier="non virtual">DecodeGeek( uint8_t * Buffer )</function>
+    <function specifier="non virtual">HelpIndex()</function>
+    <function specifier="non virtual">LinkProcess( QString Link, bool InsertData )</function>
+</functions>
+<pixmapinproject/>
+<layoutdefaults spacing="2" margin="6"/>
+</UI>

@@ -1,0 +1,28 @@
+/* XPM */
+static char *icon_name[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 6 1",
+"  c black",
+". c #CE7942",
+"X c #CE9663",
+"o c #FFB65A",
+"O c #FFCF94",
+"+ c None",
+/* pixels */
+"+         ++++++",
+" XXXXXXXXX +++++",
+" XXXXXX XX +++++",
+" XXXX.. ..     +",
+" XXXX.oooo OOOO ",
+" XXXX.oooo O OO ",
+" XXXX.oooo O OO ",
+" XXXX.oo   OOOO ",
+" XXXX.ooo OOOOO ",
+" XXXX. oo OOOOO ",
+" XXXX.o   OOO   ",
+" XXXX.ooo OOOO +",
+"+        OO OO +",
+"+++++ OOOOOO   +",
+"+++++ OOOOOOOO +",
+"++++++        ++"
+};

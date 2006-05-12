@@ -1,0 +1,28 @@
+/* XPM */
+static char *icon_additem[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 6 1",
+"  c black",
+". c magenta",
+"X c #FBEC4B",
+"o c #F8FFFF",
+"O c gray100",
+"+ c None",
+/* pixels */
+"++++++++++++++++",
+"++      ++++++++",
+"++ OOOO  +++++++",
+"++ OOOO O ++++++",
+"++ OOOO    +++++",
+"++ OOOOoOO +++++",
+"++ OOOOOO    +++",
+"++ OOOoOO XX +++",
+"++ OOOOOO XX +++",
+"++ OOO    XX    ",
+"++ OOO XXXXXXXX ",
+"++ OOO XXXXXXXX ",
+"++ OOO    XX    ",
+"++ OOOOOO XX +++",
+"++        XX +++",
+"+++++++++    +++"
+};

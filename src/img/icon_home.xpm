@@ -1,0 +1,23 @@
+/* XPM */
+static char *icon_home[]={
+"16 16 4 1",
+". c None",
+"# c #008000",
+"b c #c0ffc0",
+"a c #ffffff",
+"................",
+"###....##.......",
+"..#...####......",
+"..#..#aabb#.....",
+"..#.#aaaabb#....",
+"..##aaaaaabb#...",
+"..#aaaaaaaabb#..",
+".#aaaaaaaaabbb#.",
+"###aaaaaaaabb###",
+"..#aaaaaaaabb#..",
+"..#aaa###aabb#..",
+"..#aaa#.#aabb#..",
+"..#aaa#.#aabb#..",
+"..#aaa#.#aabb#..",
+"..#aaa#.#aabb#..",
+"..#####.######.."};

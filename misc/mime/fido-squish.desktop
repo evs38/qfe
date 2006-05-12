@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=MimeType
+Hidden=false
+Icon=fidonet
+MimeType=message/squish
+Patterns=*.sqd;*.sqi;*.sql
+Comment=Fidonet SQUISH message base
+Comment[ru]=База сообщений в формате SQUISH

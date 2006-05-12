@@ -1,0 +1,63 @@
+QFE - Qt FTN Message Editor (C) 2005-2006 by Alexander Shiyan
+--------------------------------------------------------------------------------
+
+[ *** Description *** ]
+ QFE is an FTN message editor. A full-featured cross-platform FTN message
+editor with a graphical interface. It written on C++/Qt and does not depend on
+either KDE, Gnome or other window managers.
+ Fido-specific parameters readed by fidoconfig package from Husky project.
+I write qfe for Linux, but it works also on Win32 and MacOS X, and in theory,
+it should compile & work on all Qt-supported platforms.
+ To learn more about 'QFE' please see the various documents in the doc folder.
+
+[ *** Requirements *** ]
+ QFE is based on Trolltech's Qt library 3.2.x or above, but 4.x.x is not
+supported yet, so be sure you have the correct library version installed.
+To compile QFE from sources You also need have installed Qt devel headers.
+ QFE now sucessfully compiled with:
+ On Linux:   GNU GCC   (3.x.x & 4.x.x),
+             Intel C++ (9.x).
+ On MacOS X: GNU GCC (3.3.x).
+ On Windows: MinGW GCC (3.3.x).
+ Also You need fidoconfig package from husky project (http://husky.sourceforge.net/)
+and apply patch to husky for compile headers under C++ (located in qfe/misc/husky.patch).
+
+[ *** License *** ]
+ QFE is released under GNU General Public License (GPL).
+For more information about GPL, see http://www.gnu.org/licenses/gpl.html
+
+[ *** Quick-Compile & Install Guide *** ]
+ tar -xf qfe-0.4.6.tar.bz2
+ cd qfe
+ ./configure
+ make
+ make install #As a user with proper file system permissions
+
+ For link fidoconfig library statically, you must add parameter "staticlibs" to
+qmake, e.g. qmake "CONFIG+=debug_off staticlibs"
+
+ QFE must be compiled with lot of debug messages, printed to stdout. Debug
+switches on if "-d" parameter passed to commandline, e.g. ./qfe -d
+
+ By default, program installs in /usr/local. For install in another directory
+You must (before doing qmake) export QFE_PREFIX variable with base install path,
+e.g. export QFE_PREFIX=/usr.
+ Some another installation tips located in FAQ. Read it first.
+
+[ *** Help Wanted *** ]
+ There are many ways to support this program:
+* Creating packages for the various distributions.
+* Translate 'QFE' to your language.
+* Testing, searching for bugs and sending bug reports.
+* But also every idea (or even patch) to improve the program is always welcome!
+
+[ *** Bugs *** ]
+ QFE is a new project, so you may find many problems. If you can't find the
+solution, please contact us.
+ Please also report bugs and/or wishes with the 'QFE' bug tracker
+at http://sourceforge.net/tracker/?group_id=132811 or mail me at
+shc@users.sourceforge.net or at 2:5030/39.2 by fidonet.
+ Patches for QFE are even more appreciated.
+
+--------------------------------------------------------------------------------
+http://qfe.sourceforge.net/

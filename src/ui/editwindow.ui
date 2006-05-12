@@ -1,0 +1,899 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>TEditWindow</class>
+<author>Alexander Shiyan</author>
+<widget class="QMainWindow">
+    <property name="name">
+        <cstring>TEditWindow</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>603</width>
+            <height>480</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>Message Editor</string>
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="QComboBox" row="2" column="1">
+            <property name="name">
+                <cstring>OriginCombo</cstring>
+            </property>
+            <property name="sizePolicy">
+                <sizepolicy>
+                    <hsizetype>7</hsizetype>
+                    <vsizetype>0</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                </sizepolicy>
+            </property>
+            <property name="editable">
+                <bool>true</bool>
+            </property>
+            <property name="autoCompletion">
+                <bool>true</bool>
+            </property>
+            <property name="duplicatesEnabled">
+                <bool>false</bool>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>Message Origin</string>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>Message Origin</string>
+            </property>
+        </widget>
+        <widget class="QLabel" row="2" column="0">
+            <property name="name">
+                <cstring>OriginLabel</cstring>
+            </property>
+            <property name="sizePolicy">
+                <sizepolicy>
+                    <hsizetype>1</hsizetype>
+                    <vsizetype>5</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                </sizepolicy>
+            </property>
+        </widget>
+        <widget class="QTextEdit" row="1" column="0" rowspan="1" colspan="2">
+            <property name="name">
+                <cstring>MessageEdit</cstring>
+            </property>
+            <property name="textFormat">
+                <enum>PlainText</enum>
+            </property>
+            <property name="wordWrap">
+                <enum>WidgetWidth</enum>
+            </property>
+        </widget>
+        <widget class="QGroupBox" row="0" column="0" rowspan="1" colspan="2">
+            <property name="name">
+                <cstring>AddrGroup</cstring>
+            </property>
+            <property name="title">
+                <string></string>
+            </property>
+            <grid>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QLabel" row="3" column="0">
+                    <property name="name">
+                        <cstring>SubjLabel</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>4</hsizetype>
+                            <vsizetype>5</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="text">
+                        <string>Subject:</string>
+                    </property>
+                </widget>
+                <spacer row="3" column="1">
+                    <property name="name">
+                        <cstring>spacer20_4</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Maximum</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>16</width>
+                            <height>16</height>
+                        </size>
+                    </property>
+                </spacer>
+                <spacer row="3" column="2">
+                    <property name="name">
+                        <cstring>spacer20</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Maximum</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>16</width>
+                            <height>16</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="QLineEdit" row="3" column="3" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>SubjEdit</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>1</hsizetype>
+                            <vsizetype>0</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                        <size>
+                            <width>110</width>
+                            <height>0</height>
+                        </size>
+                    </property>
+                    <property name="maxLength">
+                        <number>72</number>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Message Subject</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>Message Subject</string>
+                    </property>
+                </widget>
+                <widget class="QComboBox" row="0" column="3">
+                    <property name="name">
+                        <cstring>FromNameCombo</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>1</hsizetype>
+                            <vsizetype>0</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                        <size>
+                            <width>70</width>
+                            <height>0</height>
+                        </size>
+                    </property>
+                    <property name="editable">
+                        <bool>true</bool>
+                    </property>
+                    <property name="autoCompletion">
+                        <bool>true</bool>
+                    </property>
+                    <property name="duplicatesEnabled">
+                        <bool>false</bool>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Your Name</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>Your Name</string>
+                    </property>
+                </widget>
+                <widget class="QLineEdit" row="1" column="4" rowspan="2" colspan="1">
+                    <property name="name">
+                        <cstring>ToAddrEdit</cstring>
+                    </property>
+                    <property name="enabled">
+                        <bool>false</bool>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>1</hsizetype>
+                            <vsizetype>0</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                        <size>
+                            <width>50</width>
+                            <height>0</height>
+                        </size>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Receiver Address</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>Receiver Address</string>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="0" column="0">
+                    <property name="name">
+                        <cstring>FromLabel</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>4</hsizetype>
+                            <vsizetype>5</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="text">
+                        <string>From:</string>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="1" column="0" rowspan="2" colspan="1">
+                    <property name="name">
+                        <cstring>ToLabel</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>4</hsizetype>
+                            <vsizetype>5</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="text">
+                        <string>To:</string>
+                    </property>
+                </widget>
+                <widget class="QComboBox" row="1" column="3" rowspan="2" colspan="1">
+                    <property name="name">
+                        <cstring>ToNameCombo</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>1</hsizetype>
+                            <vsizetype>0</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                        <size>
+                            <width>70</width>
+                            <height>0</height>
+                        </size>
+                    </property>
+                    <property name="editable">
+                        <bool>true</bool>
+                    </property>
+                    <property name="autoCompletion">
+                        <bool>true</bool>
+                    </property>
+                    <property name="duplicatesEnabled">
+                        <bool>false</bool>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Receiver Name</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>Receiver Name</string>
+                    </property>
+                </widget>
+                <spacer row="0" column="1" rowspan="2" colspan="2">
+                    <property name="name">
+                        <cstring>spacer20_2</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Maximum</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>33</width>
+                            <height>55</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="QComboBox" row="0" column="4">
+                    <property name="name">
+                        <cstring>FromAddrCombo</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>1</hsizetype>
+                            <vsizetype>0</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                        <size>
+                            <width>50</width>
+                            <height>0</height>
+                        </size>
+                    </property>
+                    <property name="duplicatesEnabled">
+                        <bool>false</bool>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Your Address</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>Your Address</string>
+                    </property>
+                </widget>
+                <widget class="QToolButton" row="2" column="6" rowspan="2" colspan="1">
+                    <property name="name">
+                        <cstring>BtnAttributes</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>0</hsizetype>
+                            <vsizetype>0</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="text">
+                        <string></string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Edit Message Attributes</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>Edit Message Attributes</string>
+                    </property>
+                </widget>
+                <widget class="QToolButton" row="0" column="5" rowspan="2" colspan="1">
+                    <property name="name">
+                        <cstring>BtnAddrBook</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>0</hsizetype>
+                            <vsizetype>0</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="text">
+                        <string></string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Select Receiver from AddressBook</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>Select Receiver from AddressBook</string>
+                    </property>
+                </widget>
+                <widget class="QToolButton" row="0" column="6" rowspan="2" colspan="1">
+                    <property name="name">
+                        <cstring>BtnNodeList</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>0</hsizetype>
+                            <vsizetype>0</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="text">
+                        <string></string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Select Receiver from Nodelist Browser</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>Select Receiver from Nodelist Browser</string>
+                    </property>
+                </widget>
+            </grid>
+        </widget>
+    </grid>
+</widget>
+<menubar>
+    <property name="name">
+        <cstring>EditMenuBar</cstring>
+    </property>
+    <item text="Message" name="MessageMenu">
+        <action name="SaveMessageAction"/>
+        <action name="SaveDraftAction"/>
+        <separator/>
+        <action name="QuitAction"/>
+    </item>
+    <item text="Edit" name="EditMenu">
+        <action name="UndoAction"/>
+        <action name="RedoAction"/>
+        <separator/>
+        <action name="CopyAction"/>
+        <action name="CutAction"/>
+        <action name="DelAction"/>
+        <action name="PasteAction"/>
+        <separator/>
+        <action name="InsertAction"/>
+        <action name="AttachAction"/>
+    </item>
+    <item text="View" name="ViewMenu">
+        <action name="ViewToolBarAction"/>
+        <action name="ViewStatusBarAction"/>
+        <separator/>
+        <action name="ViewOriginAction"/>
+    </item>
+    <item text="Tools" name="ToolMenu">
+        <action name="SpellCheckAction"/>
+    </item>
+    <item text="Help" name="HelpMenu">
+        <action name="HelpAction"/>
+        <separator/>
+        <action name="WhatsThisAction"/>
+    </item>
+</menubar>
+<toolbars>
+    <toolbar dock="2">
+        <property name="name">
+            <cstring>EditToolBar</cstring>
+        </property>
+        <property name="label">
+            <string>Editor Tools</string>
+        </property>
+        <action name="SaveMessageAction"/>
+        <action name="SaveDraftAction"/>
+        <separator/>
+        <action name="QuitAction"/>
+        <separator/>
+        <action name="UndoAction"/>
+        <action name="RedoAction"/>
+        <separator/>
+        <action name="CopyAction"/>
+        <action name="CutAction"/>
+        <action name="DelAction"/>
+        <action name="PasteAction"/>
+        <separator/>
+        <action name="HelpAction"/>
+        <separator/>
+    </toolbar>
+</toolbars>
+<actions>
+    <action>
+        <property name="name">
+            <cstring>SaveMessageAction</cstring>
+        </property>
+        <property name="text">
+            <string>Save Message</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>SaveDraftAction</cstring>
+        </property>
+        <property name="text">
+            <string>Save as Draft</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>QuitAction</cstring>
+        </property>
+        <property name="text">
+            <string>Quit</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>UndoAction</cstring>
+        </property>
+        <property name="text">
+            <string>Undo</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>RedoAction</cstring>
+        </property>
+        <property name="text">
+            <string>Redo</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>CopyAction</cstring>
+        </property>
+        <property name="text">
+            <string>Copy</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>CutAction</cstring>
+        </property>
+        <property name="text">
+            <string>Cut</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>DelAction</cstring>
+        </property>
+        <property name="text">
+            <string>Delete</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>PasteAction</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="text">
+            <string>Paste</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>InsertAction</cstring>
+        </property>
+        <property name="text">
+            <string>Insert Text</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>AttachAction</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="text">
+            <string>Attach File</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>ViewToolBarAction</cstring>
+        </property>
+        <property name="toggleAction">
+            <bool>true</bool>
+        </property>
+        <property name="on">
+            <bool>true</bool>
+        </property>
+        <property name="text">
+            <string>Show ToolBar</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>ViewStatusBarAction</cstring>
+        </property>
+        <property name="toggleAction">
+            <bool>true</bool>
+        </property>
+        <property name="on">
+            <bool>true</bool>
+        </property>
+        <property name="text">
+            <string>Show StatusBar</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>ViewOriginAction</cstring>
+        </property>
+        <property name="toggleAction">
+            <bool>true</bool>
+        </property>
+        <property name="on">
+            <bool>true</bool>
+        </property>
+        <property name="text">
+            <string>Show Origin</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>SpellCheckAction</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="text">
+            <string>Spell Checking</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>HelpAction</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="text">
+            <string>Contents...</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>WhatsThisAction</cstring>
+        </property>
+        <property name="text">
+            <string>What's This?</string>
+        </property>
+    </action>
+</actions>
+<connections>
+    <connection>
+        <sender>SaveMessageAction</sender>
+        <signal>activated()</signal>
+        <receiver>TEditWindow</receiver>
+        <slot>ActionSaveMessage()</slot>
+    </connection>
+    <connection>
+        <sender>SaveDraftAction</sender>
+        <signal>activated()</signal>
+        <receiver>TEditWindow</receiver>
+        <slot>ActionSaveDraft()</slot>
+    </connection>
+    <connection>
+        <sender>QuitAction</sender>
+        <signal>activated()</signal>
+        <receiver>TEditWindow</receiver>
+        <slot>ActionClose()</slot>
+    </connection>
+    <connection>
+        <sender>ViewToolBarAction</sender>
+        <signal>activated()</signal>
+        <receiver>TEditWindow</receiver>
+        <slot>ActionViewToolBar()</slot>
+    </connection>
+    <connection>
+        <sender>ViewStatusBarAction</sender>
+        <signal>activated()</signal>
+        <receiver>TEditWindow</receiver>
+        <slot>ActionViewStatusBar()</slot>
+    </connection>
+    <connection>
+        <sender>HelpAction</sender>
+        <signal>activated()</signal>
+        <receiver>TEditWindow</receiver>
+        <slot>ActionHelp()</slot>
+    </connection>
+    <connection>
+        <sender>WhatsThisAction</sender>
+        <signal>activated()</signal>
+        <receiver>TEditWindow</receiver>
+        <slot>ActionWhatsThis()</slot>
+    </connection>
+    <connection>
+        <sender>MessageEdit</sender>
+        <signal>textChanged()</signal>
+        <receiver>TEditWindow</receiver>
+        <slot>MessageTextChanged()</slot>
+    </connection>
+    <connection>
+        <sender>ToAddrEdit</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>TEditWindow</receiver>
+        <slot>ToAddrChanged(const QString&amp;)</slot>
+    </connection>
+    <connection>
+        <sender>MessageEdit</sender>
+        <signal>redoAvailable(bool)</signal>
+        <receiver>TEditWindow</receiver>
+        <slot>MessageEditRedoAvailable(bool)</slot>
+    </connection>
+    <connection>
+        <sender>MessageEdit</sender>
+        <signal>undoAvailable(bool)</signal>
+        <receiver>TEditWindow</receiver>
+        <slot>MessageEditUndoAvailable(bool)</slot>
+    </connection>
+    <connection>
+        <sender>MessageEdit</sender>
+        <signal>copyAvailable(bool)</signal>
+        <receiver>TEditWindow</receiver>
+        <slot>MessageEditCopyAvailable(bool)</slot>
+    </connection>
+    <connection>
+        <sender>UndoAction</sender>
+        <signal>activated()</signal>
+        <receiver>TEditWindow</receiver>
+        <slot>ActionUndo()</slot>
+    </connection>
+    <connection>
+        <sender>RedoAction</sender>
+        <signal>activated()</signal>
+        <receiver>TEditWindow</receiver>
+        <slot>ActionRedo()</slot>
+    </connection>
+    <connection>
+        <sender>CopyAction</sender>
+        <signal>activated()</signal>
+        <receiver>TEditWindow</receiver>
+        <slot>ActionCopy()</slot>
+    </connection>
+    <connection>
+        <sender>CutAction</sender>
+        <signal>activated()</signal>
+        <receiver>TEditWindow</receiver>
+        <slot>ActionCut()</slot>
+    </connection>
+    <connection>
+        <sender>DelAction</sender>
+        <signal>activated()</signal>
+        <receiver>TEditWindow</receiver>
+        <slot>ActionDel()</slot>
+    </connection>
+    <connection>
+        <sender>PasteAction</sender>
+        <signal>activated()</signal>
+        <receiver>TEditWindow</receiver>
+        <slot>ActionPaste()</slot>
+    </connection>
+    <connection>
+        <sender>SpellCheckAction</sender>
+        <signal>activated()</signal>
+        <receiver>TEditWindow</receiver>
+        <slot>ActionSpellCheck()</slot>
+    </connection>
+    <connection>
+        <sender>ViewOriginAction</sender>
+        <signal>activated()</signal>
+        <receiver>TEditWindow</receiver>
+        <slot>ActionViewOrigin()</slot>
+    </connection>
+    <connection>
+        <sender>BtnAttributes</sender>
+        <signal>clicked()</signal>
+        <receiver>TEditWindow</receiver>
+        <slot>ActionAttributes()</slot>
+    </connection>
+    <connection>
+        <sender>InsertAction</sender>
+        <signal>activated()</signal>
+        <receiver>TEditWindow</receiver>
+        <slot>ActionInsertFile()</slot>
+    </connection>
+    <connection>
+        <sender>AttachAction</sender>
+        <signal>activated()</signal>
+        <receiver>TEditWindow</receiver>
+        <slot>ActionAttachFile()</slot>
+    </connection>
+    <connection>
+        <sender>BtnAddrBook</sender>
+        <signal>clicked()</signal>
+        <receiver>TEditWindow</receiver>
+        <slot>ActionAddrBook()</slot>
+    </connection>
+    <connection>
+        <sender>BtnNodeList</sender>
+        <signal>clicked()</signal>
+        <receiver>TEditWindow</receiver>
+        <slot>ActionNodeListBrowser()</slot>
+    </connection>
+    <connection>
+        <sender>EditToolBar</sender>
+        <signal>visibilityChanged(bool)</signal>
+        <receiver>TEditWindow</receiver>
+        <slot>ToolBarVisibilityChanged(bool)</slot>
+    </connection>
+    <connection>
+        <sender>MessageEdit</sender>
+        <signal>cursorPositionChanged(int,int)</signal>
+        <receiver>TEditWindow</receiver>
+        <slot>EditCursorPositionChanged(int,int)</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>FromAddrCombo</tabstop>
+    <tabstop>ToNameCombo</tabstop>
+    <tabstop>ToAddrEdit</tabstop>
+    <tabstop>SubjEdit</tabstop>
+    <tabstop>MessageEdit</tabstop>
+    <tabstop>OriginCombo</tabstop>
+    <tabstop>FromNameCombo</tabstop>
+</tabstops>
+<includes>
+    <include location="global" impldecl="in declaration">tactions.h</include>
+    <include location="global" impldecl="in declaration">tarea.h</include>
+    <include location="global" impldecl="in implementation">qfile.h</include>
+    <include location="global" impldecl="in implementation">qlistbox.h</include>
+    <include location="global" impldecl="in implementation">qclipboard.h</include>
+    <include location="global" impldecl="in implementation">qvalidator.h</include>
+    <include location="global" impldecl="in implementation">qstatusbar.h</include>
+    <include location="global" impldecl="in implementation">qfiledialog.h</include>
+    <include location="global" impldecl="in implementation">qapplication.h</include>
+    <include location="global" impldecl="in implementation">qmessagebox.h</include>
+    <include location="local" impldecl="in implementation">funchider.h</include>
+    <include location="local" impldecl="in implementation">utils.h</include>
+    <include location="local" impldecl="in implementation">tareas.h</include>
+    <include location="local" impldecl="in implementation">tconfig.h</include>
+    <include location="local" impldecl="in implementation">tftncodec.h</include>
+    <include location="local" impldecl="in implementation">tcloseevent.h</include>
+    <include location="local" impldecl="in implementation">tspellcheck.h</include>
+    <include location="local" impldecl="in implementation">attachform.h</include>
+    <include location="local" impldecl="in implementation">addressbook.h</include>
+    <include location="local" impldecl="in implementation">messattr.h</include>
+    <include location="local" impldecl="in implementation">mainwindow.h</include>
+    <include location="local" impldecl="in implementation">nodelistbrowser.h</include>
+    <include location="local" impldecl="in implementation">editwindow.ui.h</include>
+</includes>
+<variables>
+    <variable access="public">TActions *EditActions;</variable>
+    <variable access="private">bool FirstTimeInit;</variable>
+    <variable access="private">QString Result;</variable>
+    <variable access="private">bool SetupDone;</variable>
+    <variable access="private">QString DestArea;</variable>
+    <variable access="private">QString OrigArea;</variable>
+    <variable access="private">uint UniqueID;</variable>
+    <variable access="private">uint MessFlags;</variable>
+    <variable access="private">uint AllowFlags;</variable>
+    <variable access="private">uint MsgOperation;</variable>
+    <variable access="private">QStringList Kludges;</variable>
+    <variable access="private">QLabel *PosStatusBar;</variable>
+    <variable access="private">QLabel *MessageStatusBar;</variable>
+</variables>
+<slots>
+    <slot>statusBarMessageChanged( const QString &amp; string )</slot>
+    <slot access="protected">showEvent( QShowEvent * )</slot>
+    <slot access="protected">closeEvent( QCloseEvent * e )</slot>
+    <slot>ToAddrChanged( const QString &amp; s )</slot>
+    <slot>ActionClose()</slot>
+    <slot>ActionSaveMessage()</slot>
+    <slot>ActionSaveDraft()</slot>
+    <slot>ActionViewToolBar()</slot>
+    <slot>ActionViewStatusBar()</slot>
+    <slot>ToolBarVisibilityChanged( bool )</slot>
+    <slot>ActionViewOrigin()</slot>
+    <slot>ActionHelp()</slot>
+    <slot>ActionWhatsThis()</slot>
+    <slot>MessageTextChanged()</slot>
+    <slot>MessageEditRedoAvailable( bool Val )</slot>
+    <slot>MessageEditUndoAvailable( bool Val )</slot>
+    <slot>MessageEditCopyAvailable( bool Val )</slot>
+    <slot>PasteTest()</slot>
+    <slot>ActionSpellCheck()</slot>
+    <slot>ActionAttributes()</slot>
+    <slot>ActionInsertFile()</slot>
+    <slot>ActionAttachFile()</slot>
+    <slot>ActionAddrBook()</slot>
+    <slot>ActionNodeListBrowser()</slot>
+    <slot>ActionUndo()</slot>
+    <slot>ActionRedo()</slot>
+    <slot>ActionCopy()</slot>
+    <slot>ActionCut()</slot>
+    <slot>ActionDel()</slot>
+    <slot>ActionPaste()</slot>
+    <slot access="protected" returnType="bool">eventFilter( QObject * o, QEvent * e )</slot>
+    <slot>EditCursorPositionChanged( int x, int y )</slot>
+</slots>
+<functions>
+    <function access="private" specifier="non virtual">init()</function>
+    <function access="private" specifier="non virtual">destroy()</function>
+    <function specifier="non virtual" returnType="bool">SetUp( TArea * Area, TMessage * Message, uint Operation, void * addval )</function>
+    <function access="private" specifier="non virtual">LoadTemplate( QString Name, QPoint * pos )</function>
+    <function access="private" specifier="non virtual">LoadKludges( QStringList * Kludges )</function>
+    <function access="private" specifier="non virtual" returnType="QString">ComposeOrigin( void * _addr )</function>
+    <function access="private" specifier="non virtual">ParseTemplate( TArea * Area, TMessage * Message, bool isFinal )</function>
+    <function access="private" specifier="non virtual" returnType="int">LoadText( TMessage * Message )</function>
+    <function access="private" specifier="non virtual">ClearModified()</function>
+    <function access="private" specifier="non virtual" returnType="QString">TextReplace( QString Text )</function>
+    <function access="private" specifier="non virtual">Save( bool isDraft )</function>
+</functions>
+<pixmapinproject/>
+<layoutdefaults spacing="2" margin="6"/>
+</UI>

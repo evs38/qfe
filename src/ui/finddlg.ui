@@ -1,0 +1,234 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>TFind</class>
+<author>Alexander Shiyan</author>
+<widget class="QDialog">
+    <property name="name">
+        <cstring>TFind</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>431</width>
+            <height>387</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>Search for Messages</string>
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="QComboBox" row="1" column="0">
+            <property name="name">
+                <cstring>AreaCombo</cstring>
+            </property>
+        </widget>
+        <widget class="QLineEdit" row="3" column="0">
+            <property name="name">
+                <cstring>TextEdit</cstring>
+            </property>
+        </widget>
+        <widget class="QPushButton" row="2" column="2" rowspan="2" colspan="1">
+            <property name="name">
+                <cstring>BtnOk</cstring>
+            </property>
+            <property name="enabled">
+                <bool>false</bool>
+            </property>
+            <property name="text">
+                <string>OK</string>
+            </property>
+        </widget>
+        <widget class="QLabel" row="0" column="0">
+            <property name="name">
+                <cstring>AreaLabel</cstring>
+            </property>
+            <property name="text">
+                <string>Area:</string>
+            </property>
+        </widget>
+        <widget class="QLabel" row="0" column="1" rowspan="1" colspan="2">
+            <property name="name">
+                <cstring>WhereLabel</cstring>
+            </property>
+            <property name="text">
+                <string>Where:</string>
+            </property>
+        </widget>
+        <widget class="QComboBox" row="1" column="1" rowspan="1" colspan="2">
+            <property name="name">
+                <cstring>WhereCombo</cstring>
+            </property>
+        </widget>
+        <widget class="QLabel" row="2" column="0">
+            <property name="name">
+                <cstring>TextLabel</cstring>
+            </property>
+            <property name="text">
+                <string>Text to find:</string>
+            </property>
+        </widget>
+        <spacer row="2" column="1" rowspan="2" colspan="1">
+            <property name="name">
+                <cstring>spacer4</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Horizontal</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>120</width>
+                    <height>20</height>
+                </size>
+            </property>
+        </spacer>
+        <widget class="QCheckBox" row="4" column="0">
+            <property name="name">
+                <cstring>CaseSensCheck</cstring>
+            </property>
+            <property name="text">
+                <string>Case sensitive</string>
+            </property>
+        </widget>
+        <widget class="QCheckBox" row="4" column="1" rowspan="1" colspan="2">
+            <property name="name">
+                <cstring>RegExpCheck</cstring>
+            </property>
+            <property name="text">
+                <string>Regular expression</string>
+            </property>
+        </widget>
+        <widget class="QListView" row="5" column="0" rowspan="1" colspan="3">
+            <column>
+                <property name="text">
+                    <string></string>
+                </property>
+                <property name="clickable">
+                    <bool>true</bool>
+                </property>
+                <property name="resizable">
+                    <bool>true</bool>
+                </property>
+            </column>
+            <column>
+                <property name="text">
+                    <string></string>
+                </property>
+                <property name="clickable">
+                    <bool>true</bool>
+                </property>
+                <property name="resizable">
+                    <bool>true</bool>
+                </property>
+            </column>
+            <column>
+                <property name="text">
+                    <string></string>
+                </property>
+                <property name="clickable">
+                    <bool>true</bool>
+                </property>
+                <property name="resizable">
+                    <bool>true</bool>
+                </property>
+            </column>
+            <column>
+                <property name="text">
+                    <string></string>
+                </property>
+                <property name="clickable">
+                    <bool>true</bool>
+                </property>
+                <property name="resizable">
+                    <bool>true</bool>
+                </property>
+            </column>
+            <property name="name">
+                <cstring>FindList</cstring>
+            </property>
+            <property name="allColumnsShowFocus">
+                <bool>true</bool>
+            </property>
+            <property name="resizeMode">
+                <enum>AllColumns</enum>
+            </property>
+        </widget>
+    </grid>
+</widget>
+<connections>
+    <connection>
+        <sender>TextEdit</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>TFind</receiver>
+        <slot>TextChanged(const QString&amp;)</slot>
+    </connection>
+    <connection>
+        <sender>BtnOk</sender>
+        <signal>clicked()</signal>
+        <receiver>TFind</receiver>
+        <slot>Find()</slot>
+    </connection>
+    <connection>
+        <sender>FindList</sender>
+        <signal>doubleClicked(QListViewItem*)</signal>
+        <receiver>TFind</receiver>
+        <slot>FindListClicked(QListViewItem*)</slot>
+    </connection>
+    <connection>
+        <sender>FindList</sender>
+        <signal>selectionChanged(QListViewItem*)</signal>
+        <receiver>TFind</receiver>
+        <slot>FindListSelected(QListViewItem*)</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>AreaCombo</tabstop>
+    <tabstop>WhereCombo</tabstop>
+    <tabstop>TextEdit</tabstop>
+    <tabstop>CaseSensCheck</tabstop>
+    <tabstop>RegExpCheck</tabstop>
+    <tabstop>BtnOk</tabstop>
+    <tabstop>FindList</tabstop>
+</tabstops>
+<includes>
+    <include location="global" impldecl="in declaration">qregexp.h</include>
+    <include location="local" impldecl="in declaration">tarea.h</include>
+    <include location="global" impldecl="in implementation">qlistbox.h</include>
+    <include location="global" impldecl="in implementation">qapplication.h</include>
+    <include location="local" impldecl="in implementation">funchider.h</include>
+    <include location="local" impldecl="in implementation">utils.h</include>
+    <include location="local" impldecl="in implementation">tareas.h</include>
+    <include location="local" impldecl="in implementation">tconfig.h</include>
+    <include location="local" impldecl="in implementation">tfinditem.h</include>
+    <include location="local" impldecl="in implementation">tftncodec.h</include>
+    <include location="local" impldecl="in implementation">mainwindow.h</include>
+    <include location="local" impldecl="in implementation">finddlg.ui.h</include>
+</includes>
+<variables>
+    <variable access="private">bool FirstTimeInit;</variable>
+    <variable access="private">QRegExp RegExp;</variable>
+</variables>
+<slots>
+    <slot access="protected">showEvent( QShowEvent * )</slot>
+    <slot access="protected">closeEvent( QCloseEvent * e )</slot>
+    <slot>TextChanged( const QString &amp; )</slot>
+    <slot>Find()</slot>
+    <slot>FindListClicked( QListViewItem * It )</slot>
+    <slot>FindListSelected( QListViewItem * It )</slot>
+</slots>
+<functions>
+    <function access="private" specifier="non virtual">init()</function>
+    <function access="private" specifier="non virtual" returnType="bool">FindInString( QString Value )</function>
+    <function access="private" specifier="non virtual" returnType="bool">FindInMsgText( TMessage * Message )</function>
+    <function access="private" specifier="non virtual" returnType="bool">FindInMsgKludges( TMessage * Message )</function>
+    <function access="private" specifier="non virtual" returnType="bool">FindInMessage( TMessage * Message )</function>
+    <function access="private" specifier="non virtual">FindInArea( TArea * Area , bool SingleProgress )</function>
+</functions>
+<pixmapinproject/>
+<layoutdefaults spacing="2" margin="6"/>
+</UI>

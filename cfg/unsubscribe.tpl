@@ -1,0 +1,2 @@
+-@origarea@@cursor@
+---

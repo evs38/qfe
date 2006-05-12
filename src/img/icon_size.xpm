@@ -1,0 +1,27 @@
+/* XPM */
+static char *icon_size[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 5 1",
+"  c black",
+". c #990000",
+"X c red",
+"o c #FFCC66",
+"O c None",
+/* pixels */
+"oooooooooooooooo",
+"oXXXXXOOOOOOOOOo",
+"oXOOOOOOOOOOOOOo",
+"oXOXOOOOOOOOOOOo",
+"oXOO..OOOO..OOOo",
+"oXO.oo.OO.oo.OOo",
+"oOO.oo....oo.OOo",
+"oOO.oooooooo.OOo",
+"oOO.o.oooo.o.OOo",
+"oOO.oooooooo.OOo",
+"oOOO.oooooo.OOXo",
+"oOOO.oo..oo.OOXo",
+"oOOOO......OXOXo",
+"oOOOOOOOOOOOOOXo",
+"oOOOOOOOOOXXXXXo",
+"oooooooooooooooo"
+};

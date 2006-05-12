@@ -1,0 +1,242 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>TStyleDialog</class>
+<author>Alexander Shiyan</author>
+<widget class="QDialog">
+    <property name="name">
+        <cstring>TStyleDialog</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>269</width>
+            <height>174</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>Edit Tag Style</string>
+    </property>
+    <property name="sizeGripEnabled">
+        <bool>false</bool>
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <property name="resizeMode">
+            <enum>Fixed</enum>
+        </property>
+        <widget class="QCheckBox" row="1" column="0" rowspan="1" colspan="2">
+            <property name="name">
+                <cstring>CheckBoxBold</cstring>
+            </property>
+            <property name="text">
+                <string>Bold</string>
+            </property>
+        </widget>
+        <widget class="QCheckBox" row="0" column="0" rowspan="1" colspan="2">
+            <property name="name">
+                <cstring>CheckBoxItalic</cstring>
+            </property>
+            <property name="text">
+                <string>Italic</string>
+            </property>
+        </widget>
+        <widget class="QCheckBox" row="2" column="0" rowspan="1" colspan="2">
+            <property name="name">
+                <cstring>CheckBoxUnderline</cstring>
+            </property>
+            <property name="text">
+                <string>Underline</string>
+            </property>
+        </widget>
+        <widget class="QCheckBox" row="3" column="0" rowspan="1" colspan="2">
+            <property name="name">
+                <cstring>CheckBoxInverse</cstring>
+            </property>
+            <property name="enabled">
+                <bool>false</bool>
+            </property>
+            <property name="text">
+                <string>Inverse</string>
+            </property>
+        </widget>
+        <widget class="QTextEdit" row="0" column="2" rowspan="4" colspan="2">
+            <property name="name">
+                <cstring>Example</cstring>
+            </property>
+            <property name="readOnly">
+                <bool>true</bool>
+            </property>
+            <property name="autoFormatting">
+                <set>AutoNone</set>
+            </property>
+        </widget>
+        <widget class="QLayoutWidget" row="4" column="0" rowspan="1" colspan="4">
+            <property name="name">
+                <cstring>layout4</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <spacer>
+                    <property name="name">
+                        <cstring>spacer2</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>130</width>
+                            <height>16</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>BtnFontColor</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>1</hsizetype>
+                            <vsizetype>0</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="text">
+                        <string>Font Color</string>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
+        <spacer row="5" column="0">
+            <property name="name">
+                <cstring>Spacing2</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Horizontal</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>33</width>
+                    <height>20</height>
+                </size>
+            </property>
+        </spacer>
+        <widget class="QPushButton" row="5" column="1" rowspan="1" colspan="2">
+            <property name="name">
+                <cstring>BtnOk</cstring>
+            </property>
+            <property name="sizePolicy">
+                <sizepolicy>
+                    <hsizetype>1</hsizetype>
+                    <vsizetype>0</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                </sizepolicy>
+            </property>
+            <property name="text">
+                <string>OK</string>
+            </property>
+        </widget>
+        <widget class="QPushButton" row="5" column="3">
+            <property name="name">
+                <cstring>BtnCancel</cstring>
+            </property>
+            <property name="sizePolicy">
+                <sizepolicy>
+                    <hsizetype>1</hsizetype>
+                    <vsizetype>0</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                </sizepolicy>
+            </property>
+            <property name="text">
+                <string>Cancel</string>
+            </property>
+            <property name="default">
+                <bool>true</bool>
+            </property>
+        </widget>
+    </grid>
+</widget>
+<connections>
+    <connection>
+        <sender>BtnOk</sender>
+        <signal>clicked()</signal>
+        <receiver>TStyleDialog</receiver>
+        <slot>accept()</slot>
+    </connection>
+    <connection>
+        <sender>BtnCancel</sender>
+        <signal>clicked()</signal>
+        <receiver>TStyleDialog</receiver>
+        <slot>reject()</slot>
+    </connection>
+    <connection>
+        <sender>CheckBoxItalic</sender>
+        <signal>clicked()</signal>
+        <receiver>TStyleDialog</receiver>
+        <slot>CheckBoxItalicAction()</slot>
+    </connection>
+    <connection>
+        <sender>CheckBoxBold</sender>
+        <signal>clicked()</signal>
+        <receiver>TStyleDialog</receiver>
+        <slot>CheckBoxBoldAction()</slot>
+    </connection>
+    <connection>
+        <sender>CheckBoxUnderline</sender>
+        <signal>clicked()</signal>
+        <receiver>TStyleDialog</receiver>
+        <slot>CheckBoxUnderlineAction()</slot>
+    </connection>
+    <connection>
+        <sender>BtnFontColor</sender>
+        <signal>clicked()</signal>
+        <receiver>TStyleDialog</receiver>
+        <slot>BtnFontColorAction()</slot>
+    </connection>
+    <connection>
+        <sender>CheckBoxInverse</sender>
+        <signal>clicked()</signal>
+        <receiver>TStyleDialog</receiver>
+        <slot>CheckBoxInverseAction()</slot>
+    </connection>
+</connections>
+<includes>
+    <include location="global" impldecl="in declaration">qstylesheet.h</include>
+    <include location="global" impldecl="in declaration">qcolordialog.h</include>
+    <include location="local" impldecl="in implementation">utils.h</include>
+    <include location="local" impldecl="in implementation">tconfig.h</include>
+    <include location="local" impldecl="in implementation">styledlg.ui.h</include>
+</includes>
+<variables>
+    <variable access="private">bool FirstTimeInit;</variable>
+    <variable access="public">QStyleSheetItem *StyleItem;</variable>
+</variables>
+<slots>
+    <slot access="protected">showEvent( QShowEvent * )</slot>
+    <slot access="protected">closeEvent( QCloseEvent * e )</slot>
+    <slot>CheckBoxItalicAction()</slot>
+    <slot>CheckBoxBoldAction()</slot>
+    <slot>CheckBoxUnderlineAction()</slot>
+    <slot>CheckBoxInverseAction()</slot>
+    <slot>BtnFontColorAction()</slot>
+</slots>
+<functions>
+    <function access="private" specifier="non virtual">init()</function>
+    <function access="private" specifier="non virtual">RepaintExample()</function>
+</functions>
+<pixmapinproject/>
+<layoutdefaults spacing="2" margin="6"/>
+</UI>

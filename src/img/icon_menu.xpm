@@ -1,0 +1,30 @@
+/* XPM */
+static char *icon_menu[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 8 1",
+"  c black",
+". c gray40",
+"X c #000099",
+"o c yellow",
+"O c gray60",
+"+ c gray80",
+"@ c gray100",
+"# c None",
+/* pixels */
+"################",
+"OOOOOOOOOOOOO###",
+"O@@@@@@@@@@@ ###",
+"O@XXXXXXXXX@ ###",
+"O@XoooooooX@ ###",
+"O@XXXXXXXXX@ ###",
+"O@@@@@@@@@@@ ###",
+"O@@+O+O+O@@.+###",
+"O@@@@@@@@@@   ##",
+"O@@+O+O+O@@ .   ",
+"O@@@@@@@@@@.. O#",
+"O@@+O+O+O+@ +. #",
+"O@@@@@@@@@@@+O  ",
+"O@@@@@@@@@@@ # #",
+"O            ###",
+"################"
+};

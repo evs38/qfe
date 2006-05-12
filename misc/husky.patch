@@ -1,0 +1,575 @@
+diff -urN husky.orig/areafix/src/areafix.c husky/areafix/src/areafix.c
+--- husky.orig/areafix/src/areafix.c	2005-04-01 15:48:04.000000000 +0400
++++ husky/areafix/src/areafix.c	2005-05-06 16:17:55.000000000 +0400
+@@ -127,7 +127,7 @@
+ }
+ 
+ char *list(s_listype type, s_link *link, char *cmdline) {
+-    unsigned int cnt, i, j, export, import, mandatory, active, avail, rc = 0;
++    unsigned int cnt, i, j, n_export, n_import, mandatory, active, avail, rc = 0;
+     char *report = NULL;
+     char *list = NULL;
+     char *pattern = NULL;
+@@ -168,11 +168,11 @@
+              || (type == lt_unlinked && rc == 1)
+            ) { /*  add line */
+ 
+-            import = export = 1; mandatory = 0;
++            n_import = n_export = 1; mandatory = 0;
+             for (j = 0; j < area->downlinkCount; j++) {
+                if (addrComp(link->hisAka, area->downlinks[j]->link->hisAka) == 0) {
+-                  import = area->downlinks[j]->import;
+-                  export = area->downlinks[j]->export;
++                  n_import = area->downlinks[j]->n_import;
++                  n_export = area->downlinks[j]->n_export;
+                   mandatory = area->downlinks[j]->mandatory;
+                   break;
+                }
+@@ -183,12 +183,12 @@
+                 /* if matches pattern and not reversed (or vise versa) */
+                 if (patimat(area->areaName, pattern)!=reversed)
+                 {
+-                    addAreaListItem(al,rc==0, getLinkRescanAccess(area, link), import, export, mandatory, area->areaName,area->description,area->group);
++                    addAreaListItem(al,rc==0, getLinkRescanAccess(area, link), n_import, n_export, mandatory, area->areaName,area->description,area->group);
+                     if (rc==0) active++; avail++;
+                 }
+             } else
+             {
+-                addAreaListItem(al,rc==0, getLinkRescanAccess(area, link), import, export, mandatory, area->areaName,area->description,area->group);
++                addAreaListItem(al,rc==0, getLinkRescanAccess(area, link), n_import, n_export, mandatory, area->areaName,area->description,area->group);
+                 if (rc==0) active++; avail++;
+             }
+ 	} /* end add line */
+@@ -1427,8 +1427,10 @@
+ 
+    /* check for areas with one link alive and others paused */
+    if (af_robot->autoAreaPause)
++   {
+        if (mode == 0) pauseArea(ACT_PAUSE, link, NULL);
+        else pauseArea(ACT_UNPAUSE, link, NULL);
++   }
+ 
+    return report;
+ }
+@@ -2670,14 +2672,14 @@
+                         if(af_config->readOnly[k].areaMask[0] != '!') {
+                             if (patimat(areas[i].areaName, af_config->readOnly[k].areaMask) &&
+                                 patmat(toAka, af_config->readOnly[k].addrMask)) {
+-                                    arealink->import = 0;
++                                    arealink->n_import = 0;
+                             }
+                         } else {
+                             exclMask = af_config->readOnly[k].areaMask;
+                             exclMask++;
+                             if (patimat(areas[i].areaName, exclMask) &&
+                                 patmat(toAka, af_config->readOnly[k].addrMask)) {
+-                                    arealink->import = 1;
++                                    arealink->n_import = 1;
+                             }
+                         }
+                     }
+@@ -2688,22 +2690,22 @@
+                         if(af_config->writeOnly[k].areaMask[0] != '!') {
+                             if (patimat(areas[i].areaName, af_config->writeOnly[k].areaMask) &&
+                                 patmat(toAka, af_config->writeOnly[k].addrMask)) {
+-                                    arealink->export = 0;
++                                    arealink->n_export = 0;
+                             }
+                         } else {
+                             exclMask = af_config->writeOnly[k].areaMask;
+                             exclMask++;
+                             if (patimat(areas[i].areaName, exclMask) &&
+                                 patmat(toAka, af_config->writeOnly[k].addrMask)) {
+-                                    arealink->export = 1;
++                                    arealink->n_export = 1;
+                             }
+                         }
+                     }
+                 }
+ 
+-                if ((arealink->export == 0) || (arealink->import == 0)) {
++                if ((arealink->n_export == 0) || (arealink->n_import == 0)) {
+                     w_log(LL_AREAFIX, "%s: Link %s will not have full access (export=%s import=%s) to %s %s, skipped",
+-                           af_robot->name, toAka, arealink->export?"on":"off", arealink->import?"on":"off", af_robot->strA, areas[i].areaName);
++                           af_robot->name, toAka, arealink->n_export?"on":"off", arealink->n_import?"on":"off", af_robot->strA, areas[i].areaName);
+                     continue;
+                 }
+ 
+diff -urN husky.orig/areafix/src/query.c husky/areafix/src/query.c
+--- husky.orig/areafix/src/query.c	2005-03-03 13:29:10.000000000 +0300
++++ husky/areafix/src/query.c	2005-05-06 16:18:26.000000000 +0400
+@@ -1257,9 +1257,9 @@
+     arealink = getAreaLink(area, aka);
+     if (arealink) {
+ 	if (type==0) {
+-	    if (!arealink->import) writeAccess = BM_DENY_IMPORT;
++	    if (!arealink->n_import) writeAccess = BM_DENY_IMPORT;
+ 	} else {
+-	    if (!arealink->export) writeAccess = BM_DENY_IMPORT;
++	    if (!arealink->n_export) writeAccess = BM_DENY_IMPORT;
+ 	}
+     } else {
+ 	if (addrComp(aka, *area->useAka)!=0) writeAccess = BM_NOT_LINKED;
+diff -urN husky.orig/fidoconf/fidoconf/fidoconf.h husky/fidoconf/fidoconf/fidoconf.h
+--- husky.orig/fidoconf/fidoconf/fidoconf.h	2005-02-02 19:27:50.000000000 +0300
++++ husky/fidoconf/fidoconf/fidoconf.h	2005-05-06 16:03:31.000000000 +0400
+@@ -195,7 +195,7 @@
+                                  /*  bundle. Default 100 (used in bsopack) */
+     unsigned int packNetmail;    /*  allows to pack outbound */
+                                  /*  netmail. Default no (used in bsopack) */
+-    unsigned int export, import, mandatory, manual; /*  Default link's options */
++    unsigned int n_export, n_import, mandatory, manual; /*  Default link's options */
+     char **optGrp; /*  groups for this options */
+     unsigned int numOptGrp;
+     unsigned int delNotReceivedTIC; /* 1 - if file not recieved, then remove TIC */
+@@ -249,8 +249,8 @@
+ 
+ typedef struct arealink {
+    ps_link link;
+-   unsigned int export;		/*  1 - export yes, 0 - export no */
+-   unsigned int import;		/*  1 - import yes, 0 - import no */
++   unsigned int n_export;	/*  1 - export yes, 0 - export no */
++   unsigned int n_import;	/*  1 - import yes, 0 - import no */
+    unsigned int mandatory;	/*  1 - mandatory yes, 0 - mandatory no */
+    unsigned int manual;		/*  1 - manual yes, 0 - manual no */
+    unsigned int rescan;         /*  1 - rescan yes, 0 - rescan no */
+@@ -335,9 +335,9 @@
+    char         *str;     /*  string to compare */
+    char         *reason;  /*  reason of copy */
+    ps_area      area;     /*  area to copy messages */
+-   hs_addr       addr;     /*  from addr to compare */
++   hs_addr      addr;     /*  from addr to compare */
+    char         *areaName;/*  name of area to copy messages */
+-   int          export;   /*  export copied msg? */
++   int          n_export; /*  export copied msg? */
+    int          netMail;  /*  do this in netmail, not echomail */
+    int          move;	  /*  move (not copy) original msg */
+    int          extspawn; /*  areaName is name of external program to exec */
+diff -urN husky.orig/fidoconf/src/afixcmd.c husky/fidoconf/src/afixcmd.c
+--- husky.orig/fidoconf/src/afixcmd.c	2005-03-13 22:03:43.000000000 +0300
++++ husky/fidoconf/src/afixcmd.c	2005-05-06 16:12:03.000000000 +0400
+@@ -458,14 +458,14 @@
+                 if(config->readOnly[i].areaMask[0] != '!') {
+                     if (patimat(area->areaName, config->readOnly[i].areaMask) &&
+                         patmat(aka2str(link->hisAka), config->readOnly[i].addrMask)) {
+-                            arealink->import = 0;
++                            arealink->n_import = 0;
+                     }
+                 } else {
+                     ExclMask = config->readOnly[i].areaMask;
+                     ExclMask++;
+                     if (patimat(area->areaName, ExclMask) &&
+                         patmat(aka2str(link->hisAka), config->readOnly[i].addrMask)) {
+-                            arealink->import = 1;
++                            arealink->n_import = 1;
+                     }
+                 }
+             }
+@@ -476,14 +476,14 @@
+                 if(config->writeOnly[i].areaMask[0] != '!') {
+                     if (patimat(area->areaName, config->writeOnly[i].areaMask) &&
+                         patmat(aka2str(link->hisAka), config->writeOnly[i].addrMask)) {
+-                            arealink->export = 0;
++                            arealink->n_export = 0;
+                     }
+                 } else {
+                     ExclMask = config->writeOnly[i].areaMask;
+                     ExclMask++;
+                     if (patimat(area->areaName, ExclMask) &&
+                         patmat(aka2str(link->hisAka), config->writeOnly[i].addrMask)) {
+-                            arealink->export = 1;
++                            arealink->n_export = 1;
+                     }
+                 }
+             }
+diff -urN husky.orig/fidoconf/src/fidoconf.c husky/fidoconf/src/fidoconf.c
+--- husky.orig/fidoconf/src/fidoconf.c	2005-02-25 03:06:17.000000000 +0300
++++ husky/fidoconf/src/fidoconf.c	2005-05-06 16:08:10.000000000 +0400
+@@ -290,7 +290,7 @@
+ 		   if (stricmp(cbaName, aptr->areaName)==0) {
+ 		       found++;
+ 		       cb->area = aptr;
+-		       cb->export = 1;
++		       cb->n_export = 1;
+ 		       cb->netMail = 0;
+ 		   }
+ 	       }
+@@ -299,7 +299,7 @@
+ 		   if (stricmp(cbaName, aptr->areaName)==0) {
+ 		       found++;
+ 		       cb->area = aptr;
+-		       cb->export = 0;
++		       cb->n_export = 0;
+ 		       cb->netMail = 0;
+ 		   }
+ 	       }
+@@ -308,7 +308,7 @@
+ 		   if (stricmp(cbaName, aptr->areaName)==0) {
+ 		       found++;
+ 		       cb->area = aptr;
+-		       cb->export = 0;
++		       cb->n_export = 0;
+ 		       cb->netMail = 1;
+ 		   }
+ 	       }
+@@ -329,7 +329,7 @@
+ 	   cb->areaName = (char *) smalloc(sstrlen(config->badArea.areaName)+i+1);
+ 	   if (i) *cb->areaName='*';
+ 	   strcpy(cb->areaName+i,config->badArea.areaName);
+-	   cb->export = 0;
++	   cb->n_export = 0;
+ 	 } else {
+ 	   printf("Could not find area \"%s\" for carbon copy and BadArea not defined. Can't use this area for carbon copy\n", cb->areaName);
+            cb->area = NULL;
+@@ -357,7 +357,7 @@
+                         for (nalink=0, dlink=aptr->downlinks; nalink < aptr->downlinkCount; nalink++, dlink++) {
+                             if (patmat (aka2str((*dlink)->link->hisAka),
+                                 config->readOnly[i].addrMask)) {
+-                                (*dlink)->import = 0;
++                                (*dlink)->n_import = 0;
+                             }
+                         }
+                     }
+@@ -370,7 +370,7 @@
+                         for (nalink=0, dlink=aptr->downlinks; nalink < aptr->downlinkCount; nalink++, dlink++) {
+                             if (patmat (aka2str((*dlink)->link->hisAka),
+                                 config->readOnly[i].addrMask)) {
+-                                (*dlink)->import = 1;
++                                (*dlink)->n_import = 1;
+                             }
+                         }
+                     }
+@@ -387,7 +387,7 @@
+                         for (nalink=0, dlink=aptr->downlinks; nalink < aptr->downlinkCount; nalink++, dlink++) {
+                             if (patmat (aka2str((*dlink)->link->hisAka),
+                                 config->writeOnly[i].addrMask)) {
+-                                (*dlink)->export = 0;
++                                (*dlink)->n_export = 0;
+                             }
+                         }
+                     }
+@@ -400,7 +400,7 @@
+                         for (nalink=0, dlink=aptr->downlinks; nalink < aptr->downlinkCount; nalink++, dlink++) {
+                             if (patmat (aka2str((*dlink)->link->hisAka),
+                                 config->writeOnly[i].addrMask)) {
+-                                (*dlink)->export = 1;
++                                (*dlink)->n_export = 1;
+                             }
+                         }
+                     }
+@@ -512,8 +512,8 @@
+                clink->areafix.on = 1;
+                clink->filefix.on = 1;
+                clink->filefix.autoCreate = 1; /* needed for hpucode + htick */
+-               clink->export = 0;         /* do not export anything to virtual link */
+-               clink->import = 1;
++               clink->n_export = 0;         /* do not export anything to virtual link */
++               clink->n_import = 1;
+                clink->maxUnpackedNetmail = 100;
+                memcpy ( &(clink->hisAka), &(config->addr[i]), sizeof(hs_addr));
+                clink->ourAka = &(config->addr[i]);
+diff -urN husky.orig/fidoconf/src/line.c husky/fidoconf/src/line.c
+--- husky.orig/fidoconf/src/line.c	2005-05-06 10:45:21.000000000 +0400
++++ husky/fidoconf/src/line.c	2005-05-06 16:10:29.000000000 +0400
+@@ -626,21 +626,21 @@
+     
+     if (link->numOptGrp > 0) {
+         /*  default set export on, import on, mandatory off, manual off */
+-        arealink->export = 1;
+-        arealink->import = 1;
++        arealink->n_export = 1;
++        arealink->n_import = 1;
+         arealink->mandatory = 0;
+         arealink->manual = 0;
+         
+         if (grpInArray(area->group,link->optGrp,link->numOptGrp)) {
+-            arealink->export = link->export;
+-            arealink->import = link->import;
++            arealink->n_export = link->n_export;
++            arealink->n_import = link->n_import;
+             arealink->mandatory = link->mandatory;
+             arealink->manual = link->manual;
+         }
+         
+     } else {
+-        arealink->export = link->export;
+-        arealink->import = link->import;
++        arealink->n_export = link->n_export;
++        arealink->n_import = link->n_import;
+         arealink->mandatory = link->mandatory;
+         arealink->manual = link->manual;
+     }
+@@ -649,25 +649,25 @@
+ 
+     if (area->mandatory) arealink->mandatory = 1;
+     if (area->manual) arealink->manual = 1;
+-    if ((area->levelread > link->level) || ((link->Pause & area->areaType) && (!area->noPause))) arealink->export = 0;
+-    if (area->levelwrite > link->level) arealink->import = 0;
++    if ((area->levelread > link->level) || ((link->Pause & area->areaType) && (!area->noPause))) arealink->n_export = 0;
++    if (area->levelwrite > link->level) arealink->n_import = 0;
+ 
+     if (area->group) {
+         if (link->numAccessGrp) {
+             if (config->numPublicGroup) {
+                 if (!grpInArray(area->group,link->AccessGrp,link->numAccessGrp) &&
+                     !grpInArray(area->group,config->PublicGroup,config->numPublicGroup)) {
+-                    arealink->export = 0;
+-                    arealink->import = 0;
++                    arealink->n_export = 0;
++                    arealink->n_import = 0;
+                 }
+             } else if (!grpInArray(area->group,link->AccessGrp,link->numAccessGrp)) {
+-                arealink->export = 0;
+-                arealink->import = 0;
++                arealink->n_export = 0;
++                arealink->n_import = 0;
+             }
+         } else if (config->numPublicGroup) {
+             if (!grpInArray(area->group,config->PublicGroup,config->numPublicGroup)) {
+-                arealink->export = 0;
+-                arealink->import = 0;
++                arealink->n_export = 0;
++                arealink->n_import = 0;
+             }
+         }
+     }
+@@ -1203,8 +1203,8 @@
+         return 1;
+     }
+     iToken = strLower(sstrdup(token));
+-    if (strcmp(iToken, "r")==0) alink->import = 0;
+-    else if (strcmp(iToken, "w")==0) alink->export = 0;
++    if (strcmp(iToken, "r")==0) alink->n_import = 0;
++    else if (strcmp(iToken, "w")==0) alink->n_export = 0;
+     else if (strcmp(iToken, "mn")==0) alink->mandatory = 1;
+     else if (strcmp(iToken, "def")==0) alink->defLink = 1;
+     else {
+@@ -1853,8 +1853,8 @@
+       clink->filefix.on = 1;
+ 
+       /*  set defaults to export, import, mandatory (0), manual (0) */
+-      clink->export = 1;
+-      clink->import = 1;
++      clink->n_export = 1;
++      clink->n_import = 1;
+       clink->ourAka = &(config->addr[0]);
+ 
+       /*  set default maxUnpackedNetmail */
+@@ -3141,8 +3141,8 @@
+       config->linkDefaults->filefix.on = 1;
+ 
+       /*  set defaults to export, import, mandatory (0), manual (0) */
+-      config->linkDefaults->export = 1;
+-      config->linkDefaults->import = 1;
++      config->linkDefaults->n_export = 1;
++      config->linkDefaults->n_import = 1;
+       config->linkDefaults->ourAka = &(config->addr[0]);
+ 
+       /*  set defaults maxUnpackedNetmail */
+@@ -3701,10 +3701,12 @@
+             if (link_robot == 1 || link_robot == 2) {
+               clink = getDescrLink(config);
+               if (clink)
++	      {
+                 if (link_robot == 1)
+                     fc_copyString(getRestOfLine(), &(clink->areafix.name));
+                 else
+                     fc_copyString(getRestOfLine(), &(clink->filefix.name));
++	      }
+             }
+             else
+               rc = fc_copyString(getRestOfLine(), &(config->name));
+@@ -4044,14 +4046,14 @@
+             break;
+         case ID_EXPORT:
+             if( (clink = getDescrLink(config)) != NULL ) {
+-                rc = parseBool (getRestOfLine(), &clink->export);
++                rc = parseBool (getRestOfLine(), &clink->n_export);
+             } else {
+                 rc = 1;
+             }
+             break;
+         case ID_IMPORT:
+             if( (clink = getDescrLink(config)) != NULL ) {
+-                rc = parseBool (getRestOfLine(), &clink->import);
++                rc = parseBool (getRestOfLine(), &clink->n_import);
+             } else {
+                 rc = 1;
+             }
+diff -urN husky.orig/fidoconf/src/tparser.c husky/fidoconf/src/tparser.c
+--- husky.orig/fidoconf/src/tparser.c	2005-04-12 10:50:35.000000000 +0400
++++ husky/fidoconf/src/tparser.c	2005-05-06 16:14:15.000000000 +0400
+@@ -410,17 +410,17 @@
+        printf(" level %d,", area.downlinks[i]->link->level);
+ /*       printf(" exp. %s,", (area.downlinks[i]->export) ? "on" : "off");
+        printf(" imp. %s,", (area.downlinks[i]->import) ? "on" : "off");*/
+-       if(area.downlinks[i]->export || area.downlinks[i]->import)
++       if(area.downlinks[i]->n_export || area.downlinks[i]->n_import)
+            printf(" "); else printf(" no access");
+-       if(area.downlinks[i]->export)
++       if(area.downlinks[i]->n_export)
+            printf("read");
+-       if(area.downlinks[i]->export && area.downlinks[i]->import)
++       if(area.downlinks[i]->n_export && area.downlinks[i]->n_import)
+            printf("/");
+-       if(area.downlinks[i]->import)
++       if(area.downlinks[i]->n_import)
+            printf("write");
+-       if(area.downlinks[i]->export && area.downlinks[i]->rescan)
++       if(area.downlinks[i]->n_export && area.downlinks[i]->rescan)
+            printf("/rescan");
+-       if((area.downlinks[i]->export + area.downlinks[i]->import)==1)
++       if((area.downlinks[i]->n_export + area.downlinks[i]->n_import)==1)
+            printf(" only");
+        printf(",");
+        printf(" defLink %s,", (area.downlinks[i]->defLink) ? "on" : "off");
+@@ -488,15 +488,15 @@
+        printf("\t");
+        printAddr(&(area.downlinks[i]->link->hisAka));
+        printf(" level %d,", area.downlinks[i]->link->level);
+-       if(area.downlinks[i]->export || area.downlinks[i]->import)
++       if(area.downlinks[i]->n_export || area.downlinks[i]->n_import)
+            printf(" "); else printf(" no access");
+-       if(area.downlinks[i]->export)
++       if(area.downlinks[i]->n_export)
+            printf("receive");
+-       if(area.downlinks[i]->export && area.downlinks[i]->import)
++       if(area.downlinks[i]->n_export && area.downlinks[i]->n_import)
+            printf("/");
+-       if(area.downlinks[i]->import)
++       if(area.downlinks[i]->n_import)
+            printf("send");
+-       if((area.downlinks[i]->export + area.downlinks[i]->import)==1)
++       if((area.downlinks[i]->n_export + area.downlinks[i]->n_import)==1)
+            printf(" only");
+        printf(",");
+ /*       printf(" export %s,", (area.downlinks[i]->export) ? "on" : "off");
+@@ -634,8 +634,8 @@
+    if (link->emailFrom) printf("emailFrom:  %s\n", link->emailFrom);
+    if (link->emailSubj) printf("emailSubj:  %s\n", link->emailSubj);
+    printf("Level:      %u\n", link->level);
+-   printf("Export:     %s\n",(link->export) ? "on" : "off");
+-   printf("Import:     %s\n",(link->import) ? "on" : "off");
++   printf("Export:     %s\n",(link->n_export) ? "on" : "off");
++   printf("Import:     %s\n",(link->n_import) ? "on" : "off");
+    printf("Mandatory:  %s\n",(link->mandatory) ? "on" : "off");
+ 
+    printf("AvailList: ");
+@@ -1175,7 +1175,7 @@
+         }
+         putchar('\n');
+         if (cb->reason) printf("CarbonReason:   %s\n", cb->reason);
+-        if (cb->export) printf("Copied messages will be exported.\n");
++        if (cb->n_export) printf("Copied messages will be exported.\n");
+         if (cb->netMail) printf("Active on netMail\n");
+         if(cb->areaName!=NULL)
+             if (*cb->areaName=='*') printf("CarbonAndQuit ignored.\n");
+diff -urN husky.orig/hpt/src/carbon.c husky/hpt/src/carbon.c
+--- husky.orig/hpt/src/carbon.c	2004-05-28 01:08:12.000000000 +0400
++++ husky/hpt/src/carbon.c	2005-05-06 16:24:29.000000000 +0400
+@@ -156,7 +156,7 @@
+ int processCarbonCopy (s_area *area, s_area *echo, s_message *msg, s_carbon carbon)
+ {
+     char *p, *text, *line, *old_text, *reason = carbon.reason;
+-    int i, old_textLength, export = carbon.export, rc = 0;
++    int i, old_textLength, n_export = carbon.n_export, rc = 0;
+ 
+     statToss.CC++;
+ 
+@@ -187,9 +187,9 @@
+ 
+     if (!msg->netMail) {
+         xstrscat(&msg->text,
+-                 (export) ? "AREA:" : "",
+-                 (export) ? area->areaName : "",
+-                 (export) ? "\r" : "",
++                 (n_export) ? "AREA:" : "",
++                 (n_export) ? area->areaName : "",
++                 (n_export) ? "\r" : "",
+                  "\001AREA:", echo->areaName,
+                  "\r" , NULL);
+     }
+@@ -236,7 +236,7 @@
+     strncat(msg->text,text,i); /*  copy rest of msg */
+     msg->textLength += i;
+ 
+-    if (!export) {
++    if (!n_export) {
+ 	if (msg->netMail) rc = putMsgInArea(area,msg,0,MSGSENT);
+ 	else rc = putMsgInArea(area,msg,0,0);
+ 	area->imported++;  /*  area has got new messages */
+diff -urN husky.orig/hpt/src/hptafix.c husky/hpt/src/hptafix.c
+--- husky.orig/hpt/src/hptafix.c	2005-04-11 11:25:25.000000000 +0400
++++ husky/hpt/src/hptafix.c	2005-05-06 16:23:19.000000000 +0400
+@@ -113,7 +113,7 @@
+                   if (rescanCount < 0 || rescanCount > link->rescanLimit)
+                     rescanCount = link->rescanLimit;
+                 }
+-                if (arealink->export) {
++                if (arealink->n_export) {
+                     rcc = rescanEMArea(area, arealink, rescanCount, rescanAfter);
+                     tossTempOutbound(config->tempOutbound);
+                 } else {
+diff -urN husky.orig/hpt/src/perl.c husky/hpt/src/perl.c
+--- husky.orig/hpt/src/perl.c	2005-04-01 15:48:11.000000000 +0400
++++ husky/hpt/src/perl.c	2005-05-06 16:19:43.000000000 +0400
+@@ -1168,8 +1168,8 @@
+                             1 | config->echoAreas[i].downlinks[j]->defLink << 1
+                             | config->echoAreas[i].downlinks[j]->manual << 2
+                             | config->echoAreas[i].downlinks[j]->mandatory << 3
+-                            | config->echoAreas[i].downlinks[j]->import << 4
+-                            | config->echoAreas[i].downlinks[j]->export << 5
++                            | config->echoAreas[i].downlinks[j]->n_import << 4
++                            | config->echoAreas[i].downlinks[j]->n_export << 5
+                            );
+           }
+           /* val r/o: SvREADONLY_on(hv3); */
+diff -urN husky.orig/hpt/src/seenby.c husky/hpt/src/seenby.c
+--- husky.orig/hpt/src/seenby.c	2004-12-08 07:53:02.000000000 +0300
++++ husky/hpt/src/seenby.c	2005-05-06 16:23:00.000000000 +0400
+@@ -333,7 +333,7 @@
+         if ( checkLink(seenBys, seenByCount, echo->downlinks[i]->link,
+             pktOrigAddr, echo)!=0) continue;
+         /*  link with "export off" */
+-        if (echo->downlinks[i]->export == 0) continue;
++        if (echo->downlinks[i]->n_export == 0) continue;
+         
+         if (pktOrigAddr.zone==echo->downlinks[i]->link->hisAka.zone) {
+             /*  links with same zone */
+diff -urN husky.orig/htick/src/htickafix.c husky/htick/src/htickafix.c
+--- husky.orig/htick/src/htickafix.c	2005-03-06 21:30:45.000000000 +0300
++++ husky/htick/src/htickafix.c	2005-05-06 16:25:39.000000000 +0400
+@@ -109,14 +109,14 @@
+ 		
+ 		if (link->numOptGrp) {
+ 			if (grpInArray(echo->group,link->optGrp,link->numOptGrp)) {
+-				if (link->export==0) return 3; else rc = 0;
++				if (link->n_export==0) return 3; else rc = 0;
+ 			}
+ 		}
+ 	}
+ 	
+     if (echo->levelread > link->level) return 2;
+     /* check for 'access export' for arealink set up by WriteOnly keyword */
+-    if (echo->downlinks[i]->export==0) return 3;
++    if (echo->downlinks[i]->n_export==0) return 3;
+ 
+     return rc;
+ }
+@@ -157,14 +157,14 @@
+ 
+ 		if (link->numOptGrp) {
+ 			if (grpInArray(echo->group,link->optGrp,link->numOptGrp)) {
+-				if (link->import==0) return 3; else rc = 0;
++				if (link->n_import==0) return 3; else rc = 0;
+ 			}
+ 		}
+     }
+ 	
+     if (echo->levelwrite > link->level) return 2;
+     /* check for 'access import' for arealink set up by ReadOnly keyword */
+-    if (echo->downlinks[i]->import==0) return 3;
++    if (echo->downlinks[i]->n_import==0) return 3;
+ 
+     return rc;
+ }

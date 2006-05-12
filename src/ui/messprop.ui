@@ -1,0 +1,32 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>TMessageProp</class>
+<author>Alexander Shiyan</author>
+<widget class="QDialog">
+    <property name="name">
+        <cstring>TMessageProp</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>367</width>
+            <height>221</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>Message Properties</string>
+    </property>
+</widget>
+<includes>
+    <include location="local" impldecl="in implementation">tconfig.h</include>
+    <include location="local" impldecl="in implementation">messprop.ui.h</include>
+</includes>
+<slots>
+    <slot access="protected">closeEvent( QCloseEvent * e )</slot>
+</slots>
+<functions>
+    <function access="private" specifier="non virtual">init()</function>
+</functions>
+<pixmapinproject/>
+<layoutdefaults spacing="2" margin="6"/>
+</UI>

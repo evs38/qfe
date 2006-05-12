@@ -1,0 +1,28 @@
+/* XPM */
+static char *icon_delete[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 6 1",
+"  c black",
+". c red",
+"X c #808080",
+"o c gray60",
+"O c gray100",
+"+ c None",
+/* pixels */
+"+++++.....++++++",
+"+++.........++++",
+"++...........+++",
+"+...O.....O...++",
+"+..OOO...OOO..X+",
+"....OOO.OOO....o",
+".....OOOOO.....X",
+"......OOO......X",
+".....OOOOO.....X",
+"....OOO.OOO....X",
+"+..OOO...OOO..Xo",
+"+...O.....O...X+",
+"++...........Xo+",
+"+++.........Xo++",
+"++++o.....XXo+++",
+"++++++XXXXo+++++"
+};

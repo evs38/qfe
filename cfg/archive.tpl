@@ -1,0 +1,3 @@
+Message from @origarea@:
+
+@text@

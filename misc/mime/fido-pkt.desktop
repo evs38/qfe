@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=MimeType
+Hidden=false
+Icon=fidonet
+MimeType=message/fidonet
+Patterns=*.pkt;*.dut;*.hut
+Comment=Fidonet message packet
+Comment[ru]=Пакет сообщений ФИДО

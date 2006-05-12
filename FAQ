@@ -1,0 +1,18 @@
+---------------------------------- QFE FAQ ------------------------------------
+Q: What is Fidonet?
+A: Go to http://www.fidonet.org/
+-------------------------------------------------------------------------------
+Q: What is qembed? I can't find it in my qt library (3.3.X). QFE need this
+   to compile.
+A: The QEmbed tool, found in qt/tools/qembed, converts arbitrary files into C++
+   code. This is useful for including image files and other resources directly
+   into your application rather than loading the data from external files. More
+   information about qembed found at http://doc.trolltech.com/3.3/qembed.html.
+-------------------------------------------------------------------------------
+Q: When I trying to compile QFE, I receive error:
+   /usr/include/fidoconf/fidoconf.h:131: error: expected unqualified-id before
+   "export"...
+A: You do not apply patch to husky. It located at qfe/misc/husky.patch.
+   MacOS users also need rename flavour constant 'normal' to f_normal, line 116
+   in fidoconf.h must be presented as: typedef enum flavour {f_normal=1, ...
+-------------------------------------------------------------------------------

@@ -1,0 +1,25 @@
+/* XPM */
+static char *icon_rescan[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 3 1",
+"  c black",
+". c #FF7B00",
+"X c None",
+/* pixels */
+"X              X",
+"                ",
+"  XXXXXXXXXXXX  ",
+"  XXXXX.XXXXXX  ",
+"  XXXXX..XXXXX  ",
+"  XX......XXXX  ",
+"  X..XX..XXXXX  ",
+"  X..XX.XXX..X  ",
+"  X..XXX.XX..X  ",
+"  XXXXX..XX..X  ",
+"  XXXX......XX  ",
+"  XXXXX..XXXXX  ",
+"  XXXXXX.XXXXX  ",
+"  XXXXXXXXXXXX  ",
+"                ",
+"X              X"
+};
