@@ -46,10 +46,10 @@ unix:!mac:exists(.distignore) {
 	dist.commands = @cd misc && sh -c "./make_dist.sh $$DISTARCH"
 
 	update.target = update
-	update.commands = @cvs update
+	update.commands = @svn update
 
 	commit.target = commit
-	commit.commands = @cvs commit
+	commit.commands = @svn commit
 
 	QMAKE_EXTRA_UNIX_TARGETS += dist update commit
 }
