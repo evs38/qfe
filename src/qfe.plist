@@ -11,11 +11,11 @@
 	<key>CFBundleName</key>
 	<string>QFE</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.4.99-cvs</string>
+	<string>0.4.99-svn</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>(C) 2005-2006 by Alexander Shiyan</string>
         <key>CFBundleGetInfoString</key>
-	<string>0.4.99-cvs, (C) 2005-2006 by Alexander Shiyan</string>
+	<string>0.4.99-svn, (C) 2005-2006 by Alexander Shiyan</string>
 	<key>CFBundleSignature</key>
 	<string>ttxt</string>
 	<key>CFBundleExecutable</key>

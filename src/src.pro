@@ -179,11 +179,6 @@ unix {
 		examples.files = ../examples/*.bat
 		examples.files += ../examples/*.sh
 
-		mac {
-			lproj_ru.path = $$HOME_PATH/$(QMAKE_TARGET).app/Contents/Resources/ru.lproj
-			lproj_ru.extra = $(COPY_FILE) ../misc/InfoPlist_ru.strings $(INSTALL_ROOT)$$lproj_ru.path/InfoPlist.strings
-		}
-
 		!mac {
 			desklink.path = $$HOME_PATH/share/applications
 			desklink.files = ../misc/qfe.desktop
@@ -203,7 +198,6 @@ unix {
 
 		INSTALLS += target readme examples
 		!mac:INSTALLS += desklink deskicon1 deskicon2 mime1 mime2
-		mac:INSTALLS += lproj_ru
 		langsupport:INSTALLS += translations
 	}
 }
