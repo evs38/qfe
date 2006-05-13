@@ -32,9 +32,9 @@ void TAbout::init()
 
 	QString Txt = QString("QFE/%1 " + QObject::tr("Version") + ": %2<br>").arg(PLATFORM_NAME).arg(QFE_VERSION);
 
-	if (QString(QFE_VERSION).find("cvs") > -1)
+	if (QString(QFE_VERSION).find("svn") > -1)
 		if (tokencount(QFE_REVISION) == 3)
-			Txt.append(QObject::tr("Revision")).append(" %1<br>").arg(gettoken(QFE_REVISION, 2));
+			Txt.append(QString("Rev %1<br>").arg(gettoken(QFE_REVISION, 2)));
 
 	Txt.append("<br>");
 	Txt.append(QObject::tr("Written and distributed under the GNU General Public License") + "<br><br>");

@@ -1,4 +1,4 @@
-QFE version  CVS  ============================================================
+QFE version  SVN  ============================================================
 - Fix crash when append address from main list into AddressBook.
 - Added support for view JPEG-images in GIF-kludge.
 - Added example fidoconf configuration file.
