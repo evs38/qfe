@@ -13,6 +13,7 @@ QFE version  SVN  ============================================================
 - Fixes for quoting as described in FSC-0032.
 - QFE now not use SMAPI! We use own classes and functions for access to
   messagebases.
+- Added "-l" command line option, which override language for interface.
 - Fixes for compile on MacOS X.
 - Fixes for compile on x86_64 platform.
 - Update Binreloc library.

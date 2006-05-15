@@ -1143,8 +1143,12 @@
         <translation>База сообщений в формате SQUISH (*.sqd)</translation>
     </message>
     <message>
-        <source>Revision</source>
-        <translation>Ревизия</translation>
+        <source> -l,--lang      <byte value="x9"/>Override system language for interface.</source>
+        <translation> -l,--lang      <byte value="x9"/>Переопределить язык интерфейса.</translation>
+    </message>
+    <message>
+        <source>Option &apos;--lang&apos; require language code as parameter.</source>
+        <translation>Опция &apos;--lang&apos; требует код языка в качестве параметра.</translation>
     </message>
 </context>
 <context>

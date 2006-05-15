@@ -68,6 +68,7 @@ bool GlobalQfeError = false;
 bool UseGUI = true;
 
 QString StartArea = QString::null;
+QTranslator *translator;
 
 #if defined(Q_OS_WIN)
 #	define QFEWindowIdent	"QFEWindowIdent"
@@ -202,9 +203,24 @@ int main(int argc, char ** argv)
 
 	QDir tsdir = QDir(Get_OS_Specific_Path(PROGRAM_PATH_LOCALE));
 
-	QTranslator translator(0);
-	if (translator.load(tsdir.absPath().append(QDir::separator()).append("qfe_").append(GET_CURRENT_LOCALE())))
-		qApp->installTranslator(&translator);
+	/* Language override */
+	QString arg, tmp = QString::null;
+	for (i = 1; i < qApp->argc(); i++)
+	{
+		arg = qApp->argv()[i];
+		if ((arg == "-l") || (arg == "--lang"))
+		{
+			if (qApp->argc() > (i + 1))
+				tmp = qApp->argv()[i + 1];
+			break;
+		}
+	}
+	if (tmp.isEmpty())
+		tmp = GET_CURRENT_LOCALE();
+
+	translator = new QTranslator(0);
+	if (translator->load(tsdir.absPath().append(QDir::separator()).append("qfe_").append(tmp)))
+		qApp->installTranslator(translator);
 	else
 		debugmessage(QString("Can`t load translator for locale \"%1\". Locale path is %2.").arg(QTextCodec::locale()).arg(tsdir.absPath()));
 
@@ -212,7 +228,7 @@ int main(int argc, char ** argv)
 
 	for (i = 1; i < qApp->argc(); i++)
 	{
-		QString tmp, arg = qApp->argv()[i];
+		arg = qApp->argv()[i];
 		if ((arg == "-c") || (arg == "--configdir"))
 		{
 			if (qApp->argc() > (i + 1))
@@ -251,6 +267,7 @@ int main(int argc, char ** argv)
 			tmp.append(QObject::tr("Available options:") + "\n");
 			tmp.append(QObject::tr(" -c,--configdir \tUse alternate directory with user settings.") + "\n");
 			tmp.append(QObject::tr(" -ns,--nosplash \tDisable splash screen at startup.") + "\n");
+			tmp.append(QObject::tr(" -l,--lang      \tOverride system language for interface.") + "\n");
 			tmp.append(QObject::tr(" -V,--version   \tShow program version and exit.") + "\n");
 #if defined(Q_OS_UNIX) && !defined(Q_OS_MACX)
 			tmp.append(QObject::tr(" -r,--root      \tAllow run program by superuser.") + "\n");
@@ -260,6 +277,16 @@ int main(int argc, char ** argv)
 			tmp.append(QObject::tr(" -h,--help      \tThis help.") + "\n");
 			StartUpMessage(UseGUI, tmp);
 			return 0;
+		} else if ((arg == "-l") || (arg == "--lang"))
+		{
+			if (qApp->argc() > (i + 1))
+			{
+				/* Dummy here... */
+				i++;
+			} else {
+				StartUpMessage(UseGUI, QObject::tr("Option '--lang' require language code as parameter."));
+				return 1;
+			}
 		} else
 			StartUpMessage(false, QObject::tr("Incorrect option") + ": " + arg);
 	}
@@ -425,6 +452,8 @@ int main(int argc, char ** argv)
 
 	delete Config;
 	Config = NULL;
+
+	delete translator;
 
 #if !defined(Q_OS_WIN)
 	PID.remove();
