@@ -436,7 +436,7 @@ int main(int argc, char ** argv)
 
 #			warning "This is debug code. Must be removed in release!"
 			if (!Config->IsDevelopMode())
-				informationmessage(NULL, "This version is unstable.\nRemember, Jam & Squish areas is read-only.");
+				informationmessage(NULL, "This version is unstable.\nRemember, Jam-types areas is read-only yet.");
 
 			qApp->mainWidget()->show();
 

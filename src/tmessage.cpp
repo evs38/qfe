@@ -73,8 +73,8 @@ void TMessage::CopyAttributesTo(TMessage *Dest)
 	qstrcpy((char*)Dest->to, (char*)to);
 	qstrcpy((char*)Dest->subj, (char*)subj);
 
-	qstrncpy((char*)&Dest->origaddr, (const char*)&origaddr, sizeof(fidoaddr));
-	qstrncpy((char*)&Dest->destaddr, (const char*)&destaddr, sizeof(fidoaddr));
+	memcpy(&Dest->origaddr, &origaddr, sizeof(fidoaddr));
+	memcpy(&Dest->destaddr, &destaddr, sizeof(fidoaddr));
 
 	Dest->dt = dt;
 	Dest->attr = attr;

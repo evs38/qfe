@@ -100,6 +100,7 @@ bool RegenerateSQI(TArea *Base)
 		/* Uncomment to repair BaseInfo.num_msg field */
 		/*
 		b_obj->BaseInfo.num_msg = cnt;
+		b_obj->BaseInfo.high_msg = cnt;
 		rewind(b_obj->SQD);
 		fwrite((char*)&b_obj->BaseInfo, sizeof(AreaItem_Squish_Base), 1, b_obj->SQD);
 		*/
@@ -470,7 +471,7 @@ bool WriteArea_Squish(TArea *Base, uint32_t Index)
 	qstrncpy((char*)&Header.to, (char*)it->to, MAX_TO_NAME_LEN);
 	qstrncpy((char*)&Header.subj, (char*)it->subj, MAX_SUBJ_LEN);
 
-	qstrncpy((char*)&Header.fts_date, DateTime2Fts(it->dt).ascii(), MAX_DATE_LEN);
+	memcpy(&Header.fts_date, DateTime2Fts(it->dt).ascii(), MAX_DATE_LEN);
 	uint32_t tmp;
 	DateTime2Opus(it->dt, &tmp);
 	Header.date_written = tmp;
@@ -593,6 +594,7 @@ bool WriteArea_Squish(TArea *Base, uint32_t Index)
 			break;
 		b_obj->BaseInfo.end_frame = ftell(b_obj->SQD);
 		b_obj->BaseInfo.num_msg = Base->count();
+		b_obj->BaseInfo.high_msg = b_obj->BaseInfo.num_msg;
 		rewind(b_obj->SQD);
 		if (fwrite((char*)&b_obj->BaseInfo, sizeof(AreaItem_Squish_Base), 1, b_obj->SQD) != 1)
 			break;
@@ -643,6 +645,7 @@ bool DeleteArea_Squish(TArea *Base, uint32_t Index)
 
 	rewind(b_obj->SQD);
 	b_obj->BaseInfo.num_msg = b_obj->BaseInfo.num_msg - 1;
+	b_obj->BaseInfo.high_msg = b_obj->BaseInfo.num_msg;
 	if (fwrite((char*)&b_obj->BaseInfo, sizeof(AreaItem_Squish_Base), 1, b_obj->SQD) != 1)
 		return false;
 

@@ -253,7 +253,7 @@ bool WriteArea_Msg(TArea *Base, uint32_t Index)
 		qstrncpy((char*)&Header.to, (char*)it->to, MAX_TO_NAME_LEN);
 		qstrncpy((char*)&Header.subj, (char*)it->subj, MAX_SUBJ_LEN);
 
-		qstrncpy((char*)&Header.datetime, DateTime2Fts(it->dt).ascii(), MAX_DATE_LEN);
+		memcpy(&Header.datetime, DateTime2Fts(it->dt).ascii(), MAX_DATE_LEN);
 
 		Header.orignet = it->origaddr.net;
 		Header.orignode = it->origaddr.node;

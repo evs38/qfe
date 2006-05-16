@@ -781,7 +781,7 @@ void TEditWindow::Save(bool isDraft)
 	}
 
 	if (Areas->at(Areas->Find(DestArea))->AreaType == AREATYPE_ECHOMAIL)
-		qstrncpy((char*)&taddr, (const char*)faddr, sizeof(hs_addr));
+		memcpy(&taddr, faddr, sizeof(hs_addr));
 	else
 	{
 		if (!str2addr(ToAddrEdit->text(), &taddr))

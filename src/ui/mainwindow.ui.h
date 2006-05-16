@@ -1322,9 +1322,6 @@ void TMainWindow::ActionRescanAll()
 
 	cnt += 2 + Config->FidoConfig->localAreaCount + Config->FidoConfig->echoAreaCount;
 
-#warning "Debug code!"
-QTime t;
-t.start();
 	for (i = 0; i < (int)Config->FidoConfig->netMailAreaCount; i++)
 	{
 		ShowProgress((j * 100) / cnt, Config->FidoConfig->netMailAreas[i].areaName, PROGRESS_TYPE_RESCAN);
@@ -1353,7 +1350,6 @@ t.start();
 		j++;
 		AddBase(&Config->FidoConfig->echoAreas[i], AREATYPE_ECHOMAIL);
 	}
-qDebug("Rescan Time: %d ms", t.elapsed());
 
 	QToolTip::remove(AreaList);
 
