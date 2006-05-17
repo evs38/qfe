@@ -1263,6 +1263,10 @@
         <source>Group Description:</source>
         <translation>Описание группы:</translation>
     </message>
+    <message>
+        <source>Uplink:</source>
+        <translation>Аплинк:</translation>
+    </message>
 </context>
 <context>
     <name>TAreaSelect</name>

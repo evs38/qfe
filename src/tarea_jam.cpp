@@ -79,7 +79,7 @@ bool RescanArea_Jam(TArea *Base)
 						break;
 					if (fread((char*)&JamHeader, sizeof(AreaItem_Jam_Header), 1, b_obj->JHR) != 1)
 						break;
-					if ((strncmp((const char*)&JamHeader.signature, JAM_MAGIC, 4) != 0) && (JamHeader.revision == JAM_REVISION))
+					if ((memcmp((const char*)&JamHeader.signature, JAM_MAGIC, 4) != 0) && (JamHeader.revision == JAM_REVISION))
 						break;
 
 					if ((JamHeader.attribute & JAM_FLAG_DELETED) != 0)
@@ -560,9 +560,7 @@ void SetLastReadArea_Jam(TArea *Base, uint32_t userid, uint32_t Index)
 		if (!found)
 		{
 			memset((char*)&LastRead, '\0', sizeof(AreaItem_Jam_Lastread));
-
 			LastRead.userid = userid;
-#warning "FIXME: Hash or CRC?"
 			LastRead.usercrc = Calculate_CRC((const uint8_t*)Base->User);
 		}
 

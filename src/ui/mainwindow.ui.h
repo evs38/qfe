@@ -540,7 +540,6 @@ void TMainWindow::LoadTemplate(QString Name, QString Area, QString *Buff)
 
 void TMainWindow::ActionSave()
 {
-/*Works*/
 	TMessage *Message = ((TMessageItem*)MessageList->selectedItem())->Message;
 	QFileDialog* fd = new QFileDialog(this);
 
@@ -742,7 +741,6 @@ void TMainWindow::ActionForward()
 
 void TMainWindow::ActionDelete()
 {
-/*Works*/
 	if (extquestionmessage(this, QObject::tr("Do You really want delete current message?"), CONFIG_CONFIRM_DELETE))
 	{
 		TMessage *Message = ((TMessageItem*)MessageList->selectedItem())->Message;
@@ -833,7 +831,6 @@ void TMainWindow::ActionMarkMessage()
 
 void TMainWindow::ActionAddToBook()
 {
-/*Worked*/
 	TAddressBook *AddressBook = new TAddressBook(this);
 	AddressBook->SetUp(false);
 
@@ -953,7 +950,6 @@ void TMainWindow::ActionNextArea()
 
 void TMainWindow::ActionMarkAllAsRead()
 {
-/*Worked*/
 	TArea *Area = ((TAreaItem*)AreaList->selectedItem())->Area;
 	if (Area->Open())
 	{

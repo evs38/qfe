@@ -108,6 +108,13 @@ bool RegenerateSQI(TArea *Base)
 		return false;
 	}
 
+	if (b_obj->BaseInfo.high_msg != b_obj->BaseInfo.num_msg)
+	{
+		b_obj->BaseInfo.high_msg = b_obj->BaseInfo.num_msg;
+		rewind(b_obj->SQD);
+		fwrite((char*)&b_obj->BaseInfo, sizeof(AreaItem_Squish_Base), 1, b_obj->SQD);
+	}
+
 	return true;
 }
 
@@ -169,6 +176,7 @@ bool RemoveFrameFromChain(TArea *Base, uint32_t Ofs, bool isFree)
 				break;
 		}
 
+
 		/* Update next frame info */
 		if (NextOfs > 0)
 		{
@@ -176,7 +184,7 @@ bool RemoveFrameFromChain(TArea *Base, uint32_t Ofs, bool isFree)
 				break;
 			if (fread((char*)&Frame, sizeof(AreaItem_Squish_Frame), 1, b_obj->SQD) != 1)
 				break;
-			Frame.prev_frame = PrevOfs;
+			Frame.prev_frame = (PrevOfs > 0) ? PrevOfs : SQUISH_FRAME_NULL;
 			if (fseek(b_obj->SQD, NextOfs, SEEK_SET) != 0)
 				break;
 			if (fwrite((char*)&Frame, sizeof(AreaItem_Squish_Frame), 1, b_obj->SQD) != 1)
@@ -544,21 +552,8 @@ bool WriteArea_Squish(TArea *Base, uint32_t Index)
 		uint32_t ItemOfs = FindFreeFrame(Base, sizeof(AreaItem_Squish_Header) + strlen(Ctl) + strlen(Txt));
 
 		if (ItemOfs != b_obj->BaseInfo.end_frame)
-		{
 			if (!RemoveFrameFromChain(Base, ItemOfs, true))
 				break;
-
-			/* Cleanup frame space */
-			if (fseek(b_obj->SQD, ItemOfs, SEEK_SET) != 0)
-				break;
-			if (fread((char*)&Frame, sizeof(AreaItem_Squish_Frame), 1, b_obj->SQD) != 1)
-				break;
-			if (fseek(b_obj->SQD, ItemOfs, SEEK_SET) != 0)
-				break;
-			char tmpchar = 0;
-			if (fwrite(&tmpchar, 1, Frame.frame_length, b_obj->SQD) != Frame.frame_length)
-				break;
-		}
 
 		/* Fill new frame info */
 		memset((char*)&Frame, '\0', sizeof(AreaItem_Squish_Frame));

@@ -45,7 +45,10 @@ void TAreaProp::SetUp(void *_Area)
 	AreaPathEdit->setText(Area->Path);
 	AreaDescEdit->setText(Area->Desc);
 	AreaAkaEdit->setText(Area->Aka);
-#warning "Add Area->Uplink"
+
+	AreaUplinkEdit->setEnabled(!Area->Uplink.isEmpty());
+	AreaUplinkEdit->setText(Area->Uplink);
+
 	switch (Area->BaseType)
 	{
 		case BASETYPE_JAM:

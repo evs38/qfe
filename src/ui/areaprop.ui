@@ -10,7 +10,7 @@
             <x>0</x>
             <y>0</y>
             <width>414</width>
-            <height>286</height>
+            <height>275</height>
         </rect>
     </property>
     <property name="caption">
@@ -26,7 +26,65 @@
         <property name="resizeMode">
             <enum>Minimum</enum>
         </property>
-        <widget class="Line" row="0" column="0">
+        <widget class="QLayoutWidget" row="0" column="0">
+            <property name="name">
+                <cstring>layout22</cstring>
+            </property>
+            <grid>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QLabel" row="0" column="0">
+                    <property name="name">
+                        <cstring>AreaNameLabel</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Area Name:</string>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="1" column="0">
+                    <property name="name">
+                        <cstring>AreaPathLabel</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Area Path:</string>
+                    </property>
+                </widget>
+                <widget class="QLineEdit" row="2" column="1">
+                    <property name="name">
+                        <cstring>AreaDescEdit</cstring>
+                    </property>
+                    <property name="readOnly">
+                        <bool>true</bool>
+                    </property>
+                </widget>
+                <widget class="QLineEdit" row="0" column="1">
+                    <property name="name">
+                        <cstring>AreaNameEdit</cstring>
+                    </property>
+                    <property name="readOnly">
+                        <bool>true</bool>
+                    </property>
+                </widget>
+                <widget class="QLineEdit" row="1" column="1">
+                    <property name="name">
+                        <cstring>AreaPathEdit</cstring>
+                    </property>
+                    <property name="readOnly">
+                        <bool>true</bool>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="2" column="0">
+                    <property name="name">
+                        <cstring>AreaDescLabel</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Area Description:</string>
+                    </property>
+                </widget>
+            </grid>
+        </widget>
+        <widget class="Line" row="2" column="0">
             <property name="name">
                 <cstring>SumLine</cstring>
             </property>
@@ -40,57 +98,116 @@
                 <enum>Horizontal</enum>
             </property>
         </widget>
-        <widget class="QLayoutWidget" row="0" column="0">
+        <widget class="QGroupBox" row="3" column="0">
             <property name="name">
-                <cstring>layout6</cstring>
+                <cstring>SummaryGroup</cstring>
+            </property>
+            <property name="title">
+                <string> Summary </string>
             </property>
             <vbox>
                 <property name="name">
                     <cstring>unnamed</cstring>
                 </property>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>SumLabel1</cstring>
+                    </property>
+                </widget>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>SumLabel2</cstring>
+                    </property>
+                </widget>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>SumLabel3</cstring>
+                    </property>
+                </widget>
+            </vbox>
+        </widget>
+        <widget class="QLayoutWidget" row="5" column="0">
+            <property name="name">
+                <cstring>layout5</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <spacer>
+                    <property name="name">
+                        <cstring>Horizontal Spacing2</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>305</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>BtnOk</cstring>
+                    </property>
+                    <property name="text">
+                        <string>OK</string>
+                    </property>
+                    <property name="default">
+                        <bool>true</bool>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
+        <spacer row="4" column="0">
+            <property name="name">
+                <cstring>spacer2</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Vertical</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>90</width>
+                    <height>10</height>
+                </size>
+            </property>
+        </spacer>
+        <widget class="QLayoutWidget" row="1" column="0">
+            <property name="name">
+                <cstring>layout7</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
                 <widget class="QLayoutWidget">
                     <property name="name">
-                        <cstring>layout22</cstring>
+                        <cstring>layout6</cstring>
                     </property>
                     <grid>
                         <property name="name">
                             <cstring>unnamed</cstring>
                         </property>
-                        <widget class="QLabel" row="0" column="0">
-                            <property name="name">
-                                <cstring>AreaNameLabel</cstring>
-                            </property>
-                            <property name="text">
-                                <string>Area Name:</string>
-                            </property>
-                        </widget>
                         <widget class="QLabel" row="1" column="0">
                             <property name="name">
-                                <cstring>AreaPathLabel</cstring>
+                                <cstring>UplinkLabel</cstring>
                             </property>
                             <property name="text">
-                                <string>Area Path:</string>
-                            </property>
-                        </widget>
-                        <widget class="QLineEdit" row="2" column="1">
-                            <property name="name">
-                                <cstring>AreaDescEdit</cstring>
-                            </property>
-                            <property name="readOnly">
-                                <bool>true</bool>
+                                <string>Uplink:</string>
                             </property>
                         </widget>
                         <widget class="QLineEdit" row="0" column="1">
                             <property name="name">
-                                <cstring>AreaNameEdit</cstring>
-                            </property>
-                            <property name="readOnly">
-                                <bool>true</bool>
-                            </property>
-                        </widget>
-                        <widget class="QLineEdit" row="1" column="1">
-                            <property name="name">
-                                <cstring>AreaPathEdit</cstring>
+                                <cstring>AreaTypeEdit</cstring>
                             </property>
                             <property name="readOnly">
                                 <bool>true</bool>
@@ -98,44 +215,23 @@
                         </widget>
                         <widget class="QLabel" row="2" column="0">
                             <property name="name">
-                                <cstring>AreaDescLabel</cstring>
+                                <cstring>AkaLabel</cstring>
                             </property>
                             <property name="text">
-                                <string>Area Description:</string>
+                                <string>AKA:</string>
                             </property>
                         </widget>
-                    </grid>
-                </widget>
-                <widget class="QLayoutWidget">
-                    <property name="name">
-                        <cstring>layout4</cstring>
-                    </property>
-                    <grid>
-                        <property name="name">
-                            <cstring>unnamed</cstring>
-                        </property>
-                        <widget class="QLineEdit" row="0" column="3" rowspan="2" colspan="1">
+                        <widget class="QLineEdit" row="2" column="1">
                             <property name="name">
-                                <cstring>AreaGroupEdit</cstring>
+                                <cstring>AreaAkaEdit</cstring>
                             </property>
                             <property name="readOnly">
                                 <bool>true</bool>
                             </property>
                         </widget>
-                        <widget class="QLabel" row="2" column="2">
+                        <widget class="QLineEdit" row="1" column="1">
                             <property name="name">
-                                <cstring>GroupDescLabel</cstring>
-                            </property>
-                            <property name="text">
-                                <string>Group Description:</string>
-                            </property>
-                            <property name="enabled">
-                                <bool>false</bool>
-                            </property>
-                        </widget>
-                        <widget class="QLineEdit" row="0" column="1">
-                            <property name="name">
-                                <cstring>AreaTypeEdit</cstring>
+                                <cstring>AreaUplinkEdit</cstring>
                             </property>
                             <property name="readOnly">
                                 <bool>true</bool>
@@ -149,7 +245,47 @@
                                 <string>Type:</string>
                             </property>
                         </widget>
-                        <widget class="QLabel" row="0" column="2">
+                    </grid>
+                </widget>
+                <widget class="QLayoutWidget">
+                    <property name="name">
+                        <cstring>layout5</cstring>
+                    </property>
+                    <grid>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <widget class="QLabel" row="1" column="0">
+                            <property name="name">
+                                <cstring>GroupDescLabel</cstring>
+                            </property>
+                            <property name="enabled">
+                                <bool>false</bool>
+                            </property>
+                            <property name="text">
+                                <string>Group Description:</string>
+                            </property>
+                        </widget>
+                        <widget class="QLineEdit" row="1" column="1">
+                            <property name="name">
+                                <cstring>AreaGroupDescEdit</cstring>
+                            </property>
+                            <property name="enabled">
+                                <bool>false</bool>
+                            </property>
+                            <property name="readOnly">
+                                <bool>true</bool>
+                            </property>
+                        </widget>
+                        <widget class="QLineEdit" row="0" column="1">
+                            <property name="name">
+                                <cstring>AreaGroupEdit</cstring>
+                            </property>
+                            <property name="readOnly">
+                                <bool>true</bool>
+                            </property>
+                        </widget>
+                        <widget class="QLabel" row="0" column="0">
                             <property name="name">
                                 <cstring>GroupLabel</cstring>
                             </property>
@@ -157,119 +293,9 @@
                                 <string>Group:</string>
                             </property>
                         </widget>
-                        <widget class="QLineEdit" row="2" column="1">
-                            <property name="name">
-                                <cstring>AreaAkaEdit</cstring>
-                            </property>
-                            <property name="readOnly">
-                                <bool>true</bool>
-                            </property>
-                        </widget>
-                        <widget class="QLineEdit" row="2" column="3">
-                            <property name="name">
-                                <cstring>AreaGroupDescEdit</cstring>
-                            </property>
-                            <property name="readOnly">
-                                <bool>true</bool>
-                            </property>
-			    <property name="enabled">
-                                <bool>false</bool>
-                            </property>
-                        </widget>
-                        <widget class="QLabel" row="1" column="0" rowspan="2" colspan="1">
-                            <property name="name">
-                                <cstring>AkaLabel</cstring>
-                            </property>
-                            <property name="text">
-                                <string>AKA:</string>
-                            </property>
-                        </widget>
                     </grid>
                 </widget>
-                <widget class="QGroupBox">
-                    <property name="name">
-                        <cstring>SummaryGroup</cstring>
-                    </property>
-                    <property name="title">
-                        <string> Summary </string>
-                    </property>
-                    <vbox>
-                        <property name="name">
-                            <cstring>unnamed</cstring>
-                        </property>
-                        <widget class="QLabel">
-                            <property name="name">
-                                <cstring>SumLabel1</cstring>
-                            </property>
-                        </widget>
-                        <widget class="QLabel">
-                            <property name="name">
-                                <cstring>SumLabel2</cstring>
-                            </property>
-                        </widget>
-                        <widget class="QLabel">
-                            <property name="name">
-                                <cstring>SumLabel3</cstring>
-                            </property>
-                        </widget>
-                    </vbox>
-                </widget>
-                <spacer>
-                    <property name="name">
-                        <cstring>spacer2</cstring>
-                    </property>
-                    <property name="orientation">
-                        <enum>Vertical</enum>
-                    </property>
-                    <property name="sizeType">
-                        <enum>Expanding</enum>
-                    </property>
-                    <property name="sizeHint">
-                        <size>
-                            <width>90</width>
-                            <height>35</height>
-                        </size>
-                    </property>
-                </spacer>
-                <widget class="QLayoutWidget">
-                    <property name="name">
-                        <cstring>layout5</cstring>
-                    </property>
-                    <hbox>
-                        <property name="name">
-                            <cstring>unnamed</cstring>
-                        </property>
-                        <spacer>
-                            <property name="name">
-                                <cstring>Horizontal Spacing2</cstring>
-                            </property>
-                            <property name="orientation">
-                                <enum>Horizontal</enum>
-                            </property>
-                            <property name="sizeType">
-                                <enum>Expanding</enum>
-                            </property>
-                            <property name="sizeHint">
-                                <size>
-                                    <width>305</width>
-                                    <height>20</height>
-                                </size>
-                            </property>
-                        </spacer>
-                        <widget class="QPushButton">
-                            <property name="name">
-                                <cstring>BtnOk</cstring>
-                            </property>
-                            <property name="text">
-                                <string>OK</string>
-                            </property>
-                            <property name="default">
-                                <bool>true</bool>
-                            </property>
-                        </widget>
-                    </hbox>
-                </widget>
-            </vbox>
+            </hbox>
         </widget>
     </grid>
 </widget>
