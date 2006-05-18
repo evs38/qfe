@@ -76,7 +76,7 @@ public:
 	QString Append001(QString);
 
 private:
-	volatile int32_t OpenCounter;
+	int32_t OpenCounter;
 	QMutex Mutex;
 	int32_t LastIndex;
 	int32_t dummyLastRead;

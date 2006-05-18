@@ -69,7 +69,8 @@ bool RescanArea_Jam(TArea *Base)
 		{
 			if (fseek(b_obj->JDX, (QMAX(b_obj->HdrInfo.basemsgnum, 1) - 1) * sizeof(AreaItem_Jam_Index), SEEK_SET) == 0)
 			{
-				for (uint32_t i = 0; i < b_obj->HdrInfo.activemsgs;)
+				uint32_t i;
+				for (i = 0; i < b_obj->HdrInfo.activemsgs;)
 				{
 					if (fread((char*)&JamIndex, sizeof(AreaItem_Jam_Index), 1, b_obj->JDX) != 1)
 						break;
@@ -178,6 +179,8 @@ bool RescanArea_Jam(TArea *Base)
 					b_obj->MaxUID = QMAX(it->uid, b_obj->MaxUID);
 					i++;
 				}
+				if (b_obj->HdrInfo.activemsgs != i)
+					debugmessage(QString("HdrInfo.activemsgs(%1) & index records(%2) not equal in area \"%3\"!").arg(b_obj->HdrInfo.activemsgs).arg(i).arg(Base->Name));
 			}
 		}
 	}
