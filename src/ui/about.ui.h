@@ -38,7 +38,7 @@ void TAbout::init()
 
 	Txt.append("<br>");
 	Txt.append(QObject::tr("Written and distributed under the GNU General Public License") + "<br><br>");
-	Txt.append("<nobr>" + QObject::tr("Written by") + " Alexander Shiyan</nobr><br><br>");
+	Txt.append("<nobr>" + QString(QObject::tr("Written by %1")).arg("Alexander Shiyan") + "</nobr><br><br>");
 	Txt.append("<nobr><b>Web:</b> <a href=\"" + QString(MAIN_URL) + "\">" + QString(MAIN_URL) + "</a></nobr><br>");
 	Txt.append("<nobr><b>EMail:</b> <a href=\"" + QString(AUTHOR_EMAIL) + "\">" + QString(AUTHOR_EMAIL) + "</a></nobr><br>");
 	AboutText->setText(Txt.prepend("<center>").append("</center>"));

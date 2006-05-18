@@ -279,10 +279,6 @@
         <translation>Версия</translation>
     </message>
     <message>
-        <source>Written by</source>
-        <translation>Автор</translation>
-    </message>
-    <message>
         <source>Save Message to MessageBase</source>
         <translation>Сохранить сообщение в базе</translation>
     </message>
@@ -1149,6 +1145,10 @@
     <message>
         <source>Option &apos;--lang&apos; require language code as parameter.</source>
         <translation>Опция &apos;--lang&apos; требует код языка в качестве параметра.</translation>
+    </message>
+    <message>
+        <source>Written by %1</source>
+        <translation>Автор программы: %1</translation>
     </message>
 </context>
 <context>

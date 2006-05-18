@@ -36,6 +36,7 @@ bool dodebug = false;
 extern TConfig *Config;
 
 /* Viewed Value, QTextCodec Value, CHRS Value */
+//FIXME: This stuff need rewrite
 const QString QFECodePages[CODEPAGES_COUNT][3] = {
 	{ "ISO8859-1", "ISO8859-1", "LATIN-1" },
 	{ "IBM 850", "IBM 850", "CP850 2" },

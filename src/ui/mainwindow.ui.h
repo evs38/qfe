@@ -1956,6 +1956,7 @@ void TMainWindow::MessageChanged(QListViewItem *Item)
 			MarkAllAsReadAction->setEnabled(Current->Area->UnReadCnt > 0);
 			NextUnreadAction->setEnabled(Current->Area->UnReadCnt > 0);
 
+			QStringList fmts = QImage::inputFormatList();
 			if (Config->GetBool(QString::null, CONFIG_MEDIA_IMAGES, true))
 			{
 				// Find Photo in AddressBook
@@ -1972,13 +1973,19 @@ void TMainWindow::MessageChanged(QListViewItem *Item)
 					QFileInfo fi(Buffer);
 					if (fi.extension().isEmpty())
 					{
-						tmp = FindMatchedFile(QDir(Config->MediaDir), Buffer + ".gif");
-						if (tmp.isEmpty())
-							tmp = FindMatchedFile(QDir(Config->MediaDir), Buffer + ".bmp");
-						if (tmp.isEmpty())
-							tmp = FindMatchedFile(QDir(Config->MediaDir), Buffer + ".jpg");
-						if (tmp.isEmpty())
-							tmp = FindMatchedFile(QDir(Config->MediaDir), Buffer + ".jpeg");
+						tmp = QString::null;
+						if (fmts.findIndex("GIF") > -1)
+							tmp = FindMatchedFile(QDir(Config->MediaDir), Buffer + ".gif");
+						if (fmts.findIndex("BMP") > -1)
+							if (tmp.isEmpty())
+								tmp = FindMatchedFile(QDir(Config->MediaDir), Buffer + ".bmp");
+						if (fmts.findIndex("JPEG") > -1)
+						{
+							if (tmp.isEmpty())
+								tmp = FindMatchedFile(QDir(Config->MediaDir), Buffer + ".jpg");
+							if (tmp.isEmpty())
+								tmp = FindMatchedFile(QDir(Config->MediaDir), Buffer + ".jpeg");
+						}
 					} else
 						tmp = FindMatchedFile(QDir(Config->MediaDir), Buffer);
 					Buffer = tmp;
@@ -1996,7 +2003,7 @@ void TMainWindow::MessageChanged(QListViewItem *Item)
 			while (i > -1)
 			{
 				tmp = rx.cap(0).stripWhiteSpace();
-				if ((tmp.find("2") == 4) || (tmp.find("4") == 4))
+				if (((tmp.find("1") == 4) || tmp.find("2") == 4) || (tmp.find("4") == 4))
 				{
 					if (tmp.find("W", 0, false) > -1)
 					{
@@ -2009,15 +2016,13 @@ void TMainWindow::MessageChanged(QListViewItem *Item)
 								sound_play(Buffer);
 							}
 						}
-					} else {
-						if (Config->GetBool(QString::null, CONFIG_MEDIA_IMAGES, true))
+					} else if (Config->GetBool(QString::null, CONFIG_MEDIA_IMAGES, true) && (fmts.findIndex("BMP") > -1))
+					{
+						Buffer = FindMatchedFile(QDir(Config->MediaDir), tmp.mid(5).append(".bmp"));
+						if (!Buffer.isEmpty())
 						{
-							Buffer = FindMatchedFile(QDir(Config->MediaDir), tmp.mid(5).append(".bmp"));
-							if (!Buffer.isEmpty())
-							{
-								Buffer.prepend(Config->MediaDir + QDir::separator());
-								SetUserPixmap(QPixmap(Buffer));
-							}
+							Buffer.prepend(Config->MediaDir + QDir::separator());
+							SetUserPixmap(QPixmap(Buffer));
 						}
 					}
 				}

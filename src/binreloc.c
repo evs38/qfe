@@ -182,6 +182,8 @@ _br_find_exe_for_symbol (const void *symbol, BrInitError *error)
 		*error = BR_INIT_ERROR_DISABLED;
 	return (char *) NULL;
 #else
+	if (error) {}; /* Avoid unused symbol warning */
+
 	#define SIZE PATH_MAX + 100
 	FILE *f;
 	size_t address_string_len;
