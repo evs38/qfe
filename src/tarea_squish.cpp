@@ -131,16 +131,19 @@ uint32_t FindFreeFrame(TArea *Base, uint32_t NeedSize)
 		if (fread((char*)&Frame, sizeof(AreaItem_Squish_Frame), 1, b_obj->SQD) != 1)
 			break;
 		if ((Frame.id == SQUISH_MAGIC) && (Frame.frame_type == SQUISH_FRAME_FREE))
+		{
 			if ((Frame.frame_length >= NeedSize) && ((BestSize == 0) || ((BestSize > 0) && (Frame.frame_length < BestSize))))
 			{
 				ret = ofs;
 				BestSize = Frame.frame_length;
 				break;
 			}
+		} else
+			break;
 		ofs = Frame.next_frame;
 	}
 
-	debugmessage(QString((ret != b_obj->BaseInfo.end_frame) ? "Free frame found at %1" : "No free frames. Frame position set at %1").arg(ofs));
+	debugmessage(QString((ret != b_obj->BaseInfo.end_frame) ? "Free frame found at %1" : "No free frames. Frame position set at %1").arg(ret));
 
 	return ret;
 }
@@ -249,19 +252,20 @@ bool AddFrameToChain(TArea *Base, uint32_t Ofs, bool isFree)
 				break;
 			if (fwrite((char*)&Frame, sizeof(AreaItem_Squish_Frame), 1, b_obj->SQD) != 1)
 				break;
-
-			/* Update current frame with previous info & type */
-			if (fseek(b_obj->SQD, Ofs, SEEK_SET) != 0)
-				break;
-			if (fread((char*)&Frame, sizeof(AreaItem_Squish_Frame), 1, b_obj->SQD) != 1)
-				break;
-			Frame.prev_frame = PrevOfs;
-			Frame.frame_type = isFree ? SQUISH_FRAME_FREE : SQUISH_FRAME_NORMAL;
-			if (fseek(b_obj->SQD, Ofs, SEEK_SET) != 0)
-				break;
-			if (fwrite((char*)&Frame, sizeof(AreaItem_Squish_Frame), 1, b_obj->SQD) != 1)
-				break;
 		}
+
+		/* Update current frame with previous info & type */
+		if (fseek(b_obj->SQD, Ofs, SEEK_SET) != 0)
+			break;
+		if (fread((char*)&Frame, sizeof(AreaItem_Squish_Frame), 1, b_obj->SQD) != 1)
+			break;
+		Frame.prev_frame = PrevOfs;
+		Frame.next_frame = 0;
+		Frame.frame_type = isFree ? SQUISH_FRAME_FREE : SQUISH_FRAME_NORMAL;
+		if (fseek(b_obj->SQD, Ofs, SEEK_SET) != 0)
+			break;
+		if (fwrite((char*)&Frame, sizeof(AreaItem_Squish_Frame), 1, b_obj->SQD) != 1)
+			break;
 
 		/* Update base info */
 		if (isFree)
