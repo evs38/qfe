@@ -90,6 +90,7 @@ bool TArea::Init(QString _Name, QString _Desc, QString _Path, QString _Aka, QStr
 
 bool TArea::Open()
 {
+	QMutexLocker MutexLocker(&Mutex);
 	bool ret = false;
 
 	if (++OpenCounter == 1)
@@ -122,6 +123,7 @@ bool TArea::Open()
 
 bool TArea::Rescan()
 {
+	QMutexLocker MutexLocker(&Mutex);
 	bool ret = false;
 
 	if (isOpened())
@@ -154,6 +156,7 @@ bool TArea::Rescan()
 
 bool TArea::Read(uint32_t Index)
 {
+	QMutexLocker MutexLocker(&Mutex);
 	bool ret = false;
 
 	if (isOpened())
@@ -188,6 +191,7 @@ bool TArea::Read(uint32_t Index)
 
 bool TArea::Write(uint32_t Index)
 {
+	QMutexLocker MutexLocker(&Mutex);
 	bool ret = false;
 
 	if (isOpened())
@@ -221,6 +225,7 @@ bool TArea::Write(uint32_t Index)
 
 TMessage *TArea::Append()
 {
+	QMutexLocker MutexLocker(&Mutex);
 	TMessage *ret = NULL;
 
 	if (Open())
@@ -249,6 +254,7 @@ TMessage *TArea::Append()
 
 bool TArea::Delete(uint32_t Index)
 {
+	QMutexLocker MutexLocker(&Mutex);
 	bool ret = false;
 
 	if (Open())
@@ -287,6 +293,7 @@ bool TArea::Delete(uint32_t Index)
 
 bool TArea::Kill()
 {
+	QMutexLocker MutexLocker(&Mutex);
 	bool ret = false;
 
 	Done();
@@ -311,6 +318,7 @@ bool TArea::Kill()
 
 void TArea::Close()
 {
+	QMutexLocker MutexLocker(&Mutex);
 	if (OpenCounter > 0)
 		if (--OpenCounter == 0)
 		{
