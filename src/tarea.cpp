@@ -91,7 +91,7 @@ bool TArea::Init(QString _Name, QString _Desc, QString _Path, QString _Aka, QStr
 bool TArea::Open(bool ignorelock)
 {
 	if (!ignorelock)
-		QMutexLocker MutexLocker(&Mutex);
+		WaitMutex();
 
 	bool ret = false;
 
@@ -125,7 +125,7 @@ bool TArea::Open(bool ignorelock)
 
 bool TArea::Rescan()
 {
-	QMutexLocker MutexLocker(&Mutex);
+	WaitMutex();
 	bool ret = false;
 
 	if (isOpened())
@@ -158,7 +158,7 @@ bool TArea::Rescan()
 
 bool TArea::Read(uint32_t Index)
 {
-	QMutexLocker MutexLocker(&Mutex);
+	WaitMutex();
 	bool ret = false;
 
 	if (isOpened())
@@ -193,7 +193,7 @@ bool TArea::Read(uint32_t Index)
 
 bool TArea::Write(uint32_t Index)
 {
-	QMutexLocker MutexLocker(&Mutex);
+	WaitMutex();
 	bool ret = false;
 
 	if (isOpened())
@@ -227,7 +227,7 @@ bool TArea::Write(uint32_t Index)
 
 TMessage *TArea::Append()
 {
-	QMutexLocker MutexLocker(&Mutex);
+	WaitMutex();
 	TMessage *ret = NULL;
 
 	if (Open(true))
@@ -256,7 +256,7 @@ TMessage *TArea::Append()
 
 bool TArea::Delete(uint32_t Index)
 {
-	QMutexLocker MutexLocker(&Mutex);
+	WaitMutex();
 	bool ret = false;
 
 	if (Open(true))
@@ -295,7 +295,7 @@ bool TArea::Delete(uint32_t Index)
 
 bool TArea::Kill()
 {
-	QMutexLocker MutexLocker(&Mutex);
+	WaitMutex();
 	bool ret = false;
 
 	Done();
@@ -321,7 +321,7 @@ bool TArea::Kill()
 void TArea::Close(bool ignorelock)
 {
 	if (!ignorelock)
-		QMutexLocker MutexLocker(&Mutex);
+		WaitMutex();
 
 	if (OpenCounter > 0)
 		if (--OpenCounter == 0)

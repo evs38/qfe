@@ -35,7 +35,7 @@ win32 {
 
 macx:CONFIG += mac
 
-# Qt 4.1.x stuff for MacOS
+# Qt 4.1.x stuff for create universal binary on MacOS X
 #mac {
 #	QMAKE_MAC_SDK=/Developer/SDKs/MacOSX10.4u.sdk
 #	CONFIG+=x86 ppc

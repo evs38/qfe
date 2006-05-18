@@ -76,8 +76,12 @@ public:
 	QString Append001(QString);
 
 private:
+#if defined(QT_THREAD_SUPPORT)
 	int32_t OpenCounter;
 	QMutex Mutex;
+#else
+	volatile int32_t OpenCounter;
+#endif
 	int32_t LastIndex;
 	int32_t dummyLastRead;
 
@@ -87,6 +91,12 @@ private:
 		return OpenCounter > 0;
 	}
 };
+
+#if defined(QT_THREAD_SUPPORT)
+#	define WaitMutex()	QMutexLocker MutexLocker(&Mutex)
+#else
+#	define WaitMutex()	{}
+#endif
 
 #define isNetMailArea(x)	(x->AreaType == AREATYPE_NETMAIL)
 #define isEchoMailArea(x)	(x->AreaType == AREATYPE_ECHOMAIL)
