@@ -2053,7 +2053,7 @@ void TMainWindow::HelpIndex()
 
 void TMainWindow::ActionBugReport()
 {
-	qDebug("TMainWindow::ActionBugReport() Not implemented yet...");
+	LinkProcess(BUG_REPORT_URL, false);
 }
 
 void TMainWindow::LinkProcess(QString Link, bool InsertData)

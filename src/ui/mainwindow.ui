@@ -1105,9 +1105,6 @@
         <property name="name">
             <cstring>BugReportAction</cstring>
         </property>
-        <property name="enabled">
-            <bool>false</bool>
-        </property>
         <property name="text">
             <string>Report a Bug...</string>
         </property>
