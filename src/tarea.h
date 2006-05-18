@@ -40,14 +40,14 @@ public:
 	Base_Type BaseType;
 
 	bool Init(QString, QString, QString, QString, QString, QString, QString, QString, char*);
-	bool Open();
+	bool Open(bool = false);
 	bool Rescan();
 	bool Read(uint32_t);
 	bool Write(uint32_t);
 	TMessage *Append();
 	bool Delete(uint32_t);
 	bool Kill();
-	void Close();
+	void Close(bool = false);
 	void Done();
 
 	uint32_t GetLastRead();

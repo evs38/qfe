@@ -88,7 +88,7 @@ void TMainWindow::init()
 	MainActions->AddAction(FileMenu, MainMenuBar->text(1), PrintAction, "icon_print", QObject::tr("Print Current Message"), QObject::tr("You must print entrie message, or only selected region"), "Ctrl+P");
 	MainActions->AddAction(FileMenu, MainMenuBar->text(1), SaveAction, "icon_save", QObject::tr("Save Current Message to File"), QObject::tr("Supported Formats is TXT, HTML"), "Ctrl+S");
 	MainActions->AddAction(FileMenu, MainMenuBar->text(1), DataBaseAction, "icon_database", QObject::tr("Save Current Message to DataBase"), QString::null, QString::null, true);
-	MainActions->AddAction(FileMenu, MainMenuBar->text(1), ArchiveAction, "icon_archive", QObject::tr("Save Current Message to Archive Area"), QString::null, QString::null, true);
+	MainActions->AddAction(FileMenu, MainMenuBar->text(1), ArchiveAction, "icon_archive", QObject::tr("Save Current Message to Archive Area"));
 	MainActions->AddAction(FileMenu, MainMenuBar->text(1), OptionsAction, "icon_options", QObject::tr("Edit Program Options"), QObject::tr("In \"Options\" dialog You must define fonts, colors and other settings for best view"));
 	MainActions->AddAction(FileMenu, MainMenuBar->text(1), ExitAction, "icon_exit", QObject::tr("Quit Program"), QString::null, "Ctrl+Q");
 
@@ -125,7 +125,7 @@ void TMainWindow::init()
 	MainActions->AddAction(ToolsMenu, MainMenuBar->text(5), RescanAllAction, "icon_rescan", QObject::tr("Rescan All Areas"));
 	MainActions->AddAction(ToolsMenu, MainMenuBar->text(5), FindAction, "icon_find", QObject::tr("Search for Messages"), QObject::tr("Searching allowed in One Area, or in All Areas"), "Ctrl+F");
 	MainActions->AddAction(ToolsMenu, MainMenuBar->text(5), DecodeAction, "icon_decode", QObject::tr("Decode UUE from Marked Messages"), QObject::tr("Supported Formats is UUE, Base64"));
-	MainActions->AddAction(ToolsMenu, MainMenuBar->text(5), NodelistBrowserAction, "icon_browser", QObject::tr("Run Extended Nodelist Browser"), QString::null, QString::null, true);
+	MainActions->AddAction(ToolsMenu, MainMenuBar->text(5), NodelistBrowserAction, "icon_browser", QObject::tr("Run Extended Nodelist Browser"));
 	MainActions->AddAction(ToolsMenu, MainMenuBar->text(5), AddressBookAction, "icon_addressbook", QObject::tr("View AddessBook"), QString::null, "Ctrl+A");
 	MainActions->AddAction(ToolsMenu, MainMenuBar->text(5), ExtensionsAction, "icon_plugins", QObject::tr("Execute Program Extensions"), QString::null, QString::null, true);
 

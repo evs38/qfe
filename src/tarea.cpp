@@ -88,9 +88,11 @@ bool TArea::Init(QString _Name, QString _Desc, QString _Path, QString _Aka, QStr
 	return ret;
 }
 
-bool TArea::Open()
+bool TArea::Open(bool ignorelock)
 {
-	QMutexLocker MutexLocker(&Mutex);
+	if (!ignorelock)
+		QMutexLocker MutexLocker(&Mutex);
+
 	bool ret = false;
 
 	if (++OpenCounter == 1)
@@ -113,7 +115,7 @@ bool TArea::Open()
 		if (!ret)
 		{
 			debugmessage("Open() fail. Path=" + Path);
-			Close();
+			Close(true);
 		}
 	} else
 		ret = true;
@@ -228,7 +230,7 @@ TMessage *TArea::Append()
 	QMutexLocker MutexLocker(&Mutex);
 	TMessage *ret = NULL;
 
-	if (Open())
+	if (Open(true))
 	{
 		switch (BaseType)
 		{
@@ -246,7 +248,7 @@ TMessage *TArea::Append()
 		}
 		ret->attr = FLAG_LOC | FLAG_READ;
 		ret->dt = QDateTime::currentDateTime().toTime_t();
-		Close();
+		Close(true);
 	}
 
 	return ret;
@@ -257,7 +259,7 @@ bool TArea::Delete(uint32_t Index)
 	QMutexLocker MutexLocker(&Mutex);
 	bool ret = false;
 
-	if (Open())
+	if (Open(true))
 	{
 		if (LastIndex == (int32_t)Index)
 			LastIndex = -1;
@@ -283,7 +285,7 @@ bool TArea::Delete(uint32_t Index)
 		else
 			debugmessage("Delete() fail.");
 
-		Close();
+		Close(true);
 	}
 
 	CalculateUnread();
@@ -316,9 +318,11 @@ bool TArea::Kill()
 	return ret;
 }
 
-void TArea::Close()
+void TArea::Close(bool ignorelock)
 {
-	QMutexLocker MutexLocker(&Mutex);
+	if (!ignorelock)
+		QMutexLocker MutexLocker(&Mutex);
+
 	if (OpenCounter > 0)
 		if (--OpenCounter == 0)
 		{
