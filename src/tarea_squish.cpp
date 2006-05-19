@@ -76,7 +76,7 @@ bool RegenerateSQI(TArea *Base)
 					AreaItem_Squish_Index *TmpIdx = (AreaItem_Squish_Index*)(IdxBuff + i);
 					if ((TmpIdx->ofs == ofs) && (TmpIdx->umsgid == Header.umsgid))
 					{
-						readed = (BaseIndex.hash & 0x80000000) != 0;
+						readed = (TmpIdx->hash & 0x80000000) != 0;
 						break;
 					}
 					i += sizeof(AreaItem_Squish_Index);
