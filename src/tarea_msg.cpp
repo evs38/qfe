@@ -74,9 +74,9 @@ bool RescanArea_Msg(TArea *Base)
 					TAreaItem_Msg_PvtObject *obj = (TAreaItem_Msg_PvtObject*)it->MessagePvtData;
 					obj->FileName = s;
 
-					qstrncpy((char*)it->from, (char*)&Header.from, MAX_FROM_NAME_LEN);
-					qstrncpy((char*)it->to, (char*)&Header.to, MAX_TO_NAME_LEN);
-					qstrncpy((char*)it->subj, (char*)&Header.subj, MAX_SUBJ_LEN);
+					qstrncpy((char*)&it->from, (char*)&Header.from, MAX_FROM_NAME_LEN + 1);
+					qstrncpy((char*)&it->to, (char*)&Header.to, MAX_TO_NAME_LEN + 1);
+					qstrncpy((char*)&it->subj, (char*)&Header.subj, MAX_SUBJ_LEN + 1);
 
 					Fts2DateTime(&Header.datetime[0], &it->dt);
 
@@ -249,9 +249,9 @@ bool WriteArea_Msg(TArea *Base, uint32_t Index)
 
 		memset((char*)&Header, '\0', sizeof(AreaItem_Msg_Header));
 
-		qstrncpy((char*)&Header.from, (char*)it->from, MAX_FROM_NAME_LEN);
-		qstrncpy((char*)&Header.to, (char*)it->to, MAX_TO_NAME_LEN);
-		qstrncpy((char*)&Header.subj, (char*)it->subj, MAX_SUBJ_LEN);
+		qstrncpy((char*)&Header.from, (char*)&it->from, MAX_FROM_NAME_LEN + 1);
+		qstrncpy((char*)&Header.to, (char*)&it->to, MAX_TO_NAME_LEN + 1);
+		qstrncpy((char*)&Header.subj, (char*)&it->subj, MAX_SUBJ_LEN + 1);
 
 		memcpy(&Header.datetime, DateTime2Fts(it->dt).ascii(), MAX_DATE_LEN);
 

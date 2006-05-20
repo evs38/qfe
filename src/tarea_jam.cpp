@@ -20,6 +20,12 @@
 
 #include "tarea_jam.h"
 
+bool RegenerateJDX(TArea *Base)
+{
+	//TODO:
+	return true;
+}
+
 bool InitArea_Jam(TArea *Base)
 {
 	TArea_Jam_PvtObject *b_obj = new TArea_Jam_PvtObject();
@@ -65,7 +71,7 @@ bool RescanArea_Jam(TArea *Base)
 	rewind(b_obj->JHR);
 	if (fread((char*)&b_obj->HdrInfo, sizeof(AreaItem_Jam_HeaderInfo), 1, b_obj->JHR) == 1)
 	{
-		if (strncmp((const char*)&b_obj->HdrInfo.signature, JAM_MAGIC, 4) == 0)
+		if (memcmp(&b_obj->HdrInfo.signature, JAM_MAGIC, 4) == 0)
 		{
 			if (fseek(b_obj->JDX, (QMAX(b_obj->HdrInfo.basemsgnum, 1) - 1) * sizeof(AreaItem_Jam_Index), SEEK_SET) == 0)
 			{
@@ -100,7 +106,7 @@ bool RescanArea_Jam(TArea *Base)
 					while (sptr <= (JamHeader.subfieldlen - sizeof(AreaItem_Jam_SubfieldHeader)))
 					{
 						AreaItem_Jam_SubfieldHeader *SubfieldHeader = (AreaItem_Jam_SubfieldHeader*)(SubBuffer + sptr);
-						AreaItem_Jam_Subfield * Subfield = (AreaItem_Jam_Subfield*)SubfieldHeader;
+						AreaItem_Jam_Subfield *Subfield = (AreaItem_Jam_Subfield*)SubfieldHeader;
 
 						if (SubfieldHeader->datlen > JAM_MAX_DATA_LEN)
 							break;
@@ -111,16 +117,16 @@ bool RescanArea_Jam(TArea *Base)
 							case JAMSFLD_DADDRESS:
 								break;
 							case JAMSFLD_SENDERNAME:
-								qstrncpy((char*)it->from, (char*)&Subfield->data, QMIN(MAX_FROM_NAME_LEN, SubfieldHeader->datlen));
+								qstrncpy((char*)&it->from, (char*)&Subfield->data, QMIN(MAX_FROM_NAME_LEN, SubfieldHeader->datlen + 1));
 								break;
 							case JAMSFLD_RECVRNAME:
-								qstrncpy((char*)it->to, (char*)&Subfield->data, QMIN(MAX_TO_NAME_LEN, SubfieldHeader->datlen));
+								qstrncpy((char*)&it->to, (char*)&Subfield->data, QMIN(MAX_TO_NAME_LEN, SubfieldHeader->datlen + 1));
 								break;
 							case JAMSFLD_MSGID:
 							case JAMSFLD_REPLYID:
 								break;
 							case JAMSFLD_SUBJECT:
-								qstrncpy((char*)it->subj, (char*)&Subfield->data, QMIN(MAX_SUBJ_LEN, SubfieldHeader->datlen));
+								qstrncpy((char*)&it->subj, (char*)&Subfield->data, QMIN(MAX_SUBJ_LEN, SubfieldHeader->datlen + 1));
 								break;
 							case JAMSFLD_PID:
 							case JAMSFLD_TRACE:
@@ -219,13 +225,13 @@ bool ReadArea_Jam(TArea *Base, uint32_t Index)
 			while (sptr <= (JamHeader.subfieldlen - sizeof(AreaItem_Jam_SubfieldHeader)))
 			{
 				AreaItem_Jam_SubfieldHeader *SubfieldHeader = (AreaItem_Jam_SubfieldHeader*)(SubBuffer + sptr);
-				AreaItem_Jam_Subfield * Subfield = (AreaItem_Jam_Subfield*)SubfieldHeader;
+				AreaItem_Jam_Subfield *Subfield = (AreaItem_Jam_Subfield*)SubfieldHeader;
 
 				if (SubfieldHeader->datlen > JAM_MAX_DATA_LEN)
 					break;
 
 				fidoaddr addr;
-				switch (SubfieldHeader->loid)
+				switch ((SubfieldHeader->hiid << 16) + SubfieldHeader->loid)
 				{
 					case JAMSFLD_OADDRESS:
 						if (str2addr((char*)&Subfield->data, &addr, SubfieldHeader->datlen))
@@ -248,23 +254,39 @@ bool ReadArea_Jam(TArea *Base, uint32_t Index)
 						}
 						break;
 					case JAMSFLD_SENDERNAME:
-						qstrncpy((char*)it->from, (char*)&Subfield->data, QMIN(MAX_FROM_NAME_LEN, SubfieldHeader->datlen));
+						qstrncpy((char*)&it->from, (char*)&Subfield->data, QMIN(MAX_FROM_NAME_LEN, SubfieldHeader->datlen + 1));
 						break;
 					case JAMSFLD_RECVRNAME:
-						qstrncpy((char*)it->to, (char*)&Subfield->data, QMIN(MAX_TO_NAME_LEN, SubfieldHeader->datlen));
+						qstrncpy((char*)&it->to, (char*)&Subfield->data, QMIN(MAX_TO_NAME_LEN, SubfieldHeader->datlen + 1));
 						break;
 					case JAMSFLD_MSGID:
 						tmpstr = (char*)&Subfield->data;
 						tmpstr.truncate(SubfieldHeader->datlen);
+						if (!fa)
+							if (str2addr(tmpstr, &addr))
+							{
+								it->origaddr.zone = addr.zone;
+								it->origaddr.net = addr.net;
+								it->origaddr.node = addr.node;
+								it->origaddr.point = addr.point;
+							}
 						KludgeBuff << "MSGID: " + tmpstr;
 						break;
 					case JAMSFLD_REPLYID:
 						tmpstr = (char*)&Subfield->data;
 						tmpstr.truncate(SubfieldHeader->datlen);
+						if (!ta)
+							if (str2addr(tmpstr, &addr))
+							{
+								it->destaddr.zone = addr.zone;
+								it->destaddr.net = addr.net;
+								it->destaddr.node = addr.node;
+								it->destaddr.point = addr.point;
+							}
 						KludgeBuff << "REPLY: " + tmpstr;
 						break;
 					case JAMSFLD_SUBJECT:
-						qstrncpy((char*)it->subj, (char*)&Subfield->data, QMIN(MAX_SUBJ_LEN, SubfieldHeader->datlen));
+						qstrncpy((char*)&it->subj, (char*)&Subfield->data, QMIN(MAX_SUBJ_LEN, SubfieldHeader->datlen + 1));
 						break;
 					case JAMSFLD_PID:
 						tmpstr = (char*)&Subfield->data;
@@ -373,13 +395,49 @@ bool ReadArea_Jam(TArea *Base, uint32_t Index)
 
 bool WriteArea_Jam(TArea *Base, uint32_t Index)
 {
-	bool ret = false;
+	uint32_t IdxOfs;
 	AreaItem_Jam_Index JamIndex;
 	AreaItem_Jam_Header JamHeader;
+	AreaItem_Jam_SubfieldHeader Subfield;
+
 	TMessage *it = Base->at(Index);
 	TArea_Jam_PvtObject *b_obj = (TArea_Jam_PvtObject*)Base->AreaPvtData;
 
+	fseek(b_obj->JDX, ((QMAX(b_obj->HdrInfo.basemsgnum, 1) - 1) + Index) * sizeof(AreaItem_Jam_Index), SEEK_SET);
+	IdxOfs = ftell(b_obj->JDX);
+
+	if (Index < b_obj->HdrInfo.activemsgs)
+	{
+		/* Mark existing item as deleted */
+		if (fread((char*)&JamIndex, sizeof(AreaItem_Jam_Index), 1, b_obj->JDX) != 1)
+			return false;
+
+		if (fseek(b_obj->JHR, JamIndex.hdroffset, SEEK_SET) != 0)
+			return false;
+
+		if (fread((char*)&JamHeader, sizeof(AreaItem_Jam_Header), 1, b_obj->JHR) == 1)
+		{
+			JamHeader.attribute = JamHeader.attribute | JAM_FLAG_DELETED;
+			if (fseek(b_obj->JHR, JamIndex.hdroffset, SEEK_SET) == 0)
+				if (fwrite((char*)&JamHeader, sizeof(AreaItem_Jam_Header), 1, b_obj->JHR) == 1)
+				{
+					b_obj->HdrInfo.activemsgs = b_obj->HdrInfo.activemsgs - 1;
+					rewind(b_obj->JHR);
+					fwrite((char*)&b_obj->HdrInfo, sizeof(AreaItem_Jam_HeaderInfo), 1, b_obj->JHR);
+					return true;
+				}
+		}
+	}
+
 	memset((char*)&JamHeader, '\0', sizeof(AreaItem_Jam_Header));
+
+	memcpy(&JamHeader.signature, JAM_MAGIC, 4);
+	JamHeader.revision = JAM_REVISION;
+	JamHeader.msgidcrc = 0xffffffff;
+	JamHeader.replycrc = 0xffffffff;
+	JamHeader.passwordcrc = 0xffffffff;
+	JamHeader.messagenumber = it->uid;
+	JamHeader.datewritten = (uint32_t)it->dt;
 
 	Global2Flags(JamHeader.attribute, it->attr, FLAG_LOC, JAM_FLAG_LOCAL);
 
@@ -407,53 +465,208 @@ bool WriteArea_Jam(TArea *Base, uint32_t Index)
 
 	Global2Flags(JamHeader.attribute, it->attr, FLAG_LOK, JAM_FLAG_LOCKED);
 
-	QString AppendBuff = Base->NormalizeCtl(it, (uint8_t*)Base->CtlBuff);
+	switch (Base->AreaType)
+	{
+		case AREATYPE_NETMAIL:
+			JamHeader.attribute = JamHeader.attribute | JAM_FLAG_TYPENET;
+			break;
+		case AREATYPE_BADMAIL:
+		case AREATYPE_DUPEMAIL:
+		case AREATYPE_CARBON:
+		case AREATYPE_LOCALMAIL:
+			JamHeader.attribute = JamHeader.attribute | JAM_FLAG_TYPELOCAL;
+			break;
+		case AREATYPE_ECHOMAIL:
+			JamHeader.attribute = JamHeader.attribute | JAM_FLAG_TYPEECHO;
+			break;
+		default:
+			break;
+	}
+
+	/* Write new index record */
+	if (fseek(b_obj->JHR, 0, SEEK_END) != 0)
+		return false;
+
+	JamIndex.hdroffset = ftell(b_obj->JHR);
+	JamIndex.usercrc = Calculate_CRC(it->from);
+
+	if (fseek(b_obj->JDX, IdxOfs, SEEK_SET) != 0)
+		return false;
+	if (fwrite((char*)&JamIndex, sizeof(AreaItem_Jam_Index), 1, b_obj->JDX) != 1)
+		return false;
+
+	/* Set up text offset */
+	if (fseek(b_obj->JDT, 0, SEEK_END) != 0)
+		return false;
+	JamHeader.offset = ftell(b_obj->JDT);
+
+	/* Write header */
+	if (fwrite((char*)&JamHeader, sizeof(AreaItem_Jam_Header), 1, b_obj->JHR) != 1)
+		return false;
+
+	/* Fill subfields */
+	memset(&Subfield, 0, sizeof(AreaItem_Jam_SubfieldHeader));
+
+	QString AppendBuff = addr2str1(&it->origaddr, NULL);
+	Subfield.loid = JAMSFLD_OADDRESS;
+	Subfield.datlen = QMIN(AppendBuff.length(), JAM_MAX_DATA_LEN);
+	if (fwrite((char*)&Subfield, sizeof(AreaItem_Jam_SubfieldHeader), 1, b_obj->JHR) != 1)
+		return false;
+	if (fwrite(AppendBuff.ascii(), Subfield.datlen, 1, b_obj->JHR) != 1)
+		return false;
+
+	AppendBuff = addr2str1(&it->destaddr, NULL);
+	Subfield.loid = JAMSFLD_DADDRESS;
+	Subfield.datlen = QMIN(AppendBuff.length(), JAM_MAX_DATA_LEN);
+	if (fwrite((char*)&Subfield, sizeof(AreaItem_Jam_SubfieldHeader), 1, b_obj->JHR) != 1)
+		return false;
+	if (fwrite(AppendBuff.ascii(), Subfield.datlen, 1, b_obj->JHR) != 1)
+		return false;
+
+	Subfield.loid = JAMSFLD_SENDERNAME;
+	Subfield.datlen = QMIN(qstrlen((const char*)&it->from), JAM_MAX_DATA_LEN);
+	if (fwrite((char*)&Subfield, sizeof(AreaItem_Jam_SubfieldHeader), 1, b_obj->JHR) != 1)
+		return false;
+	if (fwrite(&it->from, Subfield.datlen, 1, b_obj->JHR) != 1)
+		return false;
+
+	Subfield.loid = JAMSFLD_RECVRNAME;
+	Subfield.datlen = QMIN(qstrlen((const char*)&it->to), JAM_MAX_DATA_LEN);
+	if (fwrite((char*)&Subfield, sizeof(AreaItem_Jam_SubfieldHeader), 1, b_obj->JHR) != 1)
+		return false;
+	if (fwrite(&it->to, Subfield.datlen, 1, b_obj->JHR) != 1)
+		return false;
+
+	Subfield.loid = JAMSFLD_SUBJECT;
+	Subfield.datlen = QMIN(qstrlen((const char*)&it->subj), JAM_MAX_DATA_LEN);
+	if (fwrite((char*)&Subfield, sizeof(AreaItem_Jam_SubfieldHeader), 1, b_obj->JHR) != 1)
+		return false;
+	if (fwrite(&it->subj, Subfield.datlen, 1, b_obj->JHR) != 1)
+		return false;
+
+	/* Parse Kludges to subfields */
+	AppendBuff = Base->NormalizeCtl(it, (uint8_t*)Base->CtlBuff);
 
 	if (!AppendBuff.isEmpty())
 		AppendBuff.append("\n").append((char*)Base->CtlBuff);
 	else
 		AppendBuff = (char*)Base->CtlBuff;
 
-	char *Ctl = qstrdup((const char*)AppendBuff.ascii());
-	CRLF2Fts(Ctl);
-
-	char *Txt = qstrdup((const char*)Base->TxtBuff);
-	CRLF2Fts(Txt);
-
-	for (;;)
+	QStringList ParseList = QStringList::split("\n", AppendBuff, true);
+	while (ParseList.count() > 0)
 	{
-/*
-		if (fseek(b_obj->JDX, ((QMAX(b_obj->HdrInfo.basemsgnum, 1) - 1) + Index) * sizeof(AreaItem_Jam_Index), SEEK_SET) != 0)
-			break;
+		AppendBuff = ParseList[0].stripWhiteSpace();
 
-		if (fread((char*)&JamIndex, sizeof(AreaItem_Jam_Index), 1, b_obj->JDX) != 1)
-			break;
-
-		if (fseek(b_obj->JHR, JamIndex.hdroffset, SEEK_SET) != 0)
-			break;
-*/
-
-/*
-	TODO
-remember JAM_FLAG_TYPELOCAL,JAM_FLAG_TYPEECHO,JAM_FLAG_TYPENET !!!
-*/
-
-/*
-		if (obj->Ptr == 0)
+		memset(&Subfield, 0, sizeof(AreaItem_Jam_SubfieldHeader));
+		if (AppendBuff.startsWith("INTL ") || AppendBuff.startsWith("FMPT ") || AppendBuff.startsWith("TOPT ") || AppendBuff.isEmpty())
 		{
-			//
-		} else {
-			//
-		}
-		ret = true;
-*/
-		break;
+			ParseList.remove(ParseList.at(0));
+			continue;
+		} else if (AppendBuff.startsWith("MSGID: "))
+		{
+			AppendBuff = AppendBuff.mid(7);
+			Subfield.loid = JAMSFLD_MSGID;
+			JamHeader.msgidcrc = Calculate_CRC((const uint8_t*)AppendBuff.ascii());
+		} else if (AppendBuff.startsWith("REPLY: "))
+		{
+			AppendBuff = AppendBuff.mid(7);
+			Subfield.loid = JAMSFLD_REPLYID;
+			JamHeader.replycrc = Calculate_CRC((const uint8_t*)AppendBuff.ascii());
+		} else if (AppendBuff.startsWith("PID: "))
+		{
+			AppendBuff = AppendBuff.mid(5);
+			Subfield.loid = JAMSFLD_PID;
+		} else if (AppendBuff.startsWith("ENCLFILE: "))
+		{
+			AppendBuff = AppendBuff.mid(10);
+			Subfield.loid = JAMSFLD_ENCLFILE;
+		} else if (AppendBuff.startsWith("ENCLFILEWALIAS: "))
+		{
+			AppendBuff = AppendBuff.mid(16);
+			Subfield.loid = JAMSFLD_ENCLFWALIAS;
+		} else if (AppendBuff.startsWith("ENCLFREQ: "))
+		{
+			AppendBuff = AppendBuff.mid(10);
+			Subfield.loid = JAMSFLD_ENCLFREQ;
+		} else if (AppendBuff.startsWith("ENCLFILEWCARD: "))
+		{
+			AppendBuff = AppendBuff.mid(15);
+			Subfield.loid = JAMSFLD_ENCLFILEWC;
+		} else if (AppendBuff.startsWith("ENCLINDIRFILE: "))
+		{
+			AppendBuff = AppendBuff.mid(15);
+			Subfield.loid = JAMSFLD_ENCLINDFILE;
+		} else if (AppendBuff.startsWith("FLAGS "))
+		{
+			AppendBuff = AppendBuff.mid(6);
+			Subfield.loid = JAMSFLD_FLAGS;
+		} else if (AppendBuff.startsWith("TZUTC: "))
+		{
+			AppendBuff = AppendBuff.mid(7);
+			Subfield.loid = JAMSFLD_TZUTCINFO;
+		} else
+			Subfield.loid = JAMSFLD_FTSKLUDGE;
+
+		Subfield.datlen = QMIN(AppendBuff.length(), JAM_MAX_DATA_LEN);
+		if (fwrite((char*)&Subfield, sizeof(AreaItem_Jam_SubfieldHeader), 1, b_obj->JHR) != 1)
+			return false;
+		if (fwrite(AppendBuff.ascii(), Subfield.datlen, 1, b_obj->JHR) != 1)
+			return false;
+		ParseList.remove(ParseList.at(0));
 	}
 
-	delete Ctl;
-	delete Txt;
+	/* Parse Text to subfields */
+	ParseList = QStringList::split("\n", (const char*)Base->TxtBuff, true);
+	for (uint32_t i = 0; i < ParseList.count();)
+	{
+		AppendBuff = ParseList[i];
 
-	return ret;
+		memset(&Subfield, 0, sizeof(AreaItem_Jam_SubfieldHeader));
+
+		if (AppendBuff.startsWith("SEEN-BY: "))
+		{
+			AppendBuff = AppendBuff.mid(9);
+			Subfield.loid = JAMSFLD_SEENBY2D;
+		} else if (AppendBuff.startsWith("PATH: "))
+		{
+			AppendBuff = AppendBuff.mid(6);
+			Subfield.loid = JAMSFLD_PATH2D;
+		} else {
+			i++;
+			continue;
+		}
+
+		Subfield.datlen = QMIN(AppendBuff.length(), JAM_MAX_DATA_LEN);
+		ParseList.remove(ParseList.at(i));
+		if (fwrite((char*)&Subfield, sizeof(AreaItem_Jam_SubfieldHeader), 1, b_obj->JHR) != 1)
+			return false;
+		if (fwrite(AppendBuff.ascii(), Subfield.datlen, 1, b_obj->JHR) != 1)
+			return false;
+	}
+
+	/* Update subfield length */
+	JamHeader.subfieldlen = ftell(b_obj->JHR) - (JamIndex.hdroffset + sizeof(AreaItem_Jam_Header));
+
+	/* Write Text */
+	char *Txt = qstrdup(ParseList.join("\r").ascii());
+	CRLF2Fts(Txt);
+
+	if (fwrite(Txt, qstrlen(Txt), 1, b_obj->JDT) != 1)
+		return false;
+	JamHeader.txtlen = qstrlen(Txt);
+
+	/* Update header */
+	if (fseek(b_obj->JHR, JamIndex.hdroffset, SEEK_SET) != 0)
+		return false;
+	if (fwrite((char*)&JamHeader, sizeof(AreaItem_Jam_Header), 1, b_obj->JHR) != 1)
+		return false;
+
+	/* Update message counter */
+	b_obj->HdrInfo.activemsgs = b_obj->HdrInfo.activemsgs + 1;
+	rewind(b_obj->JHR);
+	fwrite((char*)&b_obj->HdrInfo, sizeof(AreaItem_Jam_HeaderInfo), 1, b_obj->JHR);
+
+	return true;
 }
 
 TMessage *AppendArea_Jam(TArea *Base, bool isNew)
@@ -494,7 +707,7 @@ bool DeleteArea_Jam(TArea *Base, uint32_t Index)
 				b_obj->HdrInfo.activemsgs = b_obj->HdrInfo.activemsgs - 1;
 				rewind(b_obj->JHR);
 				fwrite((char*)&b_obj->HdrInfo, sizeof(AreaItem_Jam_HeaderInfo), 1, b_obj->JHR);
-				return true;
+				return RegenerateJDX(Base);
 			}
 	}
 

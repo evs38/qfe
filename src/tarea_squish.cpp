@@ -28,7 +28,7 @@ bool CreateSQD(TArea *Base)
 	memset((char*)&b_obj->BaseInfo, '\0', sizeof(AreaItem_Squish_Base));
 	b_obj->BaseInfo.len = sizeof(AreaItem_Squish_Base);
 	b_obj->BaseInfo.uid = 1;
-	qstrncpy((char*)&b_obj->BaseInfo.base, Base->Path.ascii(), sizeofrec(AreaItem_Squish_Base, base));
+	qstrncpy((char*)&b_obj->BaseInfo.base, Base->Path.ascii(), sizeofrec(AreaItem_Squish_Base, base) + 1);
 	b_obj->BaseInfo.begin_frame = SQUISH_FRAME_NULL;
 	b_obj->BaseInfo.last_frame = SQUISH_FRAME_NULL;
 	b_obj->BaseInfo.free_frame = SQUISH_FRAME_NULL;
@@ -366,9 +366,9 @@ bool RescanArea_Squish(TArea *Base)
 			{
 				TMessage *it = AppendArea_Squish(Base, false);
 
-				qstrncpy((char*)it->from, (char*)&Header.from, MAX_FROM_NAME_LEN);
-				qstrncpy((char*)it->to, (char*)&Header.to, MAX_TO_NAME_LEN);
-				qstrncpy((char*)it->subj, (char*)&Header.subj, MAX_SUBJ_LEN);
+				qstrncpy((char*)&it->from, (char*)&Header.from, MAX_FROM_NAME_LEN + 1);
+				qstrncpy((char*)&it->to, (char*)&Header.to, MAX_TO_NAME_LEN + 1);
+				qstrncpy((char*)&it->subj, (char*)&Header.subj, MAX_SUBJ_LEN + 1);
 
 				it->origaddr.zone = Header.origaddr.zone;
 				it->origaddr.net = Header.origaddr.net;
@@ -479,9 +479,9 @@ bool WriteArea_Squish(TArea *Base, uint32_t Index)
 	TArea_Squish_PvtObject *b_obj = (TArea_Squish_PvtObject*)Base->AreaPvtData;
 
 	memset((char*)&Header, '\0', sizeof(AreaItem_Squish_Header));
-	qstrncpy((char*)&Header.from, (char*)it->from, MAX_FROM_NAME_LEN);
-	qstrncpy((char*)&Header.to, (char*)it->to, MAX_TO_NAME_LEN);
-	qstrncpy((char*)&Header.subj, (char*)it->subj, MAX_SUBJ_LEN);
+	qstrncpy((char*)&Header.from, (char*)&it->from, MAX_FROM_NAME_LEN + 1);
+	qstrncpy((char*)&Header.to, (char*)&it->to, MAX_TO_NAME_LEN + 1);
+	qstrncpy((char*)&Header.subj, (char*)&it->subj, MAX_SUBJ_LEN + 1);
 
 	memcpy(&Header.fts_date, DateTime2Fts(it->dt).ascii(), MAX_DATE_LEN);
 	uint32_t tmp;
@@ -599,8 +599,7 @@ bool WriteArea_Squish(TArea *Base, uint32_t Index)
 			break;
 
 		/* Rebuild index */
-		if (RegenerateSQI(Base))
-			ret = true;
+		ret = RegenerateSQI(Base);
 
 		break;
 	}

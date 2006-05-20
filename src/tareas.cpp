@@ -20,9 +20,97 @@
 
 #include "tareas.h"
 
-TAreas::TAreas()
+TAreas::TAreas(QString fname)
 {
+	AreasDump.clear();
+	AreasFiles.clear();
+
+/*
+	if (ReadFile(fname))
+		qDebug("Areas config file readed sucessfully.");
+*/
+
 	setAutoDelete(true);
+}
+
+#if defined(Q_OS_WIN)
+#	define UNIFORM_FILE_CASE(x)	x.lower()
+#else
+#	define UNIFORM_FILE_CASE(x)	x
+#endif
+
+/* This function is test for future fidoconfig parser */
+bool TAreas::ReadFile(QString fname)
+{
+	bool ret = false;
+
+	if (testexists(fname))
+	{
+		if (AreasFiles.findIndex(UNIFORM_FILE_CASE(fname)) == -1)
+		{
+			qDebug("Reading areas config file %s.", fname.ascii());
+
+			AreasFiles.append(UNIFORM_FILE_CASE(fname));
+
+			QFile AreasFile(fname);
+			if (FileOpenFunc(&AreasFile, IO_ReadOnly))
+			{
+				QTextStream AreasStream(&AreasFile);
+				AreasStream.setEncoding(QTextStream::Locale);
+
+				for (;;)
+				{
+					QString tmp = AreasStream.readLine().simplifyWhiteSpace();
+					if (tmp.isEmpty())
+						continue;
+					if (tmp.at(0) == '#')
+						continue;
+
+					for (int i = 0;;)
+					{
+						i = tmp.find('#', i);
+						if (i > 0)
+						{
+						    	if (tmp.at(i - 1).isSpace())
+							{
+								tmp.truncate(i);
+								tmp = tmp.stripWhiteSpace();
+								break;
+							}
+						} else
+							break;
+					}
+
+					if (strcompare(gettoken(tmp, 1), "include"))
+					{
+						tmp = gettoken(tmp, 2);
+						if (!ReadFile(tmp))
+						{
+							qDebug("Can't open included file %s.", tmp.ascii());
+							break;
+						}
+					} else
+						AreasDump.append(tmp);
+
+					if (AreasStream.atEnd())
+					{
+						ret = true;
+						break;
+					}
+				}
+
+				FileCloseFunc(&AreasFile);
+			} else
+				qDebug("Can't open areas config file.");
+		} else
+		{
+			qDebug("File %s alredy included in areas config file.", fname.ascii());
+			ret = true;
+		}
+	} else
+		qDebug("Areas config file not found.");
+
+	return ret;
 }
 
 int TAreas::Find(QString _name)

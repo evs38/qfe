@@ -132,4 +132,10 @@ enum Base_Type
 	BASETYPE_PASSTROUGH
 };
 
+enum Config_Type
+{
+	CONFTYPE_UNKNOWN,
+	CONFTYPE_FIDOCONFIG
+};
+
 #endif /* _TTYPES_H_ */

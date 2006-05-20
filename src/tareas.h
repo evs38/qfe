@@ -23,8 +23,6 @@
 
 #include <qlist.h>
 
-#include "tfidoconfig.h"
-
 class TAreas;
 
 #include "utils.h"
@@ -34,10 +32,16 @@ class TAreas;
 class TAreas : public QList<TArea>
 {
 public:
-	TAreas();
+	TAreas(QString);
 
 	int Find(QString);
 	TArea *Add(QString, QString, QString, Area_Type, Base_Type, uint16_t, QString, QString, QString, QString, QString, char*);
+
+private:
+	QStringList AreasDump;
+	QStringList AreasFiles;
+
+	bool ReadFile(QString);
 };
 
 #endif /* _TAREAS_H_ */

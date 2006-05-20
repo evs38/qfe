@@ -208,7 +208,7 @@ void TMainWindow::init()
 
 	LastAreaName = Config->GetStr(QString::null, CONFIG_LASTAREA, "NETMAIL");
 	LoadSettings();
-	Areas = new TAreas();
+	Areas = new TAreas(Config->GetStr(CONFIG_SECTION_FIDO, CONFIG_FIDOCONFNAME, getConfigFileName()));
 	ActiveEditCnt = 0;
 
 	Current = NULL;
