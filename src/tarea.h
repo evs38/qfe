@@ -39,6 +39,8 @@ public:
 	Area_Type AreaType;
 	Base_Type BaseType;
 
+	void FreeBuffers();
+
 	bool Init(QString, QString, QString, QString, QString, QString, QString, QString, char*);
 	bool Open(bool = false);
 	bool Rescan();
@@ -53,6 +55,9 @@ public:
 	uint32_t GetLastRead();
 	void SetLastRead(uint32_t);
 	void MarkAsRead(uint32_t);
+
+	uint8_t *CtlBuff;
+	uint8_t *TxtBuff;
 
 	QString Aka;
 	QString Name;

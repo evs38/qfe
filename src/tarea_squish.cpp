@@ -438,16 +438,16 @@ bool ReadArea_Squish(TArea *Base, uint32_t Index)
 			if (CtlLen > 0)
 			{
 				fseek(b_obj->SQD, sizeof(AreaItem_Squish_Header) + 1, SEEK_CUR);
-				it->CtlBuff = new uint8_t[CtlLen + 1];
-				if ((int32_t)fread(it->CtlBuff, 1, CtlLen, b_obj->SQD) == CtlLen)
+				Base->CtlBuff = new uint8_t[CtlLen + 1];
+				if ((int32_t)fread(Base->CtlBuff, 1, CtlLen, b_obj->SQD) == CtlLen)
 				{
-					*(it->CtlBuff + CtlLen) = '\0';
+					*(Base->CtlBuff + CtlLen) = '\0';
 
-					char *tmp = (char*)it->CtlBuff;
+					char *tmp = (char*)Base->CtlBuff;
 					while ((tmp = strchr(tmp, '\001')) != NULL)
 						*tmp++ = '\n';
 
-					it->attr = ExtendFlags(it->attr, GetKludge(it->CtlBuff, "FLAGS "));
+					it->attr = ExtendFlags(it->attr, GetKludge(Base->CtlBuff, "FLAGS "));
 
 					ret1 = true;
 				}
@@ -455,12 +455,12 @@ bool ReadArea_Squish(TArea *Base, uint32_t Index)
 
 			int32_t TxtLen = Frame.msg_length - (Frame.clen + sizeof(AreaItem_Squish_Header));
 			fseek(b_obj->SQD, BaseIndex.ofs + sizeof(AreaItem_Squish_Frame) + sizeof(AreaItem_Squish_Header) + CtlLen + 1, SEEK_SET);
-			it->TxtBuff = new uint8_t[TxtLen + 1];
-			if ((int32_t)fread(it->TxtBuff, 1, TxtLen, b_obj->SQD) == TxtLen)
+			Base->TxtBuff = new uint8_t[TxtLen + 1];
+			if ((int32_t)fread(Base->TxtBuff, 1, TxtLen, b_obj->SQD) == TxtLen)
 			{
-				*(it->TxtBuff + TxtLen) = '\0';
+				*(Base->TxtBuff + TxtLen) = '\0';
 
-				Fts2CRLF((char*)it->TxtBuff);
+				Fts2CRLF((char*)Base->TxtBuff);
 
 				ret2 = true;
 			}
@@ -520,12 +520,12 @@ bool WriteArea_Squish(TArea *Base, uint32_t Index)
 	Global2Flags(Header.attr, it->attr, FLAG_URQ, SQUISH_FLAG_UPDREQ);
 	Global2Flags(Header.attr, it->attr, FLAG_LOK, SQUISH_FLAG_LOK);
 
-	QString AppendBuff = Base->NormalizeCtl(it, (uint8_t*)it->CtlBuff);
+	QString AppendBuff = Base->NormalizeCtl(it, (uint8_t*)Base->CtlBuff);
 
 	if (!AppendBuff.isEmpty())
-		AppendBuff.append("\n").append((char*)it->CtlBuff);
+		AppendBuff.append("\n").append((char*)Base->CtlBuff);
 	else
-		AppendBuff = (char*)it->CtlBuff;
+		AppendBuff = (char*)Base->CtlBuff;
 
 	if ((it->attr & FLAG_IMM) == FLAG_IMM)
 		AppendBuff = HandleFlag(AppendBuff, FLAG_IMM);
@@ -533,7 +533,7 @@ bool WriteArea_Squish(TArea *Base, uint32_t Index)
 	char *Ctl = qstrdup((const char*)Base->Append001(AppendBuff).append("\n").ascii());
 	CRLF2Fts(Ctl);
 
-	char *Txt = qstrdup((const char*)it->TxtBuff);
+	char *Txt = qstrdup((const char*)Base->TxtBuff);
 	CRLF2Fts(Txt);
 
 	for (;;)

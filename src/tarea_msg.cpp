@@ -163,11 +163,11 @@ bool ReadArea_Msg(TArea *Base, uint32_t Index)
 
 		if (CtlLen > 0)
 		{
-			it->CtlBuff = new uint8_t[CtlLen + 1];
-			qstrncpy((char*)it->CtlBuff, Buffer, CtlLen + 1);
-			*(it->CtlBuff + CtlLen) = '\0';
+			Base->CtlBuff = new uint8_t[CtlLen + 1];
+			qstrncpy((char*)Base->CtlBuff, Buffer, CtlLen + 1);
+			*(Base->CtlBuff + CtlLen) = '\0';
 
-			char *tmp = (char*)it->CtlBuff;
+			char *tmp = (char*)Base->CtlBuff;
 			while ((tmp = strchr(tmp, '\001')) != NULL)
 			{
 				qmemmove((void*)tmp, (void*)(tmp + 1), strlen(tmp + 1) + 1);
@@ -175,14 +175,14 @@ bool ReadArea_Msg(TArea *Base, uint32_t Index)
 			}
 		}
 
-		it->TxtBuff = (uint8_t*)qstrdup(Buffer + CtlLen);
+		Base->TxtBuff = (uint8_t*)qstrdup(Buffer + CtlLen);
 
 		if (!obj->AddrFlagsOK)
 		{
 			uint16_t tmppnt;
 			fidoaddr tmpaddr;
 
-			QString kl = GetKludge(it->CtlBuff, "REPLY: ");
+			QString kl = GetKludge(Base->CtlBuff, "REPLY: ");
 			if (!kl.isEmpty())
 				if (str2addr(kl.mid(7), &tmpaddr))
 				{
@@ -190,7 +190,7 @@ bool ReadArea_Msg(TArea *Base, uint32_t Index)
 					it->destaddr.point = tmpaddr.point;
 				}
 
-			kl = GetKludge(it->CtlBuff, "INTL ");
+			kl = GetKludge(Base->CtlBuff, "INTL ");
 			if (!kl.isEmpty())
 			{
 				if (str2addr(kl.mid(5), &tmpaddr))
@@ -199,7 +199,7 @@ bool ReadArea_Msg(TArea *Base, uint32_t Index)
 					it->origaddr.zone = tmpaddr.zone;
 			}
 
-			kl = GetKludge(it->CtlBuff, "MSGID: ");
+			kl = GetKludge(Base->CtlBuff, "MSGID: ");
 			if (!kl.isEmpty())
 				if (str2addr(kl.mid(7), &tmpaddr))
 				{
@@ -207,7 +207,7 @@ bool ReadArea_Msg(TArea *Base, uint32_t Index)
 					it->origaddr.point = tmpaddr.point;
 				}
 
-			kl = GetKludge(it->CtlBuff, "TOPT ");
+			kl = GetKludge(Base->CtlBuff, "TOPT ");
 			if (!kl.isEmpty())
 			{
 				tmppnt = kl.mid(5).toUShort();
@@ -215,7 +215,7 @@ bool ReadArea_Msg(TArea *Base, uint32_t Index)
 					it->destaddr.point = tmpaddr.point;
 			}
 
-			kl = GetKludge(it->CtlBuff, "FMPT ");
+			kl = GetKludge(Base->CtlBuff, "FMPT ");
 			if (!kl.isEmpty())
 			{
 				tmppnt = kl.mid(5).toUShort();
@@ -223,7 +223,7 @@ bool ReadArea_Msg(TArea *Base, uint32_t Index)
 					it->origaddr.point = tmpaddr.point;
 			}
 
-			it->attr = ExtendFlags(it->attr, GetKludge(it->CtlBuff, "FLAGS "));
+			it->attr = ExtendFlags(it->attr, GetKludge(Base->CtlBuff, "FLAGS "));
 
 			obj->AddrFlagsOK = true;
 		}
@@ -294,12 +294,12 @@ bool WriteArea_Msg(TArea *Base, uint32_t Index)
 
 		if (fwrite((char*)&Header, sizeof(AreaItem_Msg_Header), 1, pf) == 1)
 		{
-			QString AppendBuff = Base->NormalizeCtl(it, (uint8_t*)it->CtlBuff);
+			QString AppendBuff = Base->NormalizeCtl(it, (uint8_t*)Base->CtlBuff);
 
 			if (!AppendBuff.isEmpty())
-				AppendBuff.append("\n").append((char*)it->CtlBuff);
+				AppendBuff.append("\n").append((char*)Base->CtlBuff);
 			else
-				AppendBuff = (char*)it->CtlBuff;
+				AppendBuff = (char*)Base->CtlBuff;
 
 			if ((it->attr & FLAG_IMM) == FLAG_IMM)
 				AppendBuff = HandleFlag(AppendBuff, FLAG_IMM);
@@ -309,7 +309,7 @@ bool WriteArea_Msg(TArea *Base, uint32_t Index)
 
 			if (fwrite(Ctl, 1, strlen(Ctl), pf) == strlen(Ctl))
 			{
-				char *Txt = qstrdup((const char*)it->TxtBuff);
+				char *Txt = qstrdup((const char*)Base->TxtBuff);
 				CRLF2Fts(Txt);
 
 				if (fwrite(Txt, 1, strlen(Txt) + 1, pf) == (strlen(Txt) + 1))

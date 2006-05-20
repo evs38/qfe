@@ -689,13 +689,13 @@ void ExpandMacros(TArea *Area, TMessage *Message, QString *Line, QString _Area)
 			Line->replace("@origtoaddr@", addr2str1(&Message->destaddr));
 		Line->replace("@origfrom@", Config->toUTF((char*)Message->from));
 		Line->replace("@origfromname@", gettoken(Config->toUTF((char*)Message->from), 1));
-		Line->replace("@origfromaddr@", addr2str1(&Message->origaddr, Message->CtlBuff));
+		Line->replace("@origfromaddr@", addr2str1(&Message->origaddr, Message->Area->CtlBuff));
 		Line->replace("@origsubj@", DecodeMIMELine((char*)Message->subj));
 		QDateTime dt;
 		dt.setTime_t(Message->dt);
 		Line->replace("@origdate@", dt.toString("dd.MM.yyyy"));
 		Line->replace("@origtime@", dt.toString("hh:mm:ss"));
-		Line->replace("@origattr@", flags2str(Message->attr, GetKludge(Message->CtlBuff, "FLAGS ")));
+		Line->replace("@origattr@", flags2str(Message->attr, GetKludge(Message->Area->CtlBuff, "FLAGS ")));
 	}
 }
 

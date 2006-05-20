@@ -559,7 +559,7 @@ void TMainWindow::ActionSave()
 		{
 			if (Message->Read())
 			{
-				QString Lines, Buffer = Config->toUTF((char*)Message->TxtBuff);
+				QString Lines, Buffer = Config->toUTF((char*)Message->Area->TxtBuff);
 				QStringList BufferList = QStringList::split("\n", Buffer, true);
 
 				int findex = -1, i = BufferList.count() - 1;
@@ -654,15 +654,15 @@ void TMainWindow::ActionSaveToArchive()
 			{
 				TMessage *DestMessage = ArchArea->Append();
 
-				DestMessage->CtlBuff = (uint8_t*)qstrdup((char*)OrigMessage->CtlBuff);
+				DestMessage->Area->CtlBuff = (uint8_t*)qstrdup((char*)OrigMessage->Area->CtlBuff);
 
-				QString Lines, Buffer = Config->toUTF((char*)OrigMessage->TxtBuff);
+				QString Lines, Buffer = Config->toUTF((char*)OrigMessage->Area->TxtBuff);
 				LoadTemplate(TPL_ARCHIVE_TPL, OrigMessage->Area->Name, &Lines);
 				ExpandMacros(OrigMessage->Area, OrigMessage, &Lines, OrigMessage->Area->Name);
 				ExpandMacros2(this, &Lines);
 				Lines.replace("@text@", Buffer);
 
-				DestMessage->TxtBuff = (uint8_t*)qstrdup(Config->fromUTF(Lines));
+				DestMessage->Area->TxtBuff = (uint8_t*)qstrdup(Config->fromUTF(Lines));
 
 				OrigMessage->CopyAttributesTo(DestMessage);
 
@@ -837,7 +837,7 @@ void TMainWindow::ActionAddToBook()
 	TMessage *Message = ((TMessageItem*)MessageList->selectedItem())->Message;
 	Message->Area->Open();
 	Message->Read();
-	AddressBook->AddExternalAddr(Config->toUTF((char*)Message->from), addr2str1(&Message->origaddr, Message->CtlBuff));
+	AddressBook->AddExternalAddr(Config->toUTF((char*)Message->from), addr2str1(&Message->origaddr, Message->Area->CtlBuff));
 	Message->Area->Close();
 
 	if (AddressBook->exec() == QDialog::Accepted)
@@ -1836,8 +1836,8 @@ void TMainWindow::MessageChanged(QListViewItem *Item)
 			AddToBookAction->setEnabled(true);
 
 			//TODO: Process CHRS
-			//QString chrs = GetKludge(Current->CtlBuff, "CHRS: ");
-			//QString chrs = GetKludge(Current->CtlBuff, "CHARSET: ");
+			//QString chrs = GetKludge(Current->Area->CtlBuff, "CHRS: ");
+			//QString chrs = GetKludge(Current->Area->CtlBuff, "CHARSET: ");
 			//if (!chrs.isEmpty())
 			//{
 			//	chrs.mid(6)
@@ -1846,7 +1846,7 @@ void TMainWindow::MessageChanged(QListViewItem *Item)
 
 			FNLabel->setText(CurrentItem->text(2));
 
-			FALabel->setText(addr2str1(&Current->origaddr, Current->CtlBuff));
+			FALabel->setText(addr2str1(&Current->origaddr, Current->Area->CtlBuff));
 
 			TNLabel->setText(CurrentItem->text(3));
 			if (isNetMail(Current))
@@ -1857,20 +1857,20 @@ void TMainWindow::MessageChanged(QListViewItem *Item)
 			dt.setTime_t(Current->dt);
 			DLabel->setText(dt.toString("hh:mm:ss dd MMM yyyy"));
 
-			FLabel->setText(flags2str(Current->attr, GetKludge(Current->CtlBuff, "FLAGS ")));
+			FLabel->setText(flags2str(Current->attr, GetKludge(Current->Area->CtlBuff, "FLAGS ")));
 
-			gc = GetKludge(Current->CtlBuff, "GC:");
+			gc = GetKludge(Current->Area->CtlBuff, "GC:");
 			if (!gc.isEmpty())
 			{
-				DecodeGeek(Current->CtlBuff);
+				DecodeGeek(Current->Area->CtlBuff);
 			} else {
-				gc = GetKludge(Current->CtlBuff, "Geek-R");
+				gc = GetKludge(Current->Area->CtlBuff, "Geek-R");
 				if (!gc.isEmpty())
-					DecodeGeek(Current->CtlBuff);
+					DecodeGeek(Current->Area->CtlBuff);
 			}
 
-			QString Kludges = ViewKludgesAction->isOn() ? QStyleSheet::escape(Config->toUTF((char*)Current->CtlBuff)) : QString::null;
-			QString tmp, Buffer = Config->toUTF((char*)Current->TxtBuff);
+			QString Kludges = ViewKludgesAction->isOn() ? QStyleSheet::escape(Config->toUTF((char*)Current->Area->CtlBuff)) : QString::null;
+			QString tmp, Buffer = Config->toUTF((char*)Current->Area->TxtBuff);
 			ReplaceUnicodeChars(&Buffer);
 
 			int i = Buffer.find("<html>", 0, false);
@@ -1966,7 +1966,7 @@ void TMainWindow::MessageChanged(QListViewItem *Item)
 						SetUserPixmap(QPixmap(BookItem->Photo));
 
 				// Find Photo from "GIF"-kludge
-				gif = GetKludge(Current->CtlBuff, "GIF: ");
+				gif = GetKludge(Current->Area->CtlBuff, "GIF: ");
 				if (!gif.isEmpty())
 				{
 					Buffer = gif.mid(5).stripWhiteSpace();
@@ -2090,7 +2090,7 @@ void TMainWindow::LinkProcess(QString Link, bool InsertData)
 					if (Tok.find("%B") > -1)
 					{
 						TMessage *Message = ((TMessageItem*)MessageList->selectedItem())->Message;
-						QString Lines, Buffer = Config->toUTF((char*)Message->TxtBuff);
+						QString Lines, Buffer = Config->toUTF((char*)Message->Area->TxtBuff);
 						QStringList BufferList = QStringList::split("\n", Buffer, true);
 							findex = -1;
 						i1 = BufferList.count() - 1;

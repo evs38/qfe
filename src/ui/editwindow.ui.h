@@ -187,7 +187,7 @@ bool TEditWindow::SetUp(TArea *Area, TMessage *Message, uint Operation, void *ad
 			OrigArea = Message->Area->Name;
 			if (strcompare(Area->Name, Config->GetDraftArea()))
 			{
-				tmp = GetKludge(Message->CtlBuff, "AREA: ");
+				tmp = GetKludge(Message->Area->CtlBuff, "AREA: ");
 				if (tmp.isEmpty())
 				{
 					errormessage(this, MESS_NOTAREA);
@@ -209,7 +209,7 @@ bool TEditWindow::SetUp(TArea *Area, TMessage *Message, uint Operation, void *ad
 			if (DstArea->AreaType == AREATYPE_NETMAIL)
 			{
 				ToAddrEdit->setEnabled(true);
-				ToAddrEdit->setText(addr2str1(&Message->destaddr, Message->CtlBuff));
+				ToAddrEdit->setText(addr2str1(&Message->destaddr, Message->Area->CtlBuff));
 				AllowFlags = FLAG_PVT | FLAG_CRASH | FLAG_FILE | FLAG_KILL | FLAG_HLD | FLAG_DIR | FLAG_FRQ | FLAG_RRQ | FLAG_ARQ | FLAG_URQ | FLAG_IMM;
 			} else
 				AllowFlags = FLAG_KILL;
@@ -232,10 +232,10 @@ bool TEditWindow::SetUp(TArea *Area, TMessage *Message, uint Operation, void *ad
 
 			if (DstArea->AreaType != AREATYPE_NETMAIL)
 			{
-				KeepKludge("RFC-References:", Message->CtlBuff, &Kludges);
-				KeepKludge("RFC-Message-ID:", Message->CtlBuff, &Kludges);
+				KeepKludge("RFC-References:", Message->Area->CtlBuff, &Kludges);
+				KeepKludge("RFC-Message-ID:", Message->Area->CtlBuff, &Kludges);
 			}
-			KeepKludge("REPLY:", Message->CtlBuff, &Kludges);
+			KeepKludge("REPLY:", Message->Area->CtlBuff, &Kludges);
 
 			UniqueID = Message->uid;
 
@@ -251,7 +251,7 @@ bool TEditWindow::SetUp(TArea *Area, TMessage *Message, uint Operation, void *ad
 			ToNameCombo->insertItem(Config->toUTF((char*)Message->from), 0);
 			if (Area->AreaType == AREATYPE_NETMAIL)
 			{
-				ToAddrEdit->setText(addr2str1(&Message->origaddr, Message->CtlBuff));
+				ToAddrEdit->setText(addr2str1(&Message->origaddr, Message->Area->CtlBuff));
 				ToAddrEdit->setEnabled(true);
 				MessFlags |= FLAG_PVT;
 				AllowFlags = FLAG_PVT | FLAG_CRASH | FLAG_FILE | FLAG_KILL | FLAG_HLD | FLAG_DIR | FLAG_FRQ | FLAG_RRQ | FLAG_ARQ | FLAG_URQ | FLAG_IMM;
@@ -265,16 +265,16 @@ bool TEditWindow::SetUp(TArea *Area, TMessage *Message, uint Operation, void *ad
 
 			Message->Area->Open();
 			Message->Read();
-			tmp = GetKludge(Message->CtlBuff, "MSGID:");
+			tmp = GetKludge(Message->Area->CtlBuff, "MSGID:");
 			if (!tmp.isEmpty())
 				Kludges.append("REPLY" + tmp.mid(5));
 
 			QString rfc = QString::null;
-			tmp = GetKludge(Message->CtlBuff, "RFC-Message-ID:");
+			tmp = GetKludge(Message->Area->CtlBuff, "RFC-Message-ID:");
 			if (!tmp.isEmpty())
 				rfc = tmp.mid(16);
 
-			tmp = GetKludge(Message->CtlBuff, "RFC-References:");
+			tmp = GetKludge(Message->Area->CtlBuff, "RFC-References:");
 			if (!tmp.isEmpty())
 			{
 				tmp = tmp.mid(16);
@@ -303,7 +303,7 @@ bool TEditWindow::SetUp(TArea *Area, TMessage *Message, uint Operation, void *ad
 			MessFlags |= FLAG_PVT;
 			AllowFlags = FLAG_PVT | FLAG_CRASH | FLAG_FILE | FLAG_KILL | FLAG_HLD | FLAG_DIR | FLAG_FRQ | FLAG_RRQ | FLAG_ARQ | FLAG_URQ | FLAG_IMM;
 
-			ToAddrEdit->setText(addr2str1(&Message->origaddr, Message->CtlBuff));
+			ToAddrEdit->setText(addr2str1(&Message->origaddr, Message->Area->CtlBuff));
 			ToAddrEdit->setEnabled(true);
 			ToNameCombo->insertItem(Config->toUTF((char*)Message->from), 0);
 
@@ -371,7 +371,7 @@ bool TEditWindow::SetUp(TArea *Area, TMessage *Message, uint Operation, void *ad
 			MessFlags |= FLAG_PVT | FLAG_KILL | FLAG_CPT;
 			AllowFlags = FLAG_PVT | FLAG_CRASH | FLAG_KILL | FLAG_DIR | FLAG_CPT | FLAG_IMM;
 
-			ToAddrEdit->setText(addr2str1(&Message->origaddr, Message->CtlBuff));
+			ToAddrEdit->setText(addr2str1(&Message->origaddr, Message->Area->CtlBuff));
 			//ToAddrEdit->setEnabled(true);
 			ToNameCombo->insertItem(Config->toUTF((char*)Message->from), 0);
 
@@ -563,10 +563,10 @@ int TEditWindow::LoadText(TMessage *Message)
 {
 	int q;
 	uint32_t i, j;
-	QString Initials, Line, Text = Config->toUTF((char*)Message->TxtBuff);
+	QString Initials, Line, Text = Config->toUTF((char*)Message->Area->TxtBuff);
 
 	if (Config->GetBool(CONFIG_SECTION_EDIT, CONFIG_SHOWKLUDGES, false) && (MsgOperation != MSG_OPERATION_EDIT) && (MsgOperation != MSG_OPERATION_UNSUBSCRIBE) && (MsgOperation != MSG_OPERATION_CONFIRM))
-		Text.prepend(Config->toUTF((char*)Message->CtlBuff));
+		Text.prepend(Config->toUTF((char*)Message->Area->CtlBuff));
 
 	ReplaceUnicodeChars(&Text);
 	QStringList InputList = QStringList::split("\n", Text, true);
@@ -828,7 +828,7 @@ void TEditWindow::Save(bool isDraft)
 	Message->attr = MessFlags;
 
 	LoadKludges(&Kludges);
-	Message->CtlBuff = (uint8_t*)qstrdup(Config->fromUTF(Kludges.join("\n")));
+	Message->Area->CtlBuff = (uint8_t*)qstrdup(Config->fromUTF(Kludges.join("\n")));
 
 	tmp = isDraft ? MessageEdit->text() : TextReplace(MessageEdit->text());
 	if (isDraft)
@@ -842,7 +842,7 @@ void TEditWindow::Save(bool isDraft)
 		tmp.append(isDraft ? ComposeOrigin(faddr) : TextReplace(ComposeOrigin(faddr)));
 	}
 
-	Message->TxtBuff = (uint8_t*)qstrdup(Config->fromUTF(tmp));
+	Message->Area->TxtBuff = (uint8_t*)qstrdup(Config->fromUTF(tmp));
 
 	bool w_res = Area->Write(Message->AreaIndex);
 	Area->Close();

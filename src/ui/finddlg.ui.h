@@ -93,14 +93,14 @@ bool TFind::FindInString(QString Value)
 bool TFind::FindInMsgText(TMessage *Message)
 {
 	if (Message->Read())
-		return FindInString(Config->toUTF((char*)Message->TxtBuff));
+		return FindInString(Config->toUTF((char*)Message->Area->TxtBuff));
 	return false;
 }
 
 bool TFind::FindInMsgKludges(TMessage *Message)
 {
 	if (Message->Read())
-		return FindInString(Config->toUTF((char*)Message->CtlBuff));
+		return FindInString(Config->toUTF((char*)Message->Area->CtlBuff));
 	return false;
 }
 

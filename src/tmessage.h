@@ -62,7 +62,6 @@ class TMessage
 {
 public:
 	TMessage(TArea*);
-	~TMessage();
 
 	uint8_t from[MAX_FROM_NAME_LEN + 1];
 	uint8_t to[MAX_TO_NAME_LEN + 1];
@@ -73,9 +72,6 @@ public:
 	uint32_t attr;
 	uint32_t size;
 	uint32_t uid;
-
-	uint8_t *CtlBuff;
-	uint8_t *TxtBuff;
 
 //	TMessage *Parent;
 
@@ -88,8 +84,6 @@ public:
 	bool Read();
 
 	void MarkAsRead();
-
-	void FreeBuffers();
 
 	void CopyAttributesTo(TMessage*);
 };

@@ -25,10 +25,6 @@ TMessage::TMessage(TArea *_Area)
 	Area = _Area;
 	AreaIndex = _Area->count();
 
-#warning "CtlBuff & TxtBuff must be moved to TArea"
-	CtlBuff = NULL;
-	TxtBuff = NULL;
-
 	memset(from, '\0', MAX_FROM_NAME_LEN + 1);
 	memset(to, '\0', MAX_TO_NAME_LEN + 1);
 	memset(subj, '\0', MAX_SUBJ_LEN + 1);
@@ -37,11 +33,6 @@ TMessage::TMessage(TArea *_Area)
 
 	MessageItem = NULL;
 };
-
-TMessage::~TMessage()
-{
-	FreeBuffers();
-}
 
 bool TMessage::Read()
 {
@@ -52,20 +43,6 @@ void TMessage::MarkAsRead()
 {
 	Area->MarkAsRead(AreaIndex);
 };
-
-void TMessage::FreeBuffers()
-{
-	if (CtlBuff != NULL)
-	{
-		delete CtlBuff;
-		CtlBuff = NULL;
-	}
-	if (TxtBuff != NULL)
-	{
-		delete TxtBuff;
-		TxtBuff = NULL;
-	}
-}
 
 void TMessage::CopyAttributesTo(TMessage *Dest)
 {

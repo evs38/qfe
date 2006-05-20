@@ -346,8 +346,8 @@ bool ReadArea_Jam(TArea *Base, uint32_t Index)
 					KludgeBuff << tmpstr;
 			}
 
-			it->CtlBuff = (uint8_t*)qstrdup(KludgeBuff.join("\n"));
-			Fts2CRLF((char*)it->CtlBuff);
+			Base->CtlBuff = (uint8_t*)qstrdup(KludgeBuff.join("\n"));
+			Fts2CRLF((char*)Base->CtlBuff);
 
 			if (fseek(b_obj->JDT, JamHeader.offset, SEEK_SET) == 0)
 			{
@@ -357,8 +357,8 @@ bool ReadArea_Jam(TArea *Base, uint32_t Index)
 					*(Txt + JamHeader.txtlen) = '\0';
 					PathBuff.prepend(qstrdup(Txt));
 
-					it->TxtBuff = (uint8_t*)qstrdup(PathBuff.join("\n"));
-					Fts2CRLF((char*)it->TxtBuff);
+					Base->TxtBuff = (uint8_t*)qstrdup(PathBuff.join("\n"));
+					Fts2CRLF((char*)Base->TxtBuff);
 
 					ret = true;
 				}
@@ -373,6 +373,7 @@ bool ReadArea_Jam(TArea *Base, uint32_t Index)
 
 bool WriteArea_Jam(TArea *Base, uint32_t Index)
 {
+	bool ret = false;
 	AreaItem_Jam_Index JamIndex;
 	AreaItem_Jam_Header JamHeader;
 	TMessage *it = Base->at(Index);
@@ -406,39 +407,53 @@ bool WriteArea_Jam(TArea *Base, uint32_t Index)
 
 	Global2Flags(JamHeader.attribute, it->attr, FLAG_LOK, JAM_FLAG_LOCKED);
 
-	QString AppendBuff = Base->NormalizeCtl(it, (uint8_t*)it->CtlBuff);
+	QString AppendBuff = Base->NormalizeCtl(it, (uint8_t*)Base->CtlBuff);
 
 	if (!AppendBuff.isEmpty())
-		AppendBuff.append("\n").append((char*)it->CtlBuff);
+		AppendBuff.append("\n").append((char*)Base->CtlBuff);
 	else
-		AppendBuff = (char*)it->CtlBuff;
+		AppendBuff = (char*)Base->CtlBuff;
+
+	char *Ctl = qstrdup((const char*)AppendBuff.ascii());
+	CRLF2Fts(Ctl);
+
+	char *Txt = qstrdup((const char*)Base->TxtBuff);
+	CRLF2Fts(Txt);
 
 //
 /*
-	if (fseek(b_obj->JDX, ((QMAX(b_obj->HdrInfo.basemsgnum, 1) - 1) + Index) * sizeof(AreaItem_Jam_Index), SEEK_SET) != 0)
-		return false;
-
-	if (fread((char*)&JamIndex, sizeof(AreaItem_Jam_Index), 1, b_obj->JDX) != 1)
-		return false;
-
-	if (fseek(b_obj->JHR, JamIndex.hdroffset, SEEK_SET) != 0)
-		return false;
-*/
-
-/*
-	if (obj->Ptr == 0)
+	for(;;)
 	{
-		//
-	} else {
-		//
-	}
+		if (fseek(b_obj->JDX, ((QMAX(b_obj->HdrInfo.basemsgnum, 1) - 1) + Index) * sizeof(AreaItem_Jam_Index), SEEK_SET) != 0)
+			break;
+
+		if (fread((char*)&JamIndex, sizeof(AreaItem_Jam_Index), 1, b_obj->JDX) != 1)
+			break;
+
+		if (fseek(b_obj->JHR, JamIndex.hdroffset, SEEK_SET) != 0)
+			break;
 */
 
 /*
 	TODO
 remember JAM_FLAG_TYPELOCAL,JAM_FLAG_TYPEECHO,JAM_FLAG_TYPENET !!!
 */
-	return false;
+
+/*
+		if (obj->Ptr == 0)
+		{
+			//
+		} else {
+			//
+		}
+		ret = true;
+		break;
+	}
+*/
+	delete Ctl;
+	delete Txt;
+
+	return ret;
 }
 
 TMessage *AppendArea_Jam(TArea *Base, bool isNew)

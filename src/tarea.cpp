@@ -41,14 +41,32 @@ TArea::TArea(Area_Type _AType, Base_Type _BType, uint16_t _DefZone)
 	dummyLastRead = -1;
 	User = NULL;
 
+	CtlBuff = NULL;
+	TxtBuff = NULL;
+
 	LastIndex = -1;
 }
 
 TArea::~TArea()
 {
+	Done();
 	if (User != NULL)
 		delete User;
-	Done();
+	FreeBuffers();
+}
+
+void TArea::FreeBuffers()
+{
+	if (CtlBuff != NULL)
+	{
+		delete CtlBuff;
+		CtlBuff = NULL;
+	}
+	if (TxtBuff != NULL)
+	{
+		delete TxtBuff;
+		TxtBuff = NULL;
+	}
 }
 
 bool TArea::Init(QString _Name, QString _Desc, QString _Path, QString _Aka, QString _Group, QString _Uplink, QString _UplinkPwd, QString _UplinkRbt, char *_User)
@@ -166,7 +184,7 @@ bool TArea::Read(uint32_t Index)
 		if (LastIndex != (int32_t)Index)
 		{
 			if (LastIndex != -1)
-				at(LastIndex)->FreeBuffers();
+				FreeBuffers();
 			LastIndex = Index;
 
 			switch (BaseType)
@@ -201,7 +219,7 @@ bool TArea::Write(uint32_t Index)
 		if (LastIndex != (int32_t)Index)
 		{
 			if (LastIndex != -1)
-				at(LastIndex)->FreeBuffers();
+				FreeBuffers();
 			LastIndex = Index;
 		}
 
@@ -263,7 +281,7 @@ bool TArea::Delete(uint32_t Index)
 	{
 		if (LastIndex == (int32_t)Index)
 			LastIndex = -1;
-		at(Index)->FreeBuffers();
+		FreeBuffers();
 
 		switch (BaseType)
 		{
@@ -328,7 +346,7 @@ void TArea::Close(bool ignorelock)
 		{
 			if (LastIndex != -1)
 			{
-				at(LastIndex)->FreeBuffers();
+				FreeBuffers();
 				LastIndex = -1;
 			}
 

@@ -523,8 +523,8 @@ void TFTNCoDec::DecodeMessage(TMessage *Msg)
 
 	if (Msg->Read())
 	{
-		Txt = qstrdup((const char*)Msg->TxtBuff);
-		Ctl = qstrdup((const char*)Msg->CtlBuff);
+		Txt = qstrdup((const char*)Msg->Area->TxtBuff);
+		Ctl = qstrdup((const char*)Msg->Area->CtlBuff);
 
 		TxtPtr = Txt;
 		for (;;)
@@ -658,7 +658,7 @@ void TFTNCoDec::DecodeMessage(TMessage *Msg)
 					fn = QString::null;
 					id = QString::null;
 
-					if ((TxtPtr + 20) >= (Txt + strlen((char*)Msg->TxtBuff)))
+					if ((TxtPtr + 20) >= (Txt + strlen((char*)Msg->Area->TxtBuff)))
 						break;
 				} else
 					break;
