@@ -113,9 +113,9 @@ bool extquestionmessage(QWidget *parent, QString Message, QString Param)
 	return tmp;
 }
 
+#if defined(ENABLE_DEBUG)
 bool debugmessage(QString Message)
 {
-#if defined(ENABLE_DEBUG)
 	if (dodebug)
 	{
 		if (Config != NULL)
@@ -135,11 +135,9 @@ bool debugmessage(QString Message)
 			return false;
 		}
 	}
-#else
-	Q_UNUSED(Message);
-#endif
 	return true;
 }
+#endif
 
 QString addr2str1(fidoaddr *_addr, uint8_t *CtrlBuff, bool addzero)
 {

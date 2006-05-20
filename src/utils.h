@@ -52,7 +52,12 @@ void informationmessage(QWidget*, QString);
 bool questionmessage(QWidget*, QString);
 bool extquestionmessage(QWidget*, QString, QString);
 
-bool debugmessage(QString);
+#if defined(ENABLE_DEBUG)
+	bool debugmessage(QString);
+#else
+	inline bool _debugmessage() { return true; }
+#	define debugmessage(x)	_debugmessage(/*x*/)
+#endif
 
 QString addr2str1(fidoaddr*, uint8_t* = NULL, bool = false);
 QString addr2str2(hs_addr, bool = false);
