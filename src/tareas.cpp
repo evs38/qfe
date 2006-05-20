@@ -25,6 +25,7 @@ TAreas::TAreas(QString fname)
 	AreasDump.clear();
 	AreasFiles.clear();
 
+	Q_UNUSED(fname);
 /*
 	if (ReadFile(fname))
 		qDebug("Areas config file readed sucessfully.");
@@ -34,9 +35,9 @@ TAreas::TAreas(QString fname)
 }
 
 #if defined(Q_OS_WIN)
-#	define UNIFORM_FILE_CASE(x)	x.lower()
+#	define FIXED_FILE_CASE(x)	x.lower()
 #else
-#	define UNIFORM_FILE_CASE(x)	x
+#	define FIXED_FILE_CASE(x)	x
 #endif
 
 /* This function is test for future fidoconfig parser */
@@ -46,11 +47,11 @@ bool TAreas::ReadFile(QString fname)
 
 	if (testexists(fname))
 	{
-		if (AreasFiles.findIndex(UNIFORM_FILE_CASE(fname)) == -1)
+		if (AreasFiles.findIndex(FIXED_FILE_CASE(fname)) == -1)
 		{
 			qDebug("Reading areas config file %s.", fname.ascii());
 
-			AreasFiles.append(UNIFORM_FILE_CASE(fname));
+			AreasFiles.append(FIXED_FILE_CASE(fname));
 
 			QFile AreasFile(fname);
 			if (FileOpenFunc(&AreasFile, IO_ReadOnly))

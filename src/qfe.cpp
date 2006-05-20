@@ -59,6 +59,7 @@
 #define PROGRAM_PATH_BASE	0
 #define PROGRAM_PATH_MANUAL	1
 #define PROGRAM_PATH_LOCALE	2
+#define PROGRAM_PATH_EXTENSIONS	3
 
 TConfig *Config = NULL;
 TAreas *Areas = NULL;

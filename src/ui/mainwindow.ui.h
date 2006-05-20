@@ -208,7 +208,7 @@ void TMainWindow::init()
 
 	LastAreaName = Config->GetStr(QString::null, CONFIG_LASTAREA, "NETMAIL");
 	LoadSettings();
-	Areas = new TAreas(Config->GetStr(CONFIG_SECTION_FIDO, CONFIG_FIDOCONFNAME, getConfigFileName()));
+	OpenAreas();
 	ActiveEditCnt = 0;
 
 	Current = NULL;
@@ -304,6 +304,14 @@ void TMainWindow::destroy()
 void TMainWindow::statusBarMessageChanged(const QString &string)
 {
 	MessageStatusBar->setText(string.stripWhiteSpace().remove("\n"));
+}
+
+void TMainWindow::OpenAreas()
+{
+	if (Areas == NULL)
+		Areas = new TAreas(Config->GetStr(CONFIG_SECTION_FIDO, CONFIG_FIDOCONFNAME, getConfigFileName()));
+	else
+		Areas->clear();
 }
 
 void TMainWindow::ShowProgress(uint Percent, QString Name, uint ProgressType)
@@ -471,6 +479,7 @@ bool TMainWindow::eventFilter(QObject *o, QEvent *e)
 			return true;
 		}
 	}
+
 	return QMainWindow::eventFilter(o, e);
 }
 
@@ -1091,17 +1100,13 @@ void TMainWindow::ActionOptions()
 	TOptions *Options = new TOptions(this);
 	if (Options->exec() == QDialog::Accepted)
 	{
-		TArea *CurrentArea = (AreaList->selectedItem() != NULL) ? ((TAreaItem*)AreaList->selectedItem())->Area : NULL;
-//		Areas->Close();
+		if (AreaList->selectedItem() != NULL)
+			((TAreaItem*)AreaList->selectedItem())->Area->Close();
 		Config->DoneFido();
 		Config->InitFido();
 		LoadSettings();
-		if (CurrentArea != NULL)
-		{
-#warning "Redraw on config change disabled!"
-//			Areas->Open(CurrentArea);
-			ActionRedrawMessage();
-		}
+		OpenAreas();
+		ActionRescanAll();
 	}
 	delete Options;
 }

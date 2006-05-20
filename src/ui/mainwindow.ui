@@ -1543,6 +1543,7 @@
 <functions>
     <function access="private" specifier="non virtual">init()</function>
     <function access="private" specifier="non virtual">destroy()</function>
+    <function access="private" specifier="non virtual">OpenAreas()</function>
     <function specifier="non virtual">ShowProgress( uint Percent, QString Name, uint ProgressType )</function>
     <function specifier="non virtual">HideProgress()</function>
     <function access="private" specifier="non virtual">LoadSettings()</function>
