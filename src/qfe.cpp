@@ -434,10 +434,6 @@ int main(int argc, char ** argv)
 			qApp->mainWidget()->setCaption(QObject::tr("Qt FTN Message Editor"));
 			qApp->connect(qApp, SIGNAL(lastWindowClosed()), qApp, SLOT(quit()));
 
-#			warning "This is debug code. Must be removed in release!"
-			if (!Config->IsDevelopMode())
-				informationmessage(NULL, "This version is unstable.\nRemember, Jam-types areas is read-only yet.");
-
 			qApp->mainWidget()->show();
 
 			ret = qApp->exec();

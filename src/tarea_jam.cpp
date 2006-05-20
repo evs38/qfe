@@ -20,12 +20,6 @@
 
 #include "tarea_jam.h"
 
-bool RegenerateJDX(TArea *Base)
-{
-	//TODO:
-	return true;
-}
-
 bool InitArea_Jam(TArea *Base)
 {
 	TArea_Jam_PvtObject *b_obj = new TArea_Jam_PvtObject();
@@ -707,7 +701,24 @@ bool DeleteArea_Jam(TArea *Base, uint32_t Index)
 				b_obj->HdrInfo.activemsgs = b_obj->HdrInfo.activemsgs - 1;
 				rewind(b_obj->JHR);
 				fwrite((char*)&b_obj->HdrInfo, sizeof(AreaItem_Jam_HeaderInfo), 1, b_obj->JHR);
-				return RegenerateJDX(Base);
+
+				if ((Index < (Base->count() - 1)) && (Base->count() > 1))
+				{
+					uint32_t JDXSize = ((QMAX(b_obj->HdrInfo.basemsgnum, 1) - 1) + Base->count()) * sizeof(AreaItem_Jam_Index);
+					char *JDXBuff = new char[JDXSize];
+					rewind(b_obj->JDX);
+					if (fread(JDXBuff, 1, JDXSize, b_obj->JDX) == JDXSize)
+					{
+						rewind(b_obj->JDX);
+						uint32_t DestIdx = (Index > 0) ? Index : 0;
+						uint32_t SrcIdx = QMIN(Index + 1, Base->count() - 1);
+						uint32_t CopyCnt = Base->count() - SrcIdx;
+						qmemmove(JDXBuff + (DestIdx * sizeof(AreaItem_Jam_Index)), JDXBuff + (SrcIdx * sizeof(AreaItem_Jam_Index)), CopyCnt * sizeof(AreaItem_Jam_Index));
+						fwrite(JDXBuff, 1, JDXSize - sizeof(AreaItem_Jam_Index), b_obj->JDX);
+					}
+				}
+
+				return true;
 			}
 	}
 
