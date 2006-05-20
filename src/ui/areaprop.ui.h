@@ -49,7 +49,7 @@ void TAreaProp::SetUp(void *_Area)
 	AreaUplinkEdit->setEnabled(!Area->Uplink.isEmpty());
 	AreaUplinkEdit->setText(Area->Uplink);
 
-	switch (Area->BaseType)
+	switch (Area->GetBaseType())
 	{
 		case BASETYPE_JAM:
 			AreaTypeEdit->setText("Jam");

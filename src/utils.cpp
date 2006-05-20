@@ -863,7 +863,7 @@ uint32_t Calculate_CRC(const uint8_t *Buffer, uint32_t cnt)
 	if (cnt == 0)
 		cnt = strlen((const char*)Buffer);
 
-	for(; cnt-- > 0; Buffer++)
+	for (; cnt-- > 0; Buffer++)
 		ret = CRC32_TABLE[((int32_t)ret ^ (*Buffer)) & 0xff] ^ ((ret >> 8) & 0x00ffffff);
 
 	return ret;
@@ -876,7 +876,7 @@ uint32_t Calculate_Hash(const uint8_t *Buffer, uint32_t cnt)
 	if (cnt == 0)
 		cnt = strlen((const char*)Buffer);
 
-	for(; cnt-- > 0; Buffer++)
+	for (; cnt-- > 0; Buffer++)
 	{
 		ret = (ret << 4) + *Buffer;
 		g = ret & 0xf0000000;

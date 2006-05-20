@@ -974,6 +974,9 @@
         <property name="name">
             <cstring>RescanAllAction</cstring>
         </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
         <property name="text">
             <string>Rescan All</string>
         </property>

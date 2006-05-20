@@ -37,7 +37,6 @@ public:
 	~TArea();
 
 	Area_Type AreaType;
-	Base_Type BaseType;
 
 	void FreeBuffers();
 
@@ -70,6 +69,8 @@ public:
 	QString UplinkPwd;
 	QString UplinkRbt;
 
+	Base_Type GetBaseType();
+
 	uint16_t DefZone;
 	uint32_t UnReadCnt;
 
@@ -81,12 +82,15 @@ public:
 	QString Append001(QString);
 
 private:
+	Base_Type BaseType;
+
 #if defined(QT_THREAD_SUPPORT)
 	int32_t OpenCounter;
 	QMutex Mutex;
 #else
 	volatile int32_t OpenCounter;
 #endif
+
 	int32_t LastIndex;
 	int32_t dummyLastRead;
 
@@ -95,6 +99,21 @@ private:
 	{
 		return OpenCounter > 0;
 	}
+
+	/* Base Functions */
+	bool (*InitArea_)(TArea*);
+	bool (*OpenArea_)(TArea*);
+	bool (*RescanArea_)(TArea*);
+	bool (*ReadArea_)(TArea*, uint32_t);
+	bool (*WriteArea_)(TArea*, uint32_t);
+	TMessage* (*AppendArea_)(TArea*, bool);
+	bool (*DeleteArea_)(TArea*, uint32_t);
+	bool (*KillArea_)(TArea*);
+	void (*CloseArea_)(TArea*);
+	void (*DoneArea_)(TArea*);
+	uint32_t (*GetLastReadArea_)(TArea*, uint32_t);
+	void (*SetLastReadArea_)(TArea*, uint32_t, uint32_t);
+	void (*MarkAsReadArea_)(TArea*, uint32_t);
 };
 
 #if defined(QT_THREAD_SUPPORT)

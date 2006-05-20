@@ -101,6 +101,7 @@ void THelpWindow::BrowserBackwardAvailable(bool Value)
 void THelpWindow::HelpBrowserLinkClicked(const QString &Link)
 {
 	//TODO: Made link clicked, such as in TAbout
+	//(TMainWindow*)(qApp->mainWidget())->LinkProcess(Link, false);
 	Q_UNUSED(Link);
 	//
 }

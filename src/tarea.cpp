@@ -45,6 +45,70 @@ TArea::TArea(Area_Type _AType, Base_Type _BType, uint16_t _DefZone)
 	TxtBuff = NULL;
 
 	LastIndex = -1;
+
+	switch (BaseType)
+	{
+		case BASETYPE_MSG:
+			InitArea_ = InitArea_Msg;
+			OpenArea_ = OpenArea_Msg;
+			RescanArea_ = RescanArea_Msg;
+			ReadArea_ = ReadArea_Msg;
+			WriteArea_ = WriteArea_Msg;
+			AppendArea_ = AppendArea_Msg;
+			DeleteArea_ = DeleteArea_Msg;
+			KillArea_ = KillArea_Msg;
+			CloseArea_ = CloseArea_Msg;
+			DoneArea_ = DoneArea_Msg;
+			GetLastReadArea_ = GetLastReadArea_Msg;
+			SetLastReadArea_ = SetLastReadArea_Msg;
+			MarkAsReadArea_ = MarkAsReadArea_Msg;
+			break;
+		case BASETYPE_JAM:
+			InitArea_ = InitArea_Jam;
+			OpenArea_ = OpenArea_Jam;
+			RescanArea_ = RescanArea_Jam;
+			ReadArea_ = ReadArea_Jam;
+			WriteArea_ = WriteArea_Jam;
+			AppendArea_ = AppendArea_Jam;
+			DeleteArea_ = DeleteArea_Jam;
+			KillArea_ = KillArea_Jam;
+			CloseArea_ = CloseArea_Jam;
+			DoneArea_ = DoneArea_Jam;
+			GetLastReadArea_ = GetLastReadArea_Jam;
+			SetLastReadArea_ = SetLastReadArea_Jam;
+			MarkAsReadArea_ = MarkAsReadArea_Jam;
+			break;
+		case BASETYPE_SQUISH:
+			InitArea_ = InitArea_Squish;
+			OpenArea_ = OpenArea_Squish;
+			RescanArea_ = RescanArea_Squish;
+			ReadArea_ = ReadArea_Squish;
+			WriteArea_ = WriteArea_Squish;
+			AppendArea_ = AppendArea_Squish;
+			DeleteArea_ = DeleteArea_Squish;
+			KillArea_ = KillArea_Squish;
+			CloseArea_ = CloseArea_Squish;
+			DoneArea_ = DoneArea_Squish;
+			GetLastReadArea_ = GetLastReadArea_Squish;
+			SetLastReadArea_ = SetLastReadArea_Squish;
+			MarkAsReadArea_ = MarkAsReadArea_Squish;
+			break;
+		default:
+			InitArea_ = NULL;
+			OpenArea_ = NULL;
+			RescanArea_ = NULL;
+			ReadArea_ = NULL;
+			WriteArea_ = NULL;
+			AppendArea_ = NULL;
+			DeleteArea_ = NULL;
+			KillArea_ = NULL;
+			CloseArea_ = NULL;
+			DoneArea_ = NULL;
+			GetLastReadArea_ = NULL;
+			SetLastReadArea_ = NULL;
+			MarkAsReadArea_ = NULL;
+			break;
+	}
 }
 
 TArea::~TArea()
@@ -53,6 +117,11 @@ TArea::~TArea()
 	if (User != NULL)
 		delete User;
 	FreeBuffers();
+}
+
+Base_Type TArea::GetBaseType()
+{
+	return BaseType;
 }
 
 void TArea::FreeBuffers()
@@ -85,20 +154,8 @@ bool TArea::Init(QString _Name, QString _Desc, QString _Path, QString _Aka, QStr
 
 	User = qstrdup(_User);
 
-	switch (BaseType)
-	{
-		case BASETYPE_MSG:
-			ret = InitArea_Msg(this);
-			break;
-		case BASETYPE_JAM:
-			ret = InitArea_Jam(this);
-			break;
-		case BASETYPE_SQUISH:
-			ret = InitArea_Squish(this);
-			break;
-		default:
-			break;
-	}
+	if (InitArea_ != NULL)
+		ret = InitArea_(this);
 
 	if (!ret)
 		debugmessage("Init() fail. Path=" + Path);
@@ -115,20 +172,8 @@ bool TArea::Open(bool ignorelock)
 
 	if (++OpenCounter == 1)
 	{
-		switch (BaseType)
-		{
-			case BASETYPE_MSG:
-				ret = OpenArea_Msg(this);
-				break;
-			case BASETYPE_JAM:
-				ret = OpenArea_Jam(this);
-				break;
-			case BASETYPE_SQUISH:
-				ret = OpenArea_Squish(this);
-				break;
-			default:
-				break;
-		}
+		if (OpenArea_ != NULL)
+			ret = OpenArea_(this);
 
 		if (!ret)
 		{
@@ -149,20 +194,9 @@ bool TArea::Rescan()
 	if (isOpened())
 	{
 		clear();
-		switch (BaseType)
-		{
-			case BASETYPE_MSG:
-				ret = RescanArea_Msg(this);
-				break;
-			case BASETYPE_JAM:
-				ret = RescanArea_Jam(this);
-				break;
-			case BASETYPE_SQUISH:
-				ret = RescanArea_Squish(this);
-				break;
-			default:
-				break;
-		}
+
+		if (RescanArea_ != NULL)
+			ret = RescanArea_(this);
 
 		if (!ret)
 			debugmessage("Rescan() fail. Path=" + Path);
@@ -187,20 +221,8 @@ bool TArea::Read(uint32_t Index)
 				FreeBuffers();
 			LastIndex = Index;
 
-			switch (BaseType)
-			{
-				case BASETYPE_MSG:
-					ret = ReadArea_Msg(this, Index);
-					break;
-				case BASETYPE_JAM:
-					ret = ReadArea_Jam(this, Index);
-					break;
-				case BASETYPE_SQUISH:
-					ret = ReadArea_Squish(this, Index);
-					break;
-				default:
-					break;
-			}
+			if (ReadArea_ != NULL)
+				ret = ReadArea_(this, Index);
 		} else
 			ret = true;
 	} else
@@ -223,20 +245,8 @@ bool TArea::Write(uint32_t Index)
 			LastIndex = Index;
 		}
 
-		switch (BaseType)
-		{
-			case BASETYPE_MSG:
-				ret = WriteArea_Msg(this, Index);
-				break;
-			case BASETYPE_JAM:
-				ret = WriteArea_Jam(this, Index);
-				break;
-			case BASETYPE_SQUISH:
-				ret = WriteArea_Squish(this, Index);
-				break;
-			default:
-				break;
-		}
+		if (WriteArea_ != NULL)
+			ret = WriteArea_(this, Index);
 	} else
 		debugmessage("Write() fail. Area " + Name + " closed.");
 
@@ -250,22 +260,13 @@ TMessage *TArea::Append()
 
 	if (Open(true))
 	{
-		switch (BaseType)
+		if (AppendArea_ != NULL)
 		{
-			case BASETYPE_MSG:
-				ret = AppendArea_Msg(this, true);
-				break;
-			case BASETYPE_JAM:
-				ret = AppendArea_Jam(this, true);
-				break;
-			case BASETYPE_SQUISH:
-				ret = AppendArea_Squish(this, true);
-				break;
-			default:
-				break;
+			ret = AppendArea_(this, true);
+
+			ret->attr = FLAG_LOC | FLAG_READ;
+			ret->dt = QDateTime::currentDateTime().toTime_t();
 		}
-		ret->attr = FLAG_LOC | FLAG_READ;
-		ret->dt = QDateTime::currentDateTime().toTime_t();
 		Close(true);
 	}
 
@@ -283,20 +284,8 @@ bool TArea::Delete(uint32_t Index)
 			LastIndex = -1;
 		FreeBuffers();
 
-		switch (BaseType)
-		{
-			case BASETYPE_MSG:
-				ret = DeleteArea_Msg(this, Index);
-				break;
-			case BASETYPE_JAM:
-				ret = DeleteArea_Jam(this, Index);
-				break;
-			case BASETYPE_SQUISH:
-				ret = DeleteArea_Squish(this, Index);
-				break;
-			default:
-				break;
-		}
+		if (DeleteArea_ != NULL)
+			ret = DeleteArea_(this, Index);
 
 		if (ret)
 			remove(Index);
@@ -318,20 +307,8 @@ bool TArea::Kill()
 
 	Done();
 
-	switch (BaseType)
-	{
-		case BASETYPE_MSG:
-			ret = KillArea_Msg(this);
-			break;
-		case BASETYPE_JAM:
-			ret = KillArea_Jam(this);
-			break;
-		case BASETYPE_SQUISH:
-			ret = KillArea_Squish(this);
-			break;
-		default:
-			break;
-	}
+	if (KillArea_ != NULL)
+		ret = KillArea_(this);
 
 	return ret;
 }
@@ -350,20 +327,8 @@ void TArea::Close(bool ignorelock)
 				LastIndex = -1;
 			}
 
-			switch (BaseType)
-			{
-				case BASETYPE_MSG:
-					CloseArea_Msg(this);
-					break;
-				case BASETYPE_JAM:
-					CloseArea_Jam(this);
-					break;
-				case BASETYPE_SQUISH:
-					CloseArea_Squish(this);
-					break;
-				default:
-					break;
-			}
+			if (CloseArea_ != NULL)
+				CloseArea_(this);
 		}
 }
 
@@ -372,40 +337,17 @@ void TArea::Done()
 	while (isOpened())
 		Close();
 
-	switch (BaseType)
-	{
-		case BASETYPE_MSG:
-			DoneArea_Msg(this);
-			break;
-		case BASETYPE_JAM:
-			DoneArea_Jam(this);
-			break;
-		case BASETYPE_SQUISH:
-			DoneArea_Squish(this);
-			break;
-		default:
-			break;
-	}
+	if (DoneArea_ != NULL)
+		DoneArea_(this);
+
 	clear();
 }
 
 uint32_t TArea::GetLastRead()
 {
 	if (dummyLastRead == -1)
-		switch (BaseType)
-		{
-			case BASETYPE_MSG:
-				dummyLastRead = GetLastReadArea_Msg(this, DEFAULT_USERID);
-				break;
-			case BASETYPE_JAM:
-				dummyLastRead = GetLastReadArea_Jam(this, DEFAULT_USERID);
-				break;
-			case BASETYPE_SQUISH:
-				dummyLastRead = GetLastReadArea_Squish(this, DEFAULT_USERID);
-				break;
-			default:
-				break;
-		}
+		if (GetLastReadArea_ != NULL)
+			dummyLastRead = GetLastReadArea_(this, DEFAULT_USERID);
 
 	return (uint32_t)QMAX(dummyLastRead, 0);
 }
@@ -416,20 +358,8 @@ void TArea::SetLastRead(uint32_t Index)
 	{
 		dummyLastRead = Index;
 
-		switch (BaseType)
-		{
-			case BASETYPE_MSG:
-				SetLastReadArea_Msg(this, DEFAULT_USERID, Index);
-				break;
-			case BASETYPE_JAM:
-				SetLastReadArea_Jam(this, DEFAULT_USERID, Index);
-				break;
-			case BASETYPE_SQUISH:
-				SetLastReadArea_Squish(this, DEFAULT_USERID, Index);
-				break;
-			default:
-				break;
-		}
+		if (SetLastReadArea_ != NULL)
+			SetLastReadArea_(this, DEFAULT_USERID, Index);
 	}
 }
 
@@ -440,20 +370,9 @@ void TArea::MarkAsRead(uint32_t Index)
 		at(Index)->attr |= FLAG_READ;
 		if (Open())
 		{
-			switch (BaseType)
-			{
-				case BASETYPE_MSG:
-					MarkAsReadArea_Msg(this, Index);
-					break;
-				case BASETYPE_JAM:
-					MarkAsReadArea_Jam(this, Index);
-					break;
-				case BASETYPE_SQUISH:
-					MarkAsReadArea_Squish(this, Index);
-					break;
-				default:
-					break;
-			}
+			if (MarkAsReadArea_ != NULL)
+				MarkAsReadArea_(this, Index);
+
 			Close();
 		}
 

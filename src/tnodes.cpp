@@ -177,7 +177,7 @@ bool TNodes::ParseString(char *str, uint16_t *num, char *strout)
 
 	if (*str == ',')
 	{
-		while((*tmp >= '0') && (*tmp <= '9'))
+		while ((*tmp >= '0') && (*tmp <= '9'))
 			tmp++;
 		*tmp = '\0';
 		*num = (uint16_t)atol(str + 1);

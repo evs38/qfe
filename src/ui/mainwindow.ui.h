@@ -1016,7 +1016,7 @@ void TMainWindow::ActionPrint()
 
 		statusBar()->message(QObject::tr("Printing..."));
 
-		if(!Painter.begin(&Printer))
+		if (!Painter.begin(&Printer))
 		{
 			statusBar()->message(QObject::tr("Printing aborted"), 1000);
 			return;
@@ -1033,8 +1033,8 @@ void TMainWindow::ActionPrint()
 		QSimpleRichText RTF(TextEdit->hasSelectedText() ? TextEdit->selectedText() : TextEdit->text(), TextEdit->font(), TextEdit->context(), TextEdit->styleSheet(), TextEdit->mimeSourceFactory(), view.height(), UrlItem->color(), false);
 		RTF.setWidth(&Painter, view.width());
 
-		int page = 1;
-		do {
+		for (int page = 1;;)
+		{
 			qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
 			RTF.draw(&Painter, margin, margin, view, colorGroup());
 			view.moveBy(0, view.height());
@@ -1044,7 +1044,7 @@ void TMainWindow::ActionPrint()
 				break;
 			Printer.newPage();
 			page++;
-		} while (true);
+		}
 
 		Painter.end();
 
@@ -1207,7 +1207,6 @@ void TMainWindow::ClearMessageList()
 
 void TMainWindow::RescanArea(TAreaItem *It, bool DoItActive)
 {
-#warning "RescanArea need test"
 	if (It->Area->Open())
 	{
 		It->Area->Rescan();
@@ -1216,7 +1215,6 @@ void TMainWindow::RescanArea(TAreaItem *It, bool DoItActive)
 			AreaChanged((QListViewItem*)It);
 		It->Area->Close();
 	}
-	//AreaList->repaintItem(It);
 }
 
 void TMainWindow::ActionRescan()
@@ -1282,6 +1280,8 @@ void TMainWindow::ActionRescanAll()
 
 	debugmessage("Rescan Areas...");
 	statusBar()->message(QObject::tr("Rescan Areas..."));
+
+	RescanAllAction->setEnabled(false);
 
 	if ((Splash != NULL) && (Splash->isShown()))
 		Splash->message(QObject::tr("Rescan Areas..."), Qt::AlignLeft, Qt::white);
@@ -1365,6 +1365,8 @@ void TMainWindow::ActionRescanAll()
 	StartArea = QString::null;
 	AreaList->setSelected(AreaList->findItem(QString::number((i < 0) ? 1 : i + 1), 0), true);
 	statusBar()->message(QObject::tr("Rescan Done."), 1000);
+
+	RescanAllAction->setEnabled(true);
 }
 
 void TMainWindow::ActionRedrawMessage()

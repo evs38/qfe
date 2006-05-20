@@ -420,10 +420,9 @@ bool WriteArea_Jam(TArea *Base, uint32_t Index)
 	char *Txt = qstrdup((const char*)Base->TxtBuff);
 	CRLF2Fts(Txt);
 
-//
-/*
-	for(;;)
+	for (;;)
 	{
+/*
 		if (fseek(b_obj->JDX, ((QMAX(b_obj->HdrInfo.basemsgnum, 1) - 1) + Index) * sizeof(AreaItem_Jam_Index), SEEK_SET) != 0)
 			break;
 
@@ -447,9 +446,10 @@ remember JAM_FLAG_TYPELOCAL,JAM_FLAG_TYPEECHO,JAM_FLAG_TYPENET !!!
 			//
 		}
 		ret = true;
+*/
 		break;
 	}
-*/
+
 	delete Ctl;
 	delete Txt;
 
