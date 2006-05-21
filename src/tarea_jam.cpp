@@ -49,9 +49,9 @@ bool OpenArea_Jam(TArea *Base)
 {
 	TArea_Jam_PvtObject *b_obj = (TArea_Jam_PvtObject*)Base->AreaPvtData;
 
-	b_obj->JDT = fopen(b_obj->JDTName.ascii(), QFile::exists(b_obj->JDTName) ? "r+b" : "w+b");
-	b_obj->JDX = fopen(b_obj->JDXName.ascii(), QFile::exists(b_obj->JDXName) ? "r+b" : "w+b");
-	b_obj->JHR = fopen(b_obj->JHRName.ascii(), /* QFile::exists(b_obj->JHRName) ? */"r+b"/* : "w+b"*/);
+	b_obj->JDT = fopen(b_obj->JDTName.ascii(), "r+b");
+	b_obj->JDX = fopen(b_obj->JDXName.ascii(), "r+b");
+	b_obj->JHR = fopen(b_obj->JHRName.ascii(), "r+b");
 
 	return (b_obj->JDT != NULL) && (b_obj->JDX != NULL) && (b_obj->JHR != NULL);
 }
@@ -709,12 +709,15 @@ bool DeleteArea_Jam(TArea *Base, uint32_t Index)
 					rewind(b_obj->JDX);
 					if (fread(JDXBuff, 1, JDXSize, b_obj->JDX) == JDXSize)
 					{
-						rewind(b_obj->JDX);
+						b_obj->JDX = freopen(b_obj->JDXName.ascii(), "w+b", b_obj->JDX);
+
 						uint32_t DestIdx = (Index > 0) ? Index : 0;
 						uint32_t SrcIdx = QMIN(Index + 1, Base->count() - 1);
 						uint32_t CopyCnt = Base->count() - SrcIdx;
 						qmemmove(JDXBuff + (DestIdx * sizeof(AreaItem_Jam_Index)), JDXBuff + (SrcIdx * sizeof(AreaItem_Jam_Index)), CopyCnt * sizeof(AreaItem_Jam_Index));
 						fwrite(JDXBuff, 1, JDXSize - sizeof(AreaItem_Jam_Index), b_obj->JDX);
+
+						b_obj->JDX = freopen(b_obj->JDXName.ascii(), "r+b", b_obj->JDX);
 					}
 					delete JDXBuff;
 				}
