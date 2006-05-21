@@ -200,6 +200,12 @@ class TConfig;
 #	error "Unable to determine target operating system!"
 #endif
 
+#if defined(Q_OS_WIN)
+#	define FIXED_FILE_CASE(x)	x.lower()
+#else
+#	define FIXED_FILE_CASE(x)	x
+#endif
+
 #define QFE_LOGO_NAME	"qfe_logo.xpm"
 #define QFE_LOGO	QPixmap::fromMimeSource(QFE_LOGO_NAME)
 

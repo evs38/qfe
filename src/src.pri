@@ -49,6 +49,7 @@ HEADERS = funchider.h \
           tareaitem.h \
           tareaselectitem.h \
           tareas.h \
+          tareas_fidoconf.h \
           tbook.h \
           tbookitem.h \
           tbookviewitem.h \
@@ -99,6 +100,7 @@ SOURCES = funchider.cpp \
           tarea_squish.cpp \
           tareaitem.cpp \
           tareas.cpp \
+          tareas_fidoconf.cpp \
           tareaselectitem.cpp \
           tbook.cpp \
           tbookitem.cpp \

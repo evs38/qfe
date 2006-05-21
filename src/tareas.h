@@ -34,14 +34,13 @@ class TAreas : public QList<TArea>
 public:
 	TAreas(QString);
 
+	QString FileName;
+
 	int Find(QString);
 	TArea *Add(QString, QString, QString, Area_Type, Base_Type, uint16_t, QString, QString, QString, QString, QString, char*);
 
 private:
-	QStringList AreasDump;
-	QStringList AreasFiles;
-
-	bool ReadFile(QString);
+	bool (*InitAreas_)(TAreas*);
 };
 
 #endif /* _TAREAS_H_ */
