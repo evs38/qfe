@@ -41,6 +41,8 @@ public:
 
 private:
 	bool (*InitAreas_)(TAreas*);
+	bool (*RescanAreas_)(TAreas*);
+	void (*DoneAreas_)(TAreas*);
 };
 
 #endif /* _TAREAS_H_ */

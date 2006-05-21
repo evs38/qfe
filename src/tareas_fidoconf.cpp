@@ -18,12 +18,75 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#include <qregexp.h>
+
 #include "tareas_fidoconf.h"
+
+QChar CommentCharacter = '#';
 
 QStringList AreasDump;
 QStringList AreasFiles;
 
-bool ReadIncludeFile(QString FileName)
+QStringList Environment;
+
+TBoolList IfDefList;
+
+int FindEnvVariable(QString Key)
+{
+	for (uint i = 0; i < Environment.count(); i++)
+		if (strcompare(gettoken(Environment[i], 1), Key))
+			return (int)i;
+
+	return -1;
+}
+
+void RemoveEnvVariable(QString Key)
+{
+	int i = FindEnvVariable(Key);
+	if (i != -1)
+		Environment.remove(Environment.at(i));
+}
+
+void AppendEnvVariable(QString Key, QString Val = QString::null)
+{
+	RemoveEnvVariable(Key);
+	Environment << Key.upper() + (Val.isEmpty() ? QString::null : (" " + Val));
+}
+
+QString ExpandEnvVariables(QString Val)
+{
+	QString ret = Val;
+
+	for (uint i = 0; i < Environment.count(); i++)
+	{
+		QString tmp = gettoken(Environment[i], 1);
+		ret = ret.replace(tmp, Environment[i].mid(tmp.length() + 1), false);
+	}
+
+	return ret;
+}
+
+bool ValidateDefines(QString Val)
+{
+	int i = Val.find("!=");
+	if (i != -1)
+	{
+		Val.replace("!=", " ");
+		return !strcompare(gettoken(Val, 1), gettoken(Val, 2));
+	} else
+	{
+		i = Val.find("==");
+		if (i != -1)
+		{
+			Val.replace("==", " ");
+			return strcompare(gettoken(Val, 1), gettoken(Val, 2));
+		}
+	}
+
+	return FindEnvVariable(Val) > -1;
+}
+
+bool ReadIncludedFidoConfFile(QString FileName)
 {
 	bool ret = false;
 
@@ -46,12 +109,12 @@ bool ReadIncludeFile(QString FileName)
 					QString tmp = AreasStream.readLine().simplifyWhiteSpace();
 					if (tmp.isEmpty())
 						continue;
-					if (tmp.at(0) == '#')
+					if (tmp.at(0) == CommentCharacter)
 						continue;
 
 					for (int i = 0;;)
 					{
-						i = tmp.find('#', i);
+						i = tmp.find(CommentCharacter, i);
 						if (i > 0)
 						{
 						    	if (tmp.at(i - 1).isSpace())
@@ -64,17 +127,126 @@ bool ReadIncludeFile(QString FileName)
 							break;
 					}
 
-					if (strcompare(gettoken(tmp, 1), "include"))
+					QString tok1, tok2;
+
+					for (;;)
 					{
-						debugmessage(QString("Processing \"include\" token in file %1 at %2.").arg(FileName).arg(AreasFile.at()));
-						tmp = gettoken(tmp, 2);
-						if (!ReadIncludeFile(tmp))
-						{
-							debugmessage(QString("Can't open included file %1.").arg(tmp));
+						tok1 = gettoken(tmp, 1);
+						tok2 = gettoken(tmp, 2);
+
+						if (strcompare(tok1, "else") && strcompare(tok2, "if"))
+							tmp.remove(4, 1);
+						else
 							break;
+					}
+
+					if (IfDefList.CheckValid())
+					{
+						if (strcompare(tok1, "elif"))
+						{
+							if (IfDefList.count() > 0)
+							{
+								tmp = ExpandEnvVariables(tmp.mid(5).replace(QRegExp("[\\s]"), QString::null));
+								bool *BoolVal = new bool;
+								*BoolVal = ValidateDefines(tmp);
+								IfDefList.append(BoolVal);
+							} else {
+								debugmessage("Misplaces \"elif\" token.");
+								break;
+							}
+						} else if (strcompare(tok1, "elseif"))
+						{
+							if (IfDefList.count() > 0)
+							{
+								tmp = ExpandEnvVariables(tmp.mid(7).replace(QRegExp("[\\s]"), QString::null));
+								bool *BoolVal = new bool;
+								*BoolVal = ValidateDefines(tmp);
+								IfDefList.append(BoolVal);
+							} else {
+								debugmessage("Misplaces \"elseif\" token.");
+								break;
+							}
+						} else if (strcompare(tok1, "else"))
+						{
+							if (IfDefList.count() > 0)
+							{
+								if (!tok2.isEmpty())
+									debugmessage("Ignoring text after \"else\" token.");
+								IfDefList.Toggle();
+							} else {
+								debugmessage("Misplaces \"else\" token.");
+								break;
+							}
+						} else if (strcompare(tok1, "endif"))
+						{
+							if (IfDefList.count() > 0)
+								IfDefList.remove(IfDefList.count() - 1);
+							else {
+								debugmessage("Misplaces \"endif\" token.");
+								break;
+							}
+						} else if ((strcompare(tok1, "if") || strcompare(tok1, "ifdef")) && !tok2.isEmpty())
+						{
+							tmp = ExpandEnvVariables(tmp.mid(3).replace(QRegExp("[\\s]"), QString::null));
+							bool *BoolVal = new bool;
+							*BoolVal = ValidateDefines(tmp);
+							IfDefList.append(BoolVal);
+						} else if (strcompare(tok1, "ifndef") && !tok2.isEmpty())
+						{
+							tmp = ExpandEnvVariables(tmp.mid(3).replace(QRegExp("[\\s]"), QString::null));
+							bool *BoolVal = new bool;
+							*BoolVal = !ValidateDefines(tmp);
+							IfDefList.append(BoolVal);
+						} else if (strcompare(tok1, "commentchar") && !tok2.isEmpty())
+						{
+							if ((tok2.length() != 1) || (QString("!#$%;").find(tok2.at(0)) == -1))
+							{
+								debugmessage(QString("Invalid \"commentchar\" directive in file %1").arg(FileName));
+								break;
+							}
+							CommentCharacter = tok2.at(0);
+							debugmessage(QString("Comment char set to %1.").arg(CommentCharacter));
+						} else if ((strcompare(tok1, "set") || strcompare(tok1, "define")) && !tok2.isEmpty())
+						{
+							tmp = gettoken(tmp, 3);
+							AppendEnvVariable(tok2, tmp);
+						} else if ((strcompare(tok1, "unset") || strcompare(tok1, "undef")) && !tok2.isEmpty())
+						{
+							RemoveEnvVariable(tok2);
+						} else if (strcompare(tok1, "include") && !tok2.isEmpty())
+						{
+							debugmessage(QString("Processing \"include\" token in file %1 at %2.").arg(FileName).arg(AreasFile.at()));
+							if (!ReadIncludedFidoConfFile(tok2))
+							{
+								debugmessage(QString("Can't open included file %1.").arg(tok2));
+								break;
 						}
+						} else
+							AreasDump.append(tmp);
 					} else
-						AreasDump.append(tmp);
+					{
+						if (strcompare(tok1, "elif"))
+						{
+							tmp = ExpandEnvVariables(tmp.mid(5).replace(QRegExp("[\\s]"), QString::null));
+							bool *BoolVal = new bool;
+							*BoolVal = ValidateDefines(tmp);
+							IfDefList.append(BoolVal);
+						} else if (strcompare(tok1, "elseif"))
+						{
+							tmp = ExpandEnvVariables(tmp.mid(7).replace(QRegExp("[\\s]"), QString::null));
+							bool *BoolVal = new bool;
+							*BoolVal = ValidateDefines(tmp);
+							IfDefList.append(BoolVal);
+						} else if (strcompare(tok1, "else"))
+						{
+							if (!tok2.isEmpty())
+								debugmessage("Ignoring text after \"else\" token.");
+							IfDefList.Toggle();
+						} else if (strcompare(tok1, "endif"))
+						{
+							IfDefList.remove(IfDefList.count() - 1);
+						}
+					}
 
 					if (AreasStream.atEnd())
 					{
@@ -99,15 +271,50 @@ bool ReadIncludeFile(QString FileName)
 
 bool InitAreas_Fidoconf(TAreas *Base)
 {
+	CommentCharacter = '#';
+
 	AreasDump.clear();
 	AreasFiles.clear();
 
-	if (ReadIncludeFile(Base->FileName))
-	{
-		debugmessage("Areas config file readed sucessfully.");
-		return true;
-	}
+	Environment.clear();
+	AppendEnvVariable("[");
+	AppendEnvVariable("]");
+	AppendEnvVariable("\"");
+#if defined(Q_OS_WIN)
+	AppendEnvVariable("OS", "WIN");
+#else
+	AppendEnvVariable("OS", "UNIX");
+#endif
+	AppendEnvVariable("MODULE", "QFE");
 
-	debugmessage("Areas config file read fail.");
+	IfDefList.clear();
+
+	if (ReadIncludedFidoConfFile(Base->FileName))
+	{
+		if (IfDefList.count() == 0)
+		{
+			debugmessage("Areas config file readed sucessfully.");
+			//
+			//
+			//
+		} else
+			debugmessage("Found difference with count of \"if\" and \"endif\" tokens.");
+	} else
+		debugmessage("Areas config file read fail.");
+
 	return false;
+}
+
+bool RescanAreas_Fidoconf(TAreas *Base)
+{
+	//TODO:
+	//
+	//for (...) Base->append(...)
+	//
+	return false;
+}
+
+void DoneAreas_Fidoconf(TAreas*)
+{
+	/* Dummy */
 }

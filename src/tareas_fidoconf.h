@@ -21,11 +21,32 @@
 #ifndef _TAREAS_FIDOCONF_H_
 #define _TAREAS_FIDOCONF_H_
 
+#include <qlist.h>
+
 #include "tareas.h"
 
+class TBoolList : public QList<bool>
+{
+public:
+	TBoolList()
+	{
+		setAutoDelete(true);
+	};
+
+	bool CheckValid()
+	{
+		if (count() == 0)
+			return true;
+		return *at(count() - 1);
+	};
+	void Toggle()
+	{
+		*at(count() - 1) = !(*at(count() - 1));
+	};
+};
+
 bool InitAreas_Fidoconf(TAreas*);
-//ReadAreas_
-//DeleteAreas_
-//DoneAreas_
+bool RescanAreas_Fidoconf(TAreas*);
+void DoneAreas_Fidoconf(TAreas*);
 
 #endif /* _TAREAS_FIDOCONF_H_ */

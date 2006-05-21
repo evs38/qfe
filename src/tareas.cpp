@@ -26,8 +26,14 @@ TAreas::TAreas(QString _FileName)
 {
 	FileName = _FileName;
 
-	/* This call is just test for future areas config parser */
-	InitAreas_Fidoconf(this);
+#if defined(ENABLE_DEBUG)
+	/* This calls is just test for future areas config parser */
+	if (InitAreas_Fidoconf(this))
+	{
+		RescanAreas_Fidoconf(this);
+		DoneAreas_Fidoconf(this);
+	}
+#endif
 
 	setAutoDelete(true);
 }
