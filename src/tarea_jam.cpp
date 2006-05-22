@@ -20,6 +20,27 @@
 
 #include "tarea_jam.h"
 
+void CreateEmptyJHR(TArea *Base)
+{
+	TArea_Jam_PvtObject *b_obj = (TArea_Jam_PvtObject*)Base->AreaPvtData;
+	AreaItem_Jam_HeaderInfo _HdrInfo;
+
+	b_obj->JHR = freopen(b_obj->JHRName.ascii(), "w+b", b_obj->JHR);
+	if (b_obj->JHR != NULL)
+	{
+		memset(&_HdrInfo, 0, sizeof(AreaItem_Jam_HeaderInfo));
+
+		memcpy(&_HdrInfo.signature, JAM_MAGIC, 4);
+		_HdrInfo.datecreated = QDateTime::currentDateTime().toTime_t();
+		_HdrInfo.modcounter = 1;
+		_HdrInfo.passwordcrc = 0xffffffff;
+		_HdrInfo.basemsgnum = 1;
+
+		fwrite((char*)&_HdrInfo, sizeof(AreaItem_Jam_HeaderInfo), 1, b_obj->JHR);
+		b_obj->JHR = freopen(b_obj->JHRName.ascii(), "r+b", b_obj->JHR);
+	}
+}
+
 bool InitArea_Jam(TArea *Base)
 {
 	TArea_Jam_PvtObject *b_obj = new TArea_Jam_PvtObject();
@@ -52,6 +73,11 @@ bool OpenArea_Jam(TArea *Base)
 	b_obj->JDT = fopen(b_obj->JDTName.ascii(), "r+b");
 	b_obj->JDX = fopen(b_obj->JDXName.ascii(), "r+b");
 	b_obj->JHR = fopen(b_obj->JHRName.ascii(), "r+b");
+
+	if (b_obj->JHR != NULL)
+		if (fseek(b_obj->JHR, 0, SEEK_END) == 0)
+			if (ftell(b_obj->JHR) < (long)sizeof(AreaItem_Jam_HeaderInfo))
+				CreateEmptyJHR(Base);
 
 	return (b_obj->JDT != NULL) && (b_obj->JDX != NULL) && (b_obj->JHR != NULL);
 }

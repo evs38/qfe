@@ -309,7 +309,7 @@ void TMainWindow::statusBarMessageChanged(const QString &string)
 void TMainWindow::OpenAreas()
 {
 	if (Areas == NULL)
-		Areas = new TAreas(Config->GetStr(CONFIG_SECTION_FIDO, CONFIG_FIDOCONFNAME, getConfigFileName()));
+		Areas = new TAreas(CONFTYPE_FIDOCONFIG, Config->GetStr(CONFIG_SECTION_FIDO, CONFIG_FIDOCONFNAME, getConfigFileName()));
 	else
 		Areas->clear();
 }

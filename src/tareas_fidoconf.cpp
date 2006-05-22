@@ -18,9 +18,31 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#include <qlist.h>
 #include <qregexp.h>
 
 #include "tareas_fidoconf.h"
+
+class TBoolList : public QList<bool>
+{
+public:
+	TBoolList()
+	{
+		setAutoDelete(true);
+	};
+
+	bool CheckValid()
+	{
+		if (count() == 0)
+			return true;
+		return *at(count() - 1);
+	};
+
+	void Toggle()
+	{
+		*at(count() - 1) = !(*at(count() - 1));
+	};
+};
 
 QChar CommentCharacter = '#';
 
@@ -135,9 +157,24 @@ bool ReadIncludedFidoConfFile(QString FileName)
 						tok2 = gettoken(tmp, 2);
 
 						if (strcompare(tok1, "else") && strcompare(tok2, "if"))
+						{
 							tmp.remove(4, 1);
-						else
-							break;
+							continue;
+						}
+						if (strcompare(tok1, "if") && strcompare(tok2, "defined"))
+						{
+							tmp.remove(2, 1);
+							tmp.remove(5, 4);
+							continue;
+						}
+						if (strcompare(tok1, "if") && strcompare(tok2, "!defined"))
+						{
+							tmp.remove(2, 2);
+							tmp.remove(5, 4);
+							tmp.insert(2, 'n');
+							continue;
+						}
+						break;
 					}
 
 					if (IfDefList.CheckValid())
@@ -220,7 +257,7 @@ bool ReadIncludedFidoConfFile(QString FileName)
 							{
 								debugmessage(QString("Can't open included file %1.").arg(tok2));
 								break;
-						}
+							}
 						} else
 							AreasDump.append(tmp);
 					} else
@@ -280,11 +317,13 @@ bool InitAreas_Fidoconf(TAreas *Base)
 	AppendEnvVariable("[");
 	AppendEnvVariable("]");
 	AppendEnvVariable("\"");
+
 #if defined(Q_OS_WIN)
 	AppendEnvVariable("OS", "WIN");
 #else
 	AppendEnvVariable("OS", "UNIX");
 #endif
+
 	AppendEnvVariable("MODULE", "QFE");
 
 	IfDefList.clear();
@@ -307,6 +346,8 @@ bool InitAreas_Fidoconf(TAreas *Base)
 
 bool RescanAreas_Fidoconf(TAreas *Base)
 {
+	Q_UNUSED(Base);
+
 	//TODO:
 	//
 	//for (...) Base->append(...)

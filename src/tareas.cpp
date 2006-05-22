@@ -22,16 +22,31 @@
 
 #include "tareas_fidoconf.h"
 
-TAreas::TAreas(QString _FileName)
+TAreas::TAreas(Config_Type _ConfigType, QString _FileName)
 {
+	ConfigType = _ConfigType;
 	FileName = _FileName;
 
-#if defined(ENABLE_DEBUG)
-	/* This calls is just test for future areas config parser */
-	if (InitAreas_Fidoconf(this))
+	switch (ConfigType)
 	{
-		RescanAreas_Fidoconf(this);
-		DoneAreas_Fidoconf(this);
+		case CONFTYPE_FIDOCONFIG:
+			InitAreas_ = InitAreas_Fidoconf;
+			RescanAreas_ = RescanAreas_Fidoconf;
+			DoneAreas_ = DoneAreas_Fidoconf;
+			break;
+		default:
+			InitAreas_ = NULL;
+			RescanAreas_ = NULL;
+			DoneAreas_ = NULL;
+			break;
+        }
+
+#if defined(ENABLE_DEBUG)
+	/* This calls is only test for future areas config parser */
+	if (InitAreas_(this))
+	{
+		RescanAreas_(this);
+		DoneAreas_(this);
 	}
 #endif
 

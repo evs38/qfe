@@ -32,7 +32,7 @@ class TAreas;
 class TAreas : public QList<TArea>
 {
 public:
-	TAreas(QString);
+	TAreas(Config_Type, QString);
 
 	QString FileName;
 
@@ -40,6 +40,8 @@ public:
 	TArea *Add(QString, QString, QString, Area_Type, Base_Type, uint16_t, QString, QString, QString, QString, QString, char*);
 
 private:
+	Config_Type ConfigType;
+
 	bool (*InitAreas_)(TAreas*);
 	bool (*RescanAreas_)(TAreas*);
 	void (*DoneAreas_)(TAreas*);

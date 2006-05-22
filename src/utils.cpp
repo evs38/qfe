@@ -36,7 +36,7 @@ bool dodebug = false;
 extern TConfig *Config;
 
 /* Viewed Value, QTextCodec Value, CHRS Value */
-//FIXME: This stuff need rewrite
+//TODO: This stuff need rewrite
 const QString QFECodePages[CODEPAGES_COUNT][3] = {
 	{ "ISO8859-1", "ISO8859-1", "LATIN-1" },
 	{ "IBM 850", "IBM 850", "CP850 2" },
@@ -447,12 +447,16 @@ QString convert2qhtm(QString buffer)
 QString convert2extern(QString buffer)
 {
 #if defined(Q_OS_WIN)
+	QUrl::encode(buffer);
+	return buffer;
+/*
 	QString RetBuff = buffer.replace('%', "%25");
 	RetBuff = RetBuff.replace('\n', "%0D").replace(' ', "%20");
 	RetBuff = RetBuff.replace('"', "%22").replace('&', "%26");
 	RetBuff = RetBuff.replace('\'', "%27").replace(':', "%3A");
 	RetBuff = RetBuff.replace(';', "%3B").replace('=', "%3D");
 	return RetBuff.replace('?', "%3F");
+*/
 #else
 	return buffer.append("\"").prepend("\"");
 #endif

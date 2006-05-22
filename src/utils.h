@@ -22,6 +22,7 @@
 #define _UTILS_H_
 
 #include <qdir.h>
+#include <qurl.h>
 #include <qfile.h>
 #include <qimage.h>
 #include <qtimer.h>
