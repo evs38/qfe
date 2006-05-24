@@ -80,7 +80,11 @@ exists($$QT_DIR_BIN/lrelease*) {
 }
 
 !qt4 {
-	TEST_QT3 = $$system(echo "$$TEST_QTVER" | $$GREPCMD " 3\.")
+	win32 {
+		TEST_QT3 = $$system(echo "$$TEST_QTVER" | $$GREPCMD " 3\.")
+	} else {
+		TEST_QT3 = $$system(echo "$$TEST_QTVER" | $$GREPCMD "^3\.")
+	}
 	isEmpty(TEST_QT3) {
 		error(Compile allow only with Qt 3.2.X and above.)
 	}
