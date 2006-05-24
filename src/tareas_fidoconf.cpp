@@ -245,7 +245,13 @@ bool ReadIncludedFidoConfFile(QString FileName)
 							debugmessage(QString("Comment char set to %1.").arg(CommentCharacter));
 						} else if ((strcompare(tok1, "set") || strcompare(tok1, "define")) && !tok2.isEmpty())
 						{
-							tmp = gettoken(tmp, 3);
+							int i = tok2.find('=');
+							if (i > 0)
+							{
+								tmp = tok2.mid(i + 1);
+								tok2.truncate(i - 1);
+							} else
+								tmp = gettoken(tmp, 3);
 							AppendEnvVariable(tok2, tmp);
 						} else if ((strcompare(tok1, "unset") || strcompare(tok1, "undef")) && !tok2.isEmpty())
 						{
