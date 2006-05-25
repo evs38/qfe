@@ -53,6 +53,8 @@ bool RescanArea_Msg(TArea *Base)
 	FILE *pf;
 	AreaItem_Msg_Header Header;
 	TArea_Msg_PvtObject *b_obj = (TArea_Msg_PvtObject*)Base->AreaPvtData;
+
+	b_obj->MsgPath.refresh();
 	QStringList sl(b_obj->MsgPath.entryList());
 
 	for (uint32_t i = 0; i < sl.count(); i++)

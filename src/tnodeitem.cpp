@@ -71,7 +71,7 @@ void TNodeItem::ParseItem()
 			setText(0, "Point " + Addr);
 			break;
 		default:
-			qDebug("Error TNodeItem::ParseItem()");
+			debugmessage("Error while TNodeItem::ParseItem()");
 			break;
 	}
 

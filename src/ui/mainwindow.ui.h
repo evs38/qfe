@@ -460,7 +460,7 @@ void TMainWindow::customEvent(QCustomEvent *e)
 				++It;
 			}
 			if (found)
-				RescanArea((TAreaItem*)It.current(), true);//(TAreaItem*)It.current() == (TAreaItem*)AreaList->selectedItem());
+				RescanArea((TAreaItem*)It.current(), (TAreaItem*)It.current() == (TAreaItem*)AreaList->selectedItem());
 		}
 	}
 }
@@ -681,6 +681,17 @@ void TMainWindow::ActionSaveToArchive()
 					ArchArea->Rescan();
 			}
 			ArchArea->Close();
+
+			QListViewItemIterator It = QListViewItemIterator(AreaList);
+			while (It.current())
+			{
+				if (((TAreaItem*)It.current())->Area->Name == ArchArea->Name)
+				{
+					((TAreaItem*)It.current())->UpdateArea();
+					break;
+				}
+				++It;
+			}
 		}
 		OrigMessage->Area->Close();
 	}
