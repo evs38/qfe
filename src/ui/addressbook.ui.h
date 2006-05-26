@@ -277,7 +277,10 @@ void TAddressBook::BrowsePhoto()
 		Selected = ((TBookViewItem*)AddressList->selectedItem())->BookItem;
 		Selected->Photo = fd->selectedFile();
 		SysOpPhoto->setPixmap(ScalePixmap(QPixmap(Selected->Photo), SYSOPIMAGE_WIDTH, SYSOPIMAGE_HEIGHT));
-		BtnErase->setEnabled(true);
+		if (!SysOpPhoto->pixmap()->isNull())
+			BtnErase->setEnabled(true);
+		else
+			errormessage(this, QObject::tr("Can`t load image."));
 	}
 
 	delete pw;

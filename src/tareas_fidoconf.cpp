@@ -38,6 +38,13 @@ public:
 		return *at(count() - 1);
 	};
 
+	void Add(bool Value)
+	{
+		bool *BoolVal = new bool;
+		*BoolVal = Value;
+		append(BoolVal);
+	}
+
 	void Toggle()
 	{
 		*at(count() - 1) = !(*at(count() - 1));
@@ -184,9 +191,7 @@ bool ReadIncludedFidoConfFile(QString FileName)
 							if (IfDefList.count() > 0)
 							{
 								tmp = ExpandEnvVariables(tmp.mid(5).replace(QRegExp("[\\s]"), QString::null));
-								bool *BoolVal = new bool;
-								*BoolVal = ValidateDefines(tmp);
-								IfDefList.append(BoolVal);
+								IfDefList.Add(ValidateDefines(tmp));
 							} else {
 								debugmessage("Misplaces \"elif\" token.");
 								break;
@@ -196,9 +201,7 @@ bool ReadIncludedFidoConfFile(QString FileName)
 							if (IfDefList.count() > 0)
 							{
 								tmp = ExpandEnvVariables(tmp.mid(7).replace(QRegExp("[\\s]"), QString::null));
-								bool *BoolVal = new bool;
-								*BoolVal = ValidateDefines(tmp);
-								IfDefList.append(BoolVal);
+								IfDefList.Add(ValidateDefines(tmp));
 							} else {
 								debugmessage("Misplaces \"elseif\" token.");
 								break;
@@ -225,15 +228,11 @@ bool ReadIncludedFidoConfFile(QString FileName)
 						} else if ((strcompare(tok1, "if") || strcompare(tok1, "ifdef")) && !tok2.isEmpty())
 						{
 							tmp = ExpandEnvVariables(tmp.mid(3).replace(QRegExp("[\\s]"), QString::null));
-							bool *BoolVal = new bool;
-							*BoolVal = ValidateDefines(tmp);
-							IfDefList.append(BoolVal);
+							IfDefList.Add(ValidateDefines(tmp));
 						} else if (strcompare(tok1, "ifndef") && !tok2.isEmpty())
 						{
 							tmp = ExpandEnvVariables(tmp.mid(3).replace(QRegExp("[\\s]"), QString::null));
-							bool *BoolVal = new bool;
-							*BoolVal = !ValidateDefines(tmp);
-							IfDefList.append(BoolVal);
+							IfDefList.Add(!ValidateDefines(tmp));
 						} else if (strcompare(tok1, "commentchar") && !tok2.isEmpty())
 						{
 							if ((tok2.length() != 1) || (QString("!#$%;").find(tok2.at(0)) == -1))
@@ -271,15 +270,11 @@ bool ReadIncludedFidoConfFile(QString FileName)
 						if (strcompare(tok1, "elif"))
 						{
 							tmp = ExpandEnvVariables(tmp.mid(5).replace(QRegExp("[\\s]"), QString::null));
-							bool *BoolVal = new bool;
-							*BoolVal = ValidateDefines(tmp);
-							IfDefList.append(BoolVal);
+							IfDefList.Add(ValidateDefines(tmp));
 						} else if (strcompare(tok1, "elseif"))
 						{
 							tmp = ExpandEnvVariables(tmp.mid(7).replace(QRegExp("[\\s]"), QString::null));
-							bool *BoolVal = new bool;
-							*BoolVal = ValidateDefines(tmp);
-							IfDefList.append(BoolVal);
+							IfDefList.Add(ValidateDefines(tmp));
 						} else if (strcompare(tok1, "else"))
 						{
 							if (!tok2.isEmpty())

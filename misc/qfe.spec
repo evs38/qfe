@@ -29,8 +29,8 @@ QFE это кросс-платформенный почтовый редакто
 
 %build
 find . -name Makefile -exec rm -f {} \;
-unset QFE_PREFIX
-export QFE_PREFIX=/usr && qmake "CONFIG+=debug_off staticlibs quiet"
+./configure --prefix=/usr
+qmake "CONFIG+=debug_off staticlibs quiet"
 make RPM_OPT_FLAGS="$RPM_OPT_FLAGS"
 
 %install

@@ -888,7 +888,7 @@
     </message>
     <message>
         <source>Science</source>
-        <translation>Еcтecтвeнная нayка</translation>
+        <translation>Еcтecтвeнные нayки</translation>
     </message>
     <message>
         <source>Social Science</source>
@@ -1149,6 +1149,10 @@
     <message>
         <source>Written by %1</source>
         <translation>Автор программы: %1</translation>
+    </message>
+    <message>
+        <source>Can`t load image.</source>
+        <translation>Не могу загрузить изображение.</translation>
     </message>
 </context>
 <context>

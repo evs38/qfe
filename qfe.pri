@@ -129,14 +129,19 @@ unix {
 !win32 {
 	system(env | $$GREPCMD "QFE_PREFIX" > $$NULDEV):CONFIG += prefix
 
-	prefix {
-		HOME_PATH = $(QFE_PREFIX)
-	} else {
+	!isEmpty(PREFIX) {
+		HOME_PATH = $$PREFIX
 		CONFIG += prefix
-		mac {
-			HOME_PATH = "/Applications/Fido"
+	} else {
+		prefix {
+			HOME_PATH = $(QFE_PREFIX)
 		} else {
-			HOME_PATH = "/usr/local"
+			CONFIG += prefix
+			mac {
+				HOME_PATH = "/Applications/Fido"
+			} else {
+				HOME_PATH = "/usr/local"
+			}
 		}
 	}
 }
@@ -179,6 +184,18 @@ win32:QMAKE_COPY = xcopy /Y /K /E /Q
 unix {
 	OPTIONAL_INCLUDES += $$ASPELLINC
 	OPTIONAL_LFLAGS += $$ASPELLLIB
+	!mac {
+		gcc {
+			system(which apgcc > /dev/null && { exit 0; }) {
+				QMAKE_CC = apgcc
+			}
+			system(which apg++ > /dev/null && { exit 0; })
+			{
+				QMAKE_CXX = apg++
+				QMAKE_LINK = apg++
+			}
+		}
+	}
 }
 
 mac {

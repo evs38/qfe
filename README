@@ -41,7 +41,8 @@ switches on if "-d" parameter passed to commandline, e.g. ./qfe -d
 
  By default, program installs in /usr/local. For install in another directory
 You must (before doing qmake) export QFE_PREFIX variable with base install path,
-e.g. export QFE_PREFIX=/usr.
+e.g. export QFE_PREFIX=/usr, or use commandline option '--prefix' for configure
+script.
  Some another installation tips located in FAQ. Read it first.
 
 [ *** Help Wanted *** ]

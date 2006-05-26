@@ -1,0 +1,62 @@
+# AutoPackage QFE installation script
+# For more information about AutoPackage visit http://www.autopackage.org/
+
+APKG_BUILD_SKIP_CONFIGURE: 1
+APKG_BUILD_SKIP_MAKE: 1
+APKG_BUILD_VERBOSE: 0
+
+[Meta]
+RootName: @qfe.sf.net/qfe:$SOFTWAREVERSION
+ShortName: qfe
+SoftwareVersion: 0.5
+DisplayName: FTN message editor with a graphical interface.
+Summary: Full-featured FTN message editor with a graphical interface.
+Maintainer: Alexander Shiyan <shc@users.sourceforge.net>
+Packager: Alexander Shiyan <shc@users.sourceforge.net>
+CPUArchitectures: x86
+AutopackageTarget: 1.0
+Type: Application
+License: GNU General Public License, Version 2
+URL: http://qfe.sourceforge.net/
+PackageFileName: $SHORTNAME-$SOFTWAREVERSION.$CPUARCHITECTURES.package
+DisplayName[ru]: Почтовый редактор для сети ФИДОНЕТ.
+Summary[ru]: Почтовый редактор для сети ФИДОНЕТ с графическим интерфейсом.
+
+[Description]
+ QFE is full-featured cross-platform FTN message editor with a
+graphical interface written on C++/Qt and does not depend on either
+KDE, Gnome or other window managers.
+ Operations with FIDO message base use fidoconfig package from HUSKY
+project.
+
+[Description:ru]
+ QFE это кросс-платформенный почтовый редактор для сети ФИДОНЕТ с
+графическим интерфейсом, написан на C++/Qt и не зависит от библиотек
+KDE, Gnome и других оконных менеджеров.
+ Работа с почтовыми базами ФИДО осуществляется при помощи библиотеки
+fidoconfig из проекта HUSKY.
+
+[BuildPrepare]
+rm -f Makefile
+rm -f src/Makefile
+qmake "CONFIG+=staticlibs debug_off quiet" "PREFIX=/usr"
+make clean
+make
+make INSTALL_ROOT=$build_root install
+
+[BuildUnprepare]
+unprepareBuild
+
+[Globals]
+
+[Prepare]
+requireAtLeastVersion "@trolltech.com/qt" 3.2
+
+[Imports]
+echo '*' | import
+
+[Install]
+copyFiles * /
+
+[Uninstall]
+uninstallFromLog
