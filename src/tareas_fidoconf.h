@@ -40,7 +40,7 @@ public:
 		if (count() == 0)
 			return true;
 
-		for (uint i = 0; i < count(); i++)
+		for (uint32_t i = 0; i < count(); i++)
 			ret = ret && *at(i);
 
 		return ret;

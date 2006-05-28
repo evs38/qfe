@@ -212,7 +212,7 @@ bool ReadIncludedFidoConfFile(TAreas *Base, QString FileName)
 								break;
 							}
 							b_obj->CommentCharacter = tok2.at(0);
-							debugmessage(QString("Comment char set to %1.").arg(CommentCharacter));
+							debugmessage(QString("Comment char set to %1.").arg(b_obj->CommentCharacter));
 						} else if ((strcompare(tok1, "set") || strcompare(tok1, "define")) && !tok2.isEmpty())
 						{
 							int i = tok2.find('=');
@@ -308,6 +308,20 @@ bool InitAreas_Fidoconf(TAreas *Base)
 		if (b_obj->IfDefList.count() == 0)
 		{
 			debugmessage("Areas config file readed sucessfully.");
+			//
+			//
+			//
+#if !defined(Q_OS_WIN)
+			QFile Dump("/tmp/husky_dump.log");
+			if (FileOpenFunc(&Dump, IO_WriteOnly))
+			{
+				QTextStream DumpStream(&Dump);
+				DumpStream.setEncoding(QTextStream::Locale);
+				for (uint32_t i = 0; i < b_obj->AreasDump.count(); i++)
+					DumpStream << b_obj->AreasDump[i] << "\n";
+				FileCloseFunc(&Dump);
+			}
+#endif
 			//
 			//
 			//

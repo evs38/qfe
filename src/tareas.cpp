@@ -55,6 +55,11 @@ TAreas::TAreas(Config_Type _ConfigType, QString _FileName)
 	setAutoDelete(true);
 }
 
+TAreas::~TAreas()
+{
+	Done();
+}
+
 int TAreas::Find(QString _name)
 {
 	for (uint32_t i = 0; i < count(); i++)
@@ -83,4 +88,10 @@ TArea *TAreas::Add(QString _Name, QString _Desc, QString _Path, Area_Type _AType
 	delete It;
 
 	return NULL;
+}
+
+void TAreas::Done()
+{
+	if (DoneAreas_ != NULL)
+		DoneAreas_(this);
 }
