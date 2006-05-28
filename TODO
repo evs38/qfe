@@ -1,7 +1,6 @@
 TODO list:
 - Remove dependency from Fidoconfig library.
 - UU && Base64 encoder in edit window.
-- Binary version for MacOS.
 - Thread tree in messagelist.
 - Make i18n-translator for help-files.
 - Save messages to database (SQLite).
@@ -18,3 +17,4 @@ TODO list:
 - Icon themes.
 - SetUp wizard.
 - Documentation.
+- Internet update.

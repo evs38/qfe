@@ -8,9 +8,9 @@ Description:    QFE is full-featured cross-platform FTN message editor with a
                 Operations with FIDO message base use fidoconfig package
 		from HUSKY project (http://husky.sourceforge.net/).
 Keywords:       qt, gui, graphical, fido, ftn, fidonet, message, mail, editor
-                squish, jam, hudson, fidoconfig, hpt, husky, smapi, echoedit
-                x11, echo, msged, fips, winpoint, dvmedit, ftned, gfe, macos
-                golded, kfe, helled, taimyr, fleetstreet, netmail, msg, pkt
+                squish, fips, hudson, fidoconfig, hpt, husky, smapi, echoedit
+                golded, x11, msged, jam, winpoint, dvmedit, ftned, gfe, macos
+                darwin, echo, kfe, helled, taimyr, fleetstreet, netmail, msg
 Author:         shc@users.sourceforge.net (Alexander Shiyan)
 Maintained-by:  shc@users.sourceforge.net (Alexander Shiyan)
 Primary-site:   ftp://ftp.sourceforge.net /pub/sourceforge/q/qf/qfe

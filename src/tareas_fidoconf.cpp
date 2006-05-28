@@ -311,7 +311,7 @@ bool InitAreas_Fidoconf(TAreas *Base)
 			//
 			//
 			//
-#if !defined(Q_OS_WIN)
+/*
 			QFile Dump("/tmp/husky_dump.log");
 			if (FileOpenFunc(&Dump, IO_WriteOnly))
 			{
@@ -321,7 +321,7 @@ bool InitAreas_Fidoconf(TAreas *Base)
 					DumpStream << b_obj->AreasDump[i] << "\n";
 				FileCloseFunc(&Dump);
 			}
-#endif
+*/
 			//
 			//
 			//

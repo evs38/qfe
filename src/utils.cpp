@@ -667,14 +667,15 @@ QString GetRfcMessageMsgId(QString addr)
 
 uint32_t RandomNumber(uint32_t minval, uint32_t maxval)
 {
-	uint32_t rnd;
+	uint32_t rnd = minval;
 
-	for (;;)
-	{
-		rnd = (uint32_t)random() % (maxval + 1);
-		if ((rnd >= minval) && (rnd <= maxval))
-			break;
-	}
+	if (minval < maxval)
+		for (;;)
+		{
+			rnd = (uint32_t)random() % (maxval + 1);
+			if ((rnd >= minval) && (rnd <= maxval))
+				break;
+		}
 
 	return rnd;
 }

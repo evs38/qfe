@@ -200,7 +200,6 @@ unix {
 
 mac {
 	!link_prl:CONFIG += link_prl
-	staticlibs:CONFIG -= staticlibs
 }
 
 msvc {

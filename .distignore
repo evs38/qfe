@@ -6,7 +6,7 @@ CVS
 .cvsignore
 .svn
 .tmp
-core
+core*
 obj*_ld_script*
 qmake_*
 Makefile*

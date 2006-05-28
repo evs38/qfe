@@ -422,7 +422,7 @@ bool TEditWindow::SetUp(TArea *Area, TMessage *Message, uint Operation, void *ad
 				FileCloseFunc(&origins);
 
 				if (OriginCombo->listBox()->count() > 1)
-					OriginCombo->setCurrentItem(1);
+					OriginCombo->setCurrentItem(RandomNumber(1, OriginCombo->listBox()->count() - 1));
 			}
 		}
 	} else {

@@ -7,7 +7,7 @@ editor with a graphical interface. It written on C++/Qt and does not depend on
 either KDE, Gnome or other window managers.
  Fido-specific parameters readed by fidoconfig package from Husky project.
 I write qfe for Linux, but it works also on Win32 and MacOS X, and in theory,
-it should compile & work on all Qt-supported platforms.
+it should compile & work on all other Qt-supported platforms.
  To learn more about 'QFE' please see the various documents in the doc folder.
 
 [ *** Requirements *** ]
