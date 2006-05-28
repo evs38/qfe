@@ -22,6 +22,8 @@ for opt do
 	case "$opt" in
 		--prefix=*) QFE_PREFIX="$optarg"
 		;;
+		--help|-h) echo "No help yet." && exit 1
+		;;
 		*) QMAKE_OPTIONS=`echo -n "$QMAKE_OPTIONS $opt"`
 		;;
 	esac

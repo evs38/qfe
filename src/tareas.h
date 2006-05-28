@@ -35,6 +35,7 @@ public:
 	TAreas(Config_Type, QString);
 
 	QString FileName;
+	void *AreasPvtData;
 
 	int Find(QString);
 	TArea *Add(QString, QString, QString, Area_Type, Base_Type, uint16_t, QString, QString, QString, QString, QString, char*);

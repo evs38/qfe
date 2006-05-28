@@ -1,5 +1,5 @@
 Name: qfe
-Version: 0.4.6
+Version: 0.5
 Release: 0.fc5
 License: GPL
 Summary: Full-featured FTN message editor with a graphical interface.
@@ -29,13 +29,13 @@ QFE это кросс-платформенный почтовый редакто
 
 %build
 find . -name Makefile -exec rm -f {} \;
-./configure --prefix=/usr
-qmake "CONFIG+=debug_off staticlibs quiet"
+qmake "CONFIG+=staticlibs debug_off quiet" "PREFIX=/usr"
+make clean
 make RPM_OPT_FLAGS="$RPM_OPT_FLAGS"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make PREFIX="$RPM_BUILD_ROOT" install
+make INSTALL_ROOT="$RPM_BUILD_ROOT" install
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -76,8 +76,10 @@ rmdir --ignore-fail-on-non-empty %{_datadir}/%{name}/translations
 rmdir --ignore-fail-on-non-empty %{_datadir}/%{name}
 
 %changelog
+* ... ... .. 2006 Alexander Shiyan <shc@users.sourceforge.net>
 - Add FTN mime-icons.
 - Added Russian description is spec.
+- Update to version 0.5
 
 * Mon Dec 12 2005 Alexander Shiyan <shc@users.sourceforge.net>
 - Update to version 0.4.6.

@@ -21,7 +21,55 @@
 #ifndef _TAREAS_FIDOCONF_H_
 #define _TAREAS_FIDOCONF_H_
 
+#include <qlist.h>
+
 #include "tareas.h"
+
+class TBoolList : public QList<bool>
+{
+public:
+	TBoolList()
+	{
+		setAutoDelete(true);
+	};
+
+	bool CheckValid()
+	{
+		bool ret = true;
+
+		if (count() == 0)
+			return true;
+
+		for (uint i = 0; i < count(); i++)
+			ret = ret && *at(i);
+
+		return ret;
+	};
+
+	void Add(bool Value)
+	{
+		bool *BoolVal = new bool;
+		*BoolVal = Value;
+		append(BoolVal);
+	}
+
+	void Toggle()
+	{
+		*at(count() - 1) = !(*at(count() - 1));
+	};
+};
+
+class TAreas_Fidoconfig_PvtObject
+{
+public:
+	QChar CommentCharacter;
+
+	QStringList AreasDump;
+	QStringList AreasFiles;
+	QStringList Environment;
+
+	TBoolList IfDefList;
+};
 
 bool InitAreas_Fidoconf(TAreas*);
 bool RescanAreas_Fidoconf(TAreas*);

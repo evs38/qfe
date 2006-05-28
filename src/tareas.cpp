@@ -27,6 +27,8 @@ TAreas::TAreas(Config_Type _ConfigType, QString _FileName)
 	ConfigType = _ConfigType;
 	FileName = _FileName;
 
+	AreasPvtData = NULL;
+
 	switch (ConfigType)
 	{
 		case CONFTYPE_FIDOCONFIG:

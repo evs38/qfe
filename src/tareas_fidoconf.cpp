@@ -18,84 +18,54 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include <qlist.h>
 #include <qregexp.h>
 
 #include "tareas_fidoconf.h"
 
-class TBoolList : public QList<bool>
+int FindEnvVariable(TAreas *Base, QString Key)
 {
-public:
-	TBoolList()
-	{
-		setAutoDelete(true);
-	};
+	TAreas_Fidoconfig_PvtObject *b_obj = (TAreas_Fidoconfig_PvtObject*)Base->AreasPvtData;
 
-	bool CheckValid()
-	{
-		if (count() == 0)
-			return true;
-		return *at(count() - 1);
-	};
-
-	void Add(bool Value)
-	{
-		bool *BoolVal = new bool;
-		*BoolVal = Value;
-		append(BoolVal);
-	}
-
-	void Toggle()
-	{
-		*at(count() - 1) = !(*at(count() - 1));
-	};
-};
-
-QChar CommentCharacter = '#';
-
-QStringList AreasDump;
-QStringList AreasFiles;
-
-QStringList Environment;
-
-TBoolList IfDefList;
-
-int FindEnvVariable(QString Key)
-{
-	for (uint i = 0; i < Environment.count(); i++)
-		if (strcompare(gettoken(Environment[i], 1), Key))
+	for (uint i = 0; i < b_obj->Environment.count(); i++)
+		if (strcompare(gettoken(b_obj->Environment[i], 1), Key))
 			return (int)i;
 
 	return -1;
 }
 
-void RemoveEnvVariable(QString Key)
+void RemoveEnvVariable(TAreas *Base, QString Key)
 {
-	int i = FindEnvVariable(Key);
+	TAreas_Fidoconfig_PvtObject *b_obj = (TAreas_Fidoconfig_PvtObject*)Base->AreasPvtData;
+
+	int i = FindEnvVariable(Base, Key);
 	if (i != -1)
-		Environment.remove(Environment.at(i));
+		b_obj->Environment.remove(b_obj->Environment.at(i));
 }
 
-void AppendEnvVariable(QString Key, QString Val = QString::null)
+void AppendEnvVariable(TAreas *Base, QString Key, QString Val = QString::null)
 {
-	RemoveEnvVariable(Key);
-	Environment << Key.upper() + (Val.isEmpty() ? QString::null : (" " + Val));
+	TAreas_Fidoconfig_PvtObject *b_obj = (TAreas_Fidoconfig_PvtObject*)Base->AreasPvtData;
+
+	RemoveEnvVariable(Base, Key);
+	b_obj->Environment << Key.upper() + (Val.isEmpty() ? QString::null : (" " + Val));
 }
 
-QString ExpandEnvVariables(QString Val)
+QString ExpandEnvVariables(TAreas *Base, QString Val)
 {
+	TAreas_Fidoconfig_PvtObject *b_obj = (TAreas_Fidoconfig_PvtObject*)Base->AreasPvtData;
+
 	QString ret = Val;
 
-	for (uint i = 0; i < Environment.count(); i++)
+	for (uint i = 0; i < b_obj->Environment.count(); i++)
 	{
-		QString tmp = gettoken(Environment[i], 1);
-		ret = ret.replace(tmp, Environment[i].mid(tmp.length() + 1), false);
+		QString tmp = gettoken(b_obj->Environment[i], 1);
+		ret = ret.replace(tmp, b_obj->Environment[i].mid(tmp.length() + 1), false);
 	}
 
 	return ret;
 }
 
-bool ValidateDefines(QString Val)
+bool ValidateDefines(TAreas *Base, QString Val)
 {
 	int i = Val.find("!=");
 	if (i != -1)
@@ -112,20 +82,21 @@ bool ValidateDefines(QString Val)
 		}
 	}
 
-	return FindEnvVariable(Val) > -1;
+	return FindEnvVariable(Base, Val) > -1;
 }
 
-bool ReadIncludedFidoConfFile(QString FileName)
+bool ReadIncludedFidoConfFile(TAreas *Base, QString FileName)
 {
+	TAreas_Fidoconfig_PvtObject *b_obj = (TAreas_Fidoconfig_PvtObject*)Base->AreasPvtData;
 	bool ret = false;
 
 	if (testexists(FileName))
 	{
-		if (AreasFiles.findIndex(FIXED_FILE_CASE(FileName)) == -1)
+		if (b_obj->AreasFiles.findIndex(FIXED_FILE_CASE(FileName)) == -1)
 		{
 			debugmessage(QString("Reading areas config file %1.").arg(FileName));
 
-			AreasFiles.append(FIXED_FILE_CASE(FileName));
+			b_obj->AreasFiles.append(FIXED_FILE_CASE(FileName));
 
 			QFile AreasFile(FileName);
 			if (FileOpenFunc(&AreasFile, IO_ReadOnly))
@@ -138,12 +109,12 @@ bool ReadIncludedFidoConfFile(QString FileName)
 					QString tmp = AreasStream.readLine().simplifyWhiteSpace();
 					if (tmp.isEmpty())
 						continue;
-					if (tmp.at(0) == CommentCharacter)
+					if (tmp.at(0) == b_obj->CommentCharacter)
 						continue;
 
 					for (int i = 0;;)
 					{
-						i = tmp.find(CommentCharacter, i);
+						i = tmp.find(b_obj->CommentCharacter, i);
 						if (i > 0)
 						{
 						    	if (tmp.at(i - 1).isSpace())
@@ -184,55 +155,55 @@ bool ReadIncludedFidoConfFile(QString FileName)
 						break;
 					}
 
-					if (IfDefList.CheckValid())
+					if (b_obj->IfDefList.CheckValid())
 					{
 						if (strcompare(tok1, "elif"))
 						{
-							if (IfDefList.count() > 0)
+							if (b_obj->IfDefList.count() > 0)
 							{
-								tmp = ExpandEnvVariables(tmp.mid(5).replace(QRegExp("[\\s]"), QString::null));
-								IfDefList.Add(ValidateDefines(tmp));
+								tmp = ExpandEnvVariables(Base, tmp.mid(5).replace(QRegExp("[\\s]"), QString::null));
+								b_obj->IfDefList.Add(ValidateDefines(Base, tmp));
 							} else {
 								debugmessage("Misplaces \"elif\" token.");
 								break;
 							}
 						} else if (strcompare(tok1, "elseif"))
 						{
-							if (IfDefList.count() > 0)
+							if (b_obj->IfDefList.count() > 0)
 							{
-								tmp = ExpandEnvVariables(tmp.mid(7).replace(QRegExp("[\\s]"), QString::null));
-								IfDefList.Add(ValidateDefines(tmp));
+								tmp = ExpandEnvVariables(Base, tmp.mid(7).replace(QRegExp("[\\s]"), QString::null));
+								b_obj->IfDefList.Add(ValidateDefines(Base, tmp));
 							} else {
 								debugmessage("Misplaces \"elseif\" token.");
 								break;
 							}
 						} else if (strcompare(tok1, "else"))
 						{
-							if (IfDefList.count() > 0)
+							if (b_obj->IfDefList.count() > 0)
 							{
 								if (!tok2.isEmpty())
 									debugmessage("Ignoring text after \"else\" token.");
-								IfDefList.Toggle();
+								b_obj->IfDefList.Toggle();
 							} else {
 								debugmessage("Misplaces \"else\" token.");
 								break;
 							}
 						} else if (strcompare(tok1, "endif"))
 						{
-							if (IfDefList.count() > 0)
-								IfDefList.remove(IfDefList.count() - 1);
+							if (b_obj->IfDefList.count() > 0)
+								b_obj->IfDefList.remove(b_obj->IfDefList.count() - 1);
 							else {
 								debugmessage("Misplaces \"endif\" token.");
 								break;
 							}
 						} else if ((strcompare(tok1, "if") || strcompare(tok1, "ifdef")) && !tok2.isEmpty())
 						{
-							tmp = ExpandEnvVariables(tmp.mid(3).replace(QRegExp("[\\s]"), QString::null));
-							IfDefList.Add(ValidateDefines(tmp));
+							tmp = ExpandEnvVariables(Base, tmp.mid(3).replace(QRegExp("[\\s]"), QString::null));
+							b_obj->IfDefList.Add(ValidateDefines(Base, tmp));
 						} else if (strcompare(tok1, "ifndef") && !tok2.isEmpty())
 						{
-							tmp = ExpandEnvVariables(tmp.mid(3).replace(QRegExp("[\\s]"), QString::null));
-							IfDefList.Add(!ValidateDefines(tmp));
+							tmp = ExpandEnvVariables(Base, tmp.mid(3).replace(QRegExp("[\\s]"), QString::null));
+							b_obj->IfDefList.Add(!ValidateDefines(Base, tmp));
 						} else if (strcompare(tok1, "commentchar") && !tok2.isEmpty())
 						{
 							if ((tok2.length() != 1) || (QString("!#$%;").find(tok2.at(0)) == -1))
@@ -240,7 +211,7 @@ bool ReadIncludedFidoConfFile(QString FileName)
 								debugmessage(QString("Invalid \"commentchar\" directive in file %1").arg(FileName));
 								break;
 							}
-							CommentCharacter = tok2.at(0);
+							b_obj->CommentCharacter = tok2.at(0);
 							debugmessage(QString("Comment char set to %1.").arg(CommentCharacter));
 						} else if ((strcompare(tok1, "set") || strcompare(tok1, "define")) && !tok2.isEmpty())
 						{
@@ -251,38 +222,38 @@ bool ReadIncludedFidoConfFile(QString FileName)
 								tok2.truncate(i - 1);
 							} else
 								tmp = gettoken(tmp, 3);
-							AppendEnvVariable(tok2, tmp);
+							AppendEnvVariable(Base, tok2, tmp);
 						} else if ((strcompare(tok1, "unset") || strcompare(tok1, "undef")) && !tok2.isEmpty())
 						{
-							RemoveEnvVariable(tok2);
+							RemoveEnvVariable(Base, tok2);
 						} else if (strcompare(tok1, "include") && !tok2.isEmpty())
 						{
 							debugmessage(QString("Processing \"include\" token in file %1 at %2.").arg(FileName).arg(AreasFile.at()));
-							if (!ReadIncludedFidoConfFile(tok2))
+							if (!ReadIncludedFidoConfFile(Base, tok2))
 							{
 								debugmessage(QString("Can't open included file %1.").arg(tok2));
 								break;
 							}
 						} else
-							AreasDump.append(tmp);
+							b_obj->AreasDump.append(tmp);
 					} else
 					{
 						if (strcompare(tok1, "elif"))
 						{
-							tmp = ExpandEnvVariables(tmp.mid(5).replace(QRegExp("[\\s]"), QString::null));
-							IfDefList.Add(ValidateDefines(tmp));
+							tmp = ExpandEnvVariables(Base, tmp.mid(5).replace(QRegExp("[\\s]"), QString::null));
+							b_obj->IfDefList.Add(ValidateDefines(Base, tmp));
 						} else if (strcompare(tok1, "elseif"))
 						{
-							tmp = ExpandEnvVariables(tmp.mid(7).replace(QRegExp("[\\s]"), QString::null));
-							IfDefList.Add(ValidateDefines(tmp));
+							tmp = ExpandEnvVariables(Base, tmp.mid(7).replace(QRegExp("[\\s]"), QString::null));
+							b_obj->IfDefList.Add(ValidateDefines(Base, tmp));
 						} else if (strcompare(tok1, "else"))
 						{
 							if (!tok2.isEmpty())
 								debugmessage("Ignoring text after \"else\" token.");
-							IfDefList.Toggle();
+							b_obj->IfDefList.Toggle();
 						} else if (strcompare(tok1, "endif"))
 						{
-							IfDefList.remove(IfDefList.count() - 1);
+							b_obj->IfDefList.remove(b_obj->IfDefList.count() - 1);
 						}
 					}
 
@@ -309,29 +280,32 @@ bool ReadIncludedFidoConfFile(QString FileName)
 
 bool InitAreas_Fidoconf(TAreas *Base)
 {
-	CommentCharacter = '#';
+	TAreas_Fidoconfig_PvtObject *b_obj = new TAreas_Fidoconfig_PvtObject();
+	Base->AreasPvtData = b_obj;
 
-	AreasDump.clear();
-	AreasFiles.clear();
+	b_obj->CommentCharacter = '#';
 
-	Environment.clear();
-	AppendEnvVariable("[");
-	AppendEnvVariable("]");
-	AppendEnvVariable("\"");
+	b_obj->AreasDump.clear();
+	b_obj->AreasFiles.clear();
+
+	b_obj->Environment.clear();
+	AppendEnvVariable(Base, "[");
+	AppendEnvVariable(Base, "]");
+	AppendEnvVariable(Base, "\"");
 
 #if defined(Q_OS_WIN)
-	AppendEnvVariable("OS", "WIN");
+	AppendEnvVariable(Base, "OS", "WIN");
 #else
-	AppendEnvVariable("OS", "UNIX");
+	AppendEnvVariable(Base, "OS", "UNIX");
 #endif
 
-	AppendEnvVariable("MODULE", "QFE");
+	AppendEnvVariable(Base, "MODULE", "QFE");
 
-	IfDefList.clear();
+	b_obj->IfDefList.clear();
 
-	if (ReadIncludedFidoConfFile(Base->FileName))
+	if (ReadIncludedFidoConfFile(Base, Base->FileName))
 	{
-		if (IfDefList.count() == 0)
+		if (b_obj->IfDefList.count() == 0)
 		{
 			debugmessage("Areas config file readed sucessfully.");
 			//
@@ -356,7 +330,7 @@ bool RescanAreas_Fidoconf(TAreas *Base)
 	return false;
 }
 
-void DoneAreas_Fidoconf(TAreas*)
+void DoneAreas_Fidoconf(TAreas *Base)
 {
-	/* Dummy */
+	delete (TAreas_Fidoconfig_PvtObject*)Base->AreasPvtData;
 }

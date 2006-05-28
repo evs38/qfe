@@ -6,7 +6,7 @@ APKG_BUILD_SKIP_MAKE: 1
 APKG_BUILD_VERBOSE: 0
 
 [Meta]
-RootName: @qfe.sf.net/qfe:$SOFTWAREVERSION
+RootName: @fidonet.org/qfe:$SOFTWAREVERSION
 ShortName: qfe
 SoftwareVersion: 0.5
 DisplayName: FTN message editor with a graphical interface.
@@ -17,7 +17,7 @@ CPUArchitectures: x86
 AutopackageTarget: 1.0
 Type: Application
 License: GNU General Public License, Version 2
-URL: http://qfe.sourceforge.net/
+URL: http://qfe.sourceforge.net
 PackageFileName: $SHORTNAME-$SOFTWAREVERSION.$CPUARCHITECTURES.package
 DisplayName[ru]: Почтовый редактор для сети ФИДОНЕТ.
 Summary[ru]: Почтовый редактор для сети ФИДОНЕТ с графическим интерфейсом.
@@ -37,8 +37,7 @@ KDE, Gnome и других оконных менеджеров.
 fidoconfig из проекта HUSKY.
 
 [BuildPrepare]
-rm -f Makefile
-rm -f src/Makefile
+find . -name Makefile -exec rm -f {} \;
 qmake "CONFIG+=staticlibs debug_off quiet" "PREFIX=/usr"
 make clean
 make
@@ -50,13 +49,15 @@ unprepareBuild
 [Globals]
 
 [Prepare]
-requireAtLeastVersion "@trolltech.com/qt" 3.2
+require "@trolltech.com/qt" 3.2
 
 [Imports]
 echo '*' | import
 
 [Install]
-copyFiles * /
+prefix=/usr
+installExe usr/bin/*
+installData usr/share/*
 
 [Uninstall]
 uninstallFromLog
