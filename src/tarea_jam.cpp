@@ -88,6 +88,14 @@ bool RescanArea_Jam(TArea *Base)
 	AreaItem_Jam_Header JamHeader;
 	TArea_Jam_PvtObject *b_obj = (TArea_Jam_PvtObject*)Base->AreaPvtData;
 
+	Base->BaseSize = 0;
+	if (fseek(b_obj->JHR, 0, SEEK_END) == 0)
+		Base->BaseSize += ftell(b_obj->JHR);
+	if (fseek(b_obj->JDT, 0, SEEK_END) == 0)
+		Base->BaseSize += ftell(b_obj->JDT);
+	if (fseek(b_obj->JDX, 0, SEEK_END) == 0)
+		Base->BaseSize += ftell(b_obj->JDX);
+
 	rewind(b_obj->JHR);
 	if (fread((char*)&b_obj->HdrInfo, sizeof(AreaItem_Jam_HeaderInfo), 1, b_obj->JHR) == 1)
 	{

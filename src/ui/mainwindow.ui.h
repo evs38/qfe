@@ -114,6 +114,7 @@ void TMainWindow::init()
 	MainActions->AddAction(AreaMenu, MainMenuBar->text(3), NextAreaAction, "icon_down", QObject::tr("Go to Next Area"), QString::null, "Right");
 	MainActions->AddAction(AreaMenu, MainMenuBar->text(3), MarkAllAsReadAction, "icon_flag", QObject::tr("Mark All Messages in Current Area As Read"));
 	MainActions->AddAction(AreaMenu, MainMenuBar->text(3), UnsubscribeAction, "icon_unsubscribe", QObject::tr("Unsubscribe from Current Area"));
+	MainActions->AddAction(AreaMenu, MainMenuBar->text(3), PurgeAction, "icon_purge", QObject::tr("Purge Messages in Current Area"), QString::null, QString::null, true);
 	MainActions->AddAction(AreaMenu, MainMenuBar->text(3), AreaPropAction, "icon_prop", QObject::tr("View Area Properties"));
 
 	MainActions->AddAction(ViewMenu, MainMenuBar->text(4), ViewToolBarAction, QString::null, QObject::tr("Show/Hide ToolBar"));
@@ -141,6 +142,8 @@ void TMainWindow::init()
 	MarkAllAsReadAction->addTo(AreaListPopup);
 	AreaListPopup->insertSeparator();
 	UnsubscribeAction->addTo(AreaListPopup);
+	AreaListPopup->insertSeparator();
+	PurgeAction->addTo(AreaListPopup);
 	AreaListPopup->insertSeparator();
 	AreaPropAction->addTo(AreaListPopup);
 
@@ -1237,6 +1240,13 @@ void TMainWindow::ActionRescan()
 {
 	if (AreaList->selectedItem() != NULL)
 		RescanArea((TAreaItem*)AreaList->selectedItem(), true);
+}
+
+void TMainWindow::ActionPurge()
+{
+	qDebug("TMainWindow::ActionPurge() Not implemented yet...");
+//	if (AreaList->selectedItem() != NULL)
+//		((TAreaItem*)AreaList->selectedItem())->Area->Purge();
 }
 
 void TMainWindow::AddBase(void *FconfBase, Area_Type atype)

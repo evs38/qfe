@@ -73,6 +73,7 @@ public:
 
 	uint16_t DefZone;
 	uint32_t UnReadCnt;
+	uint32_t BaseSize;
 
 	void *AreaPvtData;
 

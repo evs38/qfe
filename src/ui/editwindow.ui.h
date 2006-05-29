@@ -292,6 +292,7 @@ bool TEditWindow::SetUp(TArea *Area, TMessage *Message, uint Operation, void *ad
 			LoadTemplate(TPL_REPLY_TPL, &pos);
 			ParseTemplate(Area, Message, false);
 			textcnt = LoadText(Message);
+
 			Message->Area->Close();
 			break;
 		}
@@ -312,9 +313,14 @@ bool TEditWindow::SetUp(TArea *Area, TMessage *Message, uint Operation, void *ad
 				tmp = "Re: " + tmp;
 			SubjEdit->setText(tmp);
 
+			Message->Area->Open();
+			Message->Read();
+
 			LoadTemplate(TPL_REPLY_TPL, &pos);
 			ParseTemplate(Area, Message, false);
 			textcnt = LoadText(Message);
+
+			Message->Area->Close();
 			break;
 		}
 		case MSG_OPERATION_FORWARD:
@@ -338,9 +344,14 @@ bool TEditWindow::SetUp(TArea *Area, TMessage *Message, uint Operation, void *ad
 				tmp = "Fwd: " + tmp;
 			SubjEdit->setText(tmp);
 
+			Message->Area->Open();
+			Message->Read();
+
 			LoadTemplate(TPL_FORWARD_TPL, &pos);
 			ParseTemplate(Area, Message, false);
 			textcnt = LoadText(Message);
+
+			Message->Area->Close();
 			break;
 		}
 		case MSG_OPERATION_UNSUBSCRIBE:
@@ -518,7 +529,7 @@ QString TEditWindow::ComposeOrigin(void *_addr)
 		addrstr.append(QString(".%1").arg(addr->point));
 	addrstr.prepend(" (").append(")");
 
-	if (OriginCombo->isShown() && OriginCombo->listBox()->count() > 2)
+	if (OriginCombo->isShown() && OriginCombo->listBox()->count() > 1)
 		origline = OriginCombo->text(RandomNumber(1, OriginCombo->listBox()->count() - 1)).stripWhiteSpace();
 	else
 		origline = OriginCombo->currentText().stripWhiteSpace();

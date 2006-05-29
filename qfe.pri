@@ -189,8 +189,7 @@ unix {
 			system(which apgcc > /dev/null && { exit 0; }) {
 				QMAKE_CC = apgcc
 			}
-			system(which apg++ > /dev/null && { exit 0; })
-			{
+			system(which apg++ > /dev/null && { exit 0; }) {
 				QMAKE_CXX = apg++
 				QMAKE_LINK = apg++
 			}

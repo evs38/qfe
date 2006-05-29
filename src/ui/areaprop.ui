@@ -10,7 +10,7 @@
             <x>0</x>
             <y>0</y>
             <width>414</width>
-            <height>275</height>
+            <height>315</height>
         </rect>
     </property>
     <property name="caption">
@@ -98,34 +98,6 @@
                 <enum>Horizontal</enum>
             </property>
         </widget>
-        <widget class="QGroupBox" row="3" column="0">
-            <property name="name">
-                <cstring>SummaryGroup</cstring>
-            </property>
-            <property name="title">
-                <string> Summary </string>
-            </property>
-            <vbox>
-                <property name="name">
-                    <cstring>unnamed</cstring>
-                </property>
-                <widget class="QLabel">
-                    <property name="name">
-                        <cstring>SumLabel1</cstring>
-                    </property>
-                </widget>
-                <widget class="QLabel">
-                    <property name="name">
-                        <cstring>SumLabel2</cstring>
-                    </property>
-                </widget>
-                <widget class="QLabel">
-                    <property name="name">
-                        <cstring>SumLabel3</cstring>
-                    </property>
-                </widget>
-            </vbox>
-        </widget>
         <widget class="QLayoutWidget" row="5" column="0">
             <property name="name">
                 <cstring>layout5</cstring>
@@ -164,23 +136,6 @@
                 </widget>
             </hbox>
         </widget>
-        <spacer row="4" column="0">
-            <property name="name">
-                <cstring>spacer2</cstring>
-            </property>
-            <property name="orientation">
-                <enum>Vertical</enum>
-            </property>
-            <property name="sizeType">
-                <enum>Expanding</enum>
-            </property>
-            <property name="sizeHint">
-                <size>
-                    <width>90</width>
-                    <height>10</height>
-                </size>
-            </property>
-        </spacer>
         <widget class="QLayoutWidget" row="1" column="0">
             <property name="name">
                 <cstring>layout7</cstring>
@@ -296,6 +251,56 @@
                     </grid>
                 </widget>
             </hbox>
+        </widget>
+        <spacer row="4" column="0">
+            <property name="name">
+                <cstring>spacer2</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Vertical</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>90</width>
+                    <height>20</height>
+                </size>
+            </property>
+        </spacer>
+        <widget class="QGroupBox" row="3" column="0">
+            <property name="name">
+                <cstring>SummaryGroup</cstring>
+            </property>
+            <property name="title">
+                <string> Summary </string>
+            </property>
+            <vbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>SumLabel1</cstring>
+                    </property>
+                </widget>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>SumLabel2</cstring>
+                    </property>
+                </widget>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>SumLabel3</cstring>
+                    </property>
+                </widget>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>SumLabel4</cstring>
+                    </property>
+                </widget>
+            </vbox>
         </widget>
     </grid>
 </widget>

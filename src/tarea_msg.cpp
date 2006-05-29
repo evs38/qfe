@@ -61,6 +61,8 @@ bool RescanArea_Msg(TArea *Base)
 		sl[i] = sl[i].mid(0, sl[i].length() - 4).rightJustify(8, '0', true) + " " + sl[i];
 	sl.sort();
 
+	Base->BaseSize = 0;
+
 	for (uint32_t i = 0; i < sl.count(); i++)
 	{
 		id = atoi(gettoken(sl[i], 1).ascii());
@@ -70,7 +72,10 @@ bool RescanArea_Msg(TArea *Base)
 			if (fread((char*)&Header, sizeof(AreaItem_Msg_Header), 1, pf) == 1)
 			{
 				fseek(pf, 0, SEEK_END);
-				if ((sz = (ftell(pf) - sizeof(AreaItem_Msg_Header))) > 0)
+				sz = ftell(pf);
+				Base->BaseSize += sz;
+				sz -= sizeof(AreaItem_Msg_Header);
+				if (sz > 0)
 				{
 					TMessage *it = AppendArea_Msg(Base, false);
 					TAreaItem_Msg_PvtObject *obj = (TAreaItem_Msg_PvtObject*)it->MessagePvtData;

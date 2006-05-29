@@ -1154,6 +1154,18 @@
         <source>Can`t load image.</source>
         <translation>Не могу загрузить изображение.</translation>
     </message>
+    <message>
+        <source>Purge Messages in Current Area</source>
+        <translation>Упаковать сообщения в текущей области</translation>
+    </message>
+    <message>
+        <source>Summary size:</source>
+        <translation>Общий размер:</translation>
+    </message>
+    <message>
+        <source>KB.</source>
+        <translation>КБ.</translation>
+    </message>
 </context>
 <context>
     <name>TAbout</name>
@@ -1794,6 +1806,10 @@
     <message>
         <source>Save to Archive Area</source>
         <translation>Сохранить в архивную область</translation>
+    </message>
+    <message>
+        <source>Pugre Area</source>
+        <translation>Упаковать область</translation>
     </message>
 </context>
 <context>

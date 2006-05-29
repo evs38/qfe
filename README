@@ -27,7 +27,7 @@ and apply patch to husky for compile headers under C++ (located in qfe/misc/husk
 For more information about GPL, see http://www.gnu.org/licenses/gpl.html
 
 [ *** Quick-Compile & Install Guide *** ]
- tar -xf qfe-0.4.6.tar.bz2
+ tar -xf qfe-0.5.tar.bz2
  cd qfe
  ./configure
  make

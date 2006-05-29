@@ -329,6 +329,12 @@ bool RescanArea_Squish(TArea *Base)
 	AreaItem_Squish_Header Header;
 	TArea_Squish_PvtObject *b_obj = (TArea_Squish_PvtObject*)Base->AreaPvtData;
 
+	Base->BaseSize = 0;
+	if (fseek(b_obj->SQD, 0, SEEK_END) == 0)
+		Base->BaseSize += ftell(b_obj->SQD);
+	if (fseek(b_obj->SQI, 0, SEEK_END) == 0)
+		Base->BaseSize += ftell(b_obj->SQI);
+
 	rewind(b_obj->SQD);
 	if (fread((char*)&b_obj->BaseInfo, sizeof(AreaItem_Squish_Base), 1, b_obj->SQD) == 1)
 		if ((b_obj->BaseInfo.len == sizeof(AreaItem_Squish_Base)) && (b_obj->BaseInfo.framesize == sizeof(AreaItem_Squish_Frame)))

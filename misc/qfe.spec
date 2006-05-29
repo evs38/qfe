@@ -9,7 +9,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}
 URL: http://qfe.sourceforge.net/
 Source: ftp://ftp.sourceforge.net/pub/sourceforge/q/qf/qfe/qfe-%{version}.tar.bz2
 Requires: qt > 3.2, qt < 4
-BuildPrereq: grep, awk, sed, qt-devel > 3.2, fidoconf-devel >= 1.9
+BuildPrereq: grep, sed, qt-devel > 3.2, fidoconf-devel >= 1.9
 
 %description
 QFE is full-featured cross-platform FTN message editor with a graphical
@@ -29,12 +29,14 @@ QFE это кросс-платформенный почтовый редакто
 
 %build
 find . -name Makefile -exec rm -f {} \;
-qmake "CONFIG+=staticlibs debug_off quiet" "PREFIX=/usr"
+export QFE_PREFIX=/usr
+qmake "CONFIG+=staticlibs debug_off quiet"
 make clean
 make RPM_OPT_FLAGS="$RPM_OPT_FLAGS"
 
 %install
 rm -rf $RPM_BUILD_ROOT
+export QFE_PREFIX=/usr
 make INSTALL_ROOT="$RPM_BUILD_ROOT" install
 
 %clean
@@ -58,25 +60,26 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/%{name}/translations/*.qm
 %{_datadir}/%{name}/examples/*.bat
 %{_datadir}/%{name}/examples/*.sh
+%{_datadir}/%{name}/config.sample
 
 %post
 if [ -x /usr/bin/gtk-update-icon-cache ]; then
-  /usr/bin/gtk-update-icon-cache --quiet /usr/share/icons || :
-  /usr/bin/gtk-update-icon-cache --quiet /usr/share/pixmaps || :
+  /usr/bin/gtk-update-icon-cache --ignore-theme-index --quiet /usr/share/icons || :
+  /usr/bin/gtk-update-icon-cache --ignore-theme-index --quiet /usr/share/pixmaps || :
 fi
 update-desktop-database &> /dev/null || :
 
 %postun
 if [ -x /usr/bin/gtk-update-icon-cache ]; then
-  /usr/bin/gtk-update-icon-cache --quiet /usr/share/icons || :
-  /usr/bin/gtk-update-icon-cache --quiet /usr/share/pixmaps || :
+  /usr/bin/gtk-update-icon-cache --ignore-theme-index --quiet /usr/share/icons || :
+  /usr/bin/gtk-update-icon-cache --ignore-theme-index --quiet /usr/share/pixmaps || :
 fi
 update-desktop-database &> /dev/null || :
 rmdir --ignore-fail-on-non-empty %{_datadir}/%{name}/translations
 rmdir --ignore-fail-on-non-empty %{_datadir}/%{name}
 
 %changelog
-* ... ... .. 2006 Alexander Shiyan <shc@users.sourceforge.net>
+* Mon May 30 2006 Alexander Shiyan <shc@users.sourceforge.net>
 - Add FTN mime-icons.
 - Added Russian description is spec.
 - Update to version 0.5

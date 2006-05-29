@@ -7,13 +7,7 @@
 QMAKE_OPTIONS="debug_off staticlibs"
 MACOS_TEST=`uname -s | grep "Darwin" -`
 
-if [ -f Makefile ]; then
-	rm -f Makefile
-fi
-
-if [ -f src/Makefile ]; then
-	rm -f src/Makefile
-fi
+find . -name Makefile -exec rm -f {} \;
 
 QFE_PREFIX=
 

@@ -24,6 +24,12 @@
             <property name="name">
                 <cstring>VerSplitter</cstring>
             </property>
+            <property name="frameShape">
+                <enum>NoFrame</enum>
+            </property>
+            <property name="frameShadow">
+                <enum>Plain</enum>
+            </property>
             <property name="orientation">
                 <enum>Vertical</enum>
             </property>
@@ -631,6 +637,8 @@
         <separator/>
         <action name="UnsubscribeAction"/>
         <separator/>
+        <action name="PurgeAction"/>
+        <separator/>
         <action name="AreaPropAction"/>
     </item>
     <item text="View" name="ViewMenu">
@@ -676,7 +684,7 @@
             <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>625</width>
+                <width>657</width>
                 <height>34</height>
             </rect>
         </property>
@@ -697,6 +705,7 @@
         <action name="NextMessAction"/>
         <separator/>
         <action name="RescanAllAction"/>
+        <action name="PurgeAction"/>
         <separator/>
         <action name="PreviousAreaAction"/>
         <action name="NextAreaAction"/>
@@ -1142,6 +1151,17 @@
             <string>Save to Archive Area</string>
         </property>
     </action>
+    <action>
+        <property name="name">
+            <cstring>PurgeAction</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="text">
+            <string>Pugre Area</string>
+        </property>
+    </action>
 </actions>
 <connections>
     <connection>
@@ -1420,6 +1440,12 @@
         <receiver>TMainWindow</receiver>
         <slot>ActionSaveToArchive()</slot>
     </connection>
+    <connection>
+        <sender>PurgeAction</sender>
+        <signal>activated()</signal>
+        <receiver>TMainWindow</receiver>
+        <slot>ActionPurge()</slot>
+    </connection>
 </connections>
 <includes>
     <include location="global" impldecl="in declaration">qstylesheet.h</include>
@@ -1533,6 +1559,7 @@
     <slot>ActionViewToolBar()</slot>
     <slot>ActionViewStatusBar()</slot>
     <slot>ActionRescan()</slot>
+    <slot>ActionPurge()</slot>
     <slot>ActionRescanAll()</slot>
     <slot>ActionRedrawMessage()</slot>
     <slot>AreaChanged( QListViewItem * Item )</slot>
@@ -1551,8 +1578,8 @@
     <function access="private" specifier="non virtual">RunEditor( TArea * Area, TMessage * Message, uint Operation, void * tmp )</function>
     <function access="private" specifier="non virtual">ClearMessageView()</function>
     <function access="private" specifier="non virtual">ClearMessageList()</function>
-    <function access="private" specifier="non virtual">AddBase(void * FconfBase, Area_Type atype )</function>
     <function access="private" specifier="non virtual">RescanArea( TAreaItem * It, bool DoItActive )</function>
+    <function access="private" specifier="non virtual">AddBase( void * FconfBase, Area_Type atype )</function>
     <function specifier="non virtual">FindCallBack( TFindItem * Item )</function>
     <function access="private" specifier="non virtual">ParseColorLine( QString * Line, uint Start )</function>
     <function access="private" specifier="non virtual">SetUserPixmap( QPixmap pix )</function>

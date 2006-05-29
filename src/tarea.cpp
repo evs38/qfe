@@ -37,6 +37,8 @@ TArea::TArea(Area_Type _AType, Base_Type _BType, uint16_t _DefZone)
 
 	UnReadCnt = 0;
 
+	BaseSize = 0;
+
 	OpenCounter = 0;
 	dummyLastRead = -1;
 	User = NULL;

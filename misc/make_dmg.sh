@@ -6,7 +6,14 @@
 # http://www.kernelthread.com/mac/apme/archive/mkdmg.txt
 
 MAC_VER=`uname -s | grep "Darwin" -`
-MAC_ARH=`uname -i`
+
+case `uname -p` in
+	i*86) MAC_ARH=x86
+	;;
+	p*pc) MAC_ARH=ppc
+	;;
+	*) MAC_ARH=unknown
+esac
 
 VERSION=`cat ../config.h | awk '/QFE_VERSION/ {print $3}' | sed s/\"//g`
 BUNDLE_SOURCE=".tmp/qfe.app"

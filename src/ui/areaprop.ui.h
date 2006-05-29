@@ -38,7 +38,7 @@ void TAreaProp::closeEvent(QCloseEvent *e)
 
 void TAreaProp::SetUp(void *_Area)
 {
-	uint32_t i, cntall = 0, cntunread = 0;
+	uint32_t i, sizeall = 0, cntall = 0, cntunread = 0;
 	TArea *Area = (TArea*)_Area;
 
 	AreaNameEdit->setText(Area->Name);
@@ -86,7 +86,9 @@ void TAreaProp::SetUp(void *_Area)
 	{
 		cntall += Areas->at(i)->count();
 		cntunread += Areas->at(i)->UnReadCnt;
+		sizeall += Areas->at(i)->BaseSize;
 	}
 	SumLabel2->setText("<b>" + QObject::tr("Summary messages:") + "</b> " + QString::number(cntall));
 	SumLabel3->setText("<b>" + QObject::tr("Summary unread:") + "</b> " + QString::number(cntunread));
+	SumLabel4->setText("<b>" + QObject::tr("Summary size:") + "</b> " + QString::number(sizeall / 1024) + " " + QObject::tr("KB."));
 }

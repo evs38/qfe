@@ -178,6 +178,7 @@ IMAGES = img/icon_about.xpm \
          img/icon_plugins.xpm \
          img/icon_print.xpm \
          img/icon_prop.xpm \
+         img/icon_purge.xpm \
          img/icon_question.xpm \
          img/icon_redo.xpm \
          img/icon_replace.xpm \

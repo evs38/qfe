@@ -131,6 +131,7 @@ Source: "FAQ"; DestDir: "{app}\share\qfe"; Components: main; Flags: ignoreversio
 Source: "qfe.lsm"; DestDir: "{app}\share\qfe"; Components: main; Flags: ignoreversion
 Source: "README"; DestDir: "{app}\share\qfe"; Components: main; Flags: ignoreversion
 Source: "TODO"; DestDir: "{app}\share\qfe"; Components: main; Flags: ignoreversion
+Source: "misc\config.sample"; DestDir: "{app}\share\qfe"; Components: main; Flags: ignoreversion
 
 Source: "misc\desktop.ini"; DestDir: "{group}"; Components: main; Flags: ignoreversion; Attribs: hidden
 

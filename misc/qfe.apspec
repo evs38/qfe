@@ -58,6 +58,16 @@ echo '*' | import
 prefix=/usr
 installExe usr/bin/*
 installData usr/share/*
+if [ -x /usr/bin/gtk-update-icon-cache ]; then
+	/usr/bin/gtk-update-icon-cache --ignore-theme-index --quiet /usr/share/icons || :
+	/usr/bin/gtk-update-icon-cache --ignore-theme-index --quiet /usr/share/pixmaps || :
+fi
+update-desktop-database &> /dev/null || :
 
 [Uninstall]
 uninstallFromLog
+if [ -x /usr/bin/gtk-update-icon-cache ]; then
+	/usr/bin/gtk-update-icon-cache --ignore-theme-index --quiet /usr/share/icons || :
+	/usr/bin/gtk-update-icon-cache --ignore-theme-index --quiet /usr/share/pixmaps || :
+fi
+update-desktop-database &> /dev/null || :

@@ -1,13 +1,14 @@
-QFE version  SVN  ============================================================
+QFE version 0.5 === Released 30.05.2006 ======================================
 - Fix crash when append address from main list into AddressBook.
 - Added support for view JPEG-images in GIF-kludge.
 - Added example fidoconf configuration file.
 - Added "group description" field to area-property dialog.
 - Added Geek viewer (Read about 'Geek' on http://www.geekcode.com/).
+- Added "Summary base size" field in area property dialog.
 - Win32 binary version now contain some HUSKY-related utilites.
 - Implement "Archive area". Important messages may stored in this local area.
 - Proper error messages when errors found in fidoconf configuration file.
-- Added "clipboard.tpl" template for format texts included from clipboard.
+- Added "clipboard.tpl" template for format text inserted from clipboard.
 - Extend some debug messages in "Debug"-mode.
 - Fixes for PID-kludge as described in FSC-0046.
 - Fixes for quoting as described in FSC-0032.
