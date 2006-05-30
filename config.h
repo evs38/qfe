@@ -2,7 +2,7 @@
 #define _CONFIG_H_
 
 /* QFE Version */
-#define	QFE_VERSION	"0.5"
+#define	QFE_VERSION	"0.5-svn"
 
 /* QFE SVN Revision */
 #define QFE_REVISION	"$LastChangedRevision$"

@@ -90,5 +90,29 @@ void TAreaProp::SetUp(void *_Area)
 	}
 	SumLabel2->setText("<b>" + QObject::tr("Summary messages:") + "</b> " + QString::number(cntall));
 	SumLabel3->setText("<b>" + QObject::tr("Summary unread:") + "</b> " + QString::number(cntunread));
-	SumLabel4->setText("<b>" + QObject::tr("Summary size:") + "</b> " + QString::number(sizeall / 1024) + " " + QObject::tr("KB."));
+
+	double sizeall_d = (double)sizeall;
+	QString SizeStr, KiloStr = QObject::tr("B.");
+	if (sizeall_d > 1024.)
+	{
+		KiloStr = QObject::tr("KB.");
+		sizeall_d /= 1024.;
+
+		if (sizeall_d > 1024.)
+		{
+			KiloStr = QObject::tr("MB.");
+			sizeall_d /= 1024.;
+
+			if (sizeall_d > 1024.)
+			{
+				KiloStr = QObject::tr("GB.");
+				sizeall_d /= 1024.;
+			}
+		}
+		SizeStr.setNum(sizeall_d, 'f', 2);
+	} else
+		SizeStr = QString::number(sizeall);
+
+	SizeStr.append(" " + KiloStr);
+	SumLabel4->setText("<b>" + QObject::tr("Summary size:") + "</b> " + SizeStr);
 }

@@ -1166,6 +1166,18 @@
         <source>KB.</source>
         <translation>КБ.</translation>
     </message>
+    <message>
+        <source>B.</source>
+        <translation>Б.</translation>
+    </message>
+    <message>
+        <source>MB.</source>
+        <translation>МБ.</translation>
+    </message>
+    <message>
+        <source>GB.</source>
+        <translation>ГБ.</translation>
+    </message>
 </context>
 <context>
     <name>TAbout</name>
