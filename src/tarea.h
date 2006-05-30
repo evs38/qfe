@@ -48,6 +48,7 @@ public:
 	TMessage *Append();
 	bool Delete(uint32_t);
 	bool Kill();
+	bool Purge();
 	void Close(bool = false);
 	void Done();
 
@@ -110,6 +111,7 @@ private:
 	TMessage* (*AppendArea_)(TArea*, bool);
 	bool (*DeleteArea_)(TArea*, uint32_t);
 	bool (*KillArea_)(TArea*);
+	void (*PurgeArea_)(TArea*);
 	void (*CloseArea_)(TArea*);
 	void (*DoneArea_)(TArea*);
 	uint32_t (*GetLastReadArea_)(TArea*, uint32_t);

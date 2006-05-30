@@ -59,6 +59,7 @@ TArea::TArea(Area_Type _AType, Base_Type _BType, uint16_t _DefZone)
 			AppendArea_ = AppendArea_Msg;
 			DeleteArea_ = DeleteArea_Msg;
 			KillArea_ = KillArea_Msg;
+			PurgeArea_ = NULL; //TODO:
 			CloseArea_ = CloseArea_Msg;
 			DoneArea_ = DoneArea_Msg;
 			GetLastReadArea_ = GetLastReadArea_Msg;
@@ -74,6 +75,7 @@ TArea::TArea(Area_Type _AType, Base_Type _BType, uint16_t _DefZone)
 			AppendArea_ = AppendArea_Jam;
 			DeleteArea_ = DeleteArea_Jam;
 			KillArea_ = KillArea_Jam;
+			PurgeArea_ = NULL; //TODO:
 			CloseArea_ = CloseArea_Jam;
 			DoneArea_ = DoneArea_Jam;
 			GetLastReadArea_ = GetLastReadArea_Jam;
@@ -89,6 +91,7 @@ TArea::TArea(Area_Type _AType, Base_Type _BType, uint16_t _DefZone)
 			AppendArea_ = AppendArea_Squish;
 			DeleteArea_ = DeleteArea_Squish;
 			KillArea_ = KillArea_Squish;
+			PurgeArea_ = NULL; //TODO:
 			CloseArea_ = CloseArea_Squish;
 			DoneArea_ = DoneArea_Squish;
 			GetLastReadArea_ = GetLastReadArea_Squish;
@@ -104,6 +107,7 @@ TArea::TArea(Area_Type _AType, Base_Type _BType, uint16_t _DefZone)
 			AppendArea_ = NULL;
 			DeleteArea_ = NULL;
 			KillArea_ = NULL;
+			PurgeArea_ = NULL;
 			CloseArea_ = NULL;
 			DoneArea_ = NULL;
 			GetLastReadArea_ = NULL;
@@ -311,6 +315,23 @@ bool TArea::Kill()
 
 	if (KillArea_ != NULL)
 		ret = KillArea_(this);
+
+	return ret;
+}
+
+bool TArea::Purge()
+{
+	WaitMutex();
+	bool ret = false;
+
+	if (isOpened())
+	{
+		if (PurgeArea_ != NULL)
+			PurgeArea_(this);
+
+		ret = true;
+	} else
+		debugmessage("Purge() fail. Area " + Name + " closed.");
 
 	return ret;
 }

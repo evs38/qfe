@@ -1,6 +1,304 @@
 <!DOCTYPE TS><TS>
 <defaultcodec>UTF-8</defaultcodec>
 <context>
+    <name>QColorDialog</name>
+    <message>
+        <source>Hu&amp;e:</source>
+        <translation>&amp;Тон:</translation>
+    </message>
+    <message>
+        <source>&amp;Sat:</source>
+        <translation>&amp;Насыщенность:</translation>
+    </message>
+    <message>
+        <source>&amp;Val:</source>
+        <translation>&amp;Яркость:</translation>
+    </message>
+    <message>
+        <source>&amp;Red:</source>
+        <translation>&amp;Красный:</translation>
+    </message>
+    <message>
+        <source>&amp;Green:</source>
+        <translation>&amp;Зелёный:</translation>
+    </message>
+    <message>
+        <source>Bl&amp;ue:</source>
+        <translation>С&amp;иний:</translation>
+    </message>
+    <message>
+        <source>A&amp;lpha channel:</source>
+        <translation>&amp;Альфа-канал:</translation>
+    </message>
+    <message>
+        <source>&amp;Basic colors</source>
+        <translation>&amp;Основные цвета</translation>
+    </message>
+    <message>
+        <source>&amp;Custom colors</source>
+        <translation>&amp;Собственные цвета</translation>
+    </message>
+    <message>
+        <source>&amp;Define Custom Colors &gt;&gt;</source>
+        <translation>&amp;Выбрать собственные цвета &gt;&gt;</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>ОК</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Отмена</translation>
+    </message>
+    <message>
+        <source>&amp;Add to Custom Colors</source>
+        <translation>&amp;Добавить к собственным цветам</translation>
+    </message>
+    <message>
+        <source>Select color</source>
+        <translation>Выбрать цвет</translation>
+    </message>
+</context>
+<context>
+    <name>QFileDialog</name>
+    <message>
+        <source>Copy or Move a File</source>
+        <translation>Копировать или переместить файл</translation>
+    </message>
+    <message>
+        <source>Read: %1</source>
+        <translation>Открытие: %1</translation>
+    </message>
+    <message>
+        <source>Write: %1</source>
+        <translation>Запись: %1</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Отмена</translation>
+    </message>
+    <message>
+        <source>All Files (*)</source>
+        <translation>Все файлы (*)</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Имя</translation>
+    </message>
+    <message>
+        <source>Size</source>
+        <translation>Размер</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>Тип</translation>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation>Дата</translation>
+    </message>
+    <message>
+        <source>Attributes</source>
+        <translation>Атрибуты</translation>
+    </message>
+    <message>
+        <source>Look &amp;in:</source>
+        <translation>&amp;Искать в:</translation>
+    </message>
+    <message>
+        <source>File &amp;name:</source>
+        <translation>&amp;Имя файла:</translation>
+    </message>
+    <message>
+        <source>File &amp;type:</source>
+        <translation>&amp;Тип файла:</translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation>Назад</translation>
+    </message>
+    <message>
+        <source>One directory up</source>
+        <translation>Вверх на один уровень</translation>
+    </message>
+    <message>
+        <source>Create New Folder</source>
+        <translation>Создать новый каталог</translation>
+    </message>
+    <message>
+        <source>List View</source>
+        <translation>Список</translation>
+    </message>
+    <message>
+        <source>Detail View</source>
+        <translation>Подробный вид</translation>
+    </message>
+    <message>
+        <source>Preview File Info</source>
+        <translation>Предварительный просмотр информации о файле</translation>
+    </message>
+    <message>
+        <source>Preview File Contents</source>
+        <translation>Предварительный просмотр содержимого файла</translation>
+    </message>
+    <message>
+        <source>Read-write</source>
+        <translation>Чтение-запись</translation>
+    </message>
+    <message>
+        <source>Read-only</source>
+        <translation>Только чтение</translation>
+    </message>
+    <message>
+        <source>Write-only</source>
+        <translation>Только запись</translation>
+    </message>
+    <message>
+        <source>Inaccessible</source>
+        <translation>Нет доступа</translation>
+    </message>
+    <message>
+        <source>Symlink to File</source>
+        <translation>Ссылка на файл</translation>
+    </message>
+    <message>
+        <source>Symlink to Directory</source>
+        <translation>Ссылка на каталог</translation>
+    </message>
+    <message>
+        <source>Symlink to Special</source>
+        <translation>Ссылка на спецфайл</translation>
+    </message>
+    <message>
+        <source>File</source>
+        <translation>Файл</translation>
+    </message>
+    <message>
+        <source>Dir</source>
+        <translation>Каталог</translation>
+    </message>
+    <message>
+        <source>Special</source>
+        <translation>Спецфайл</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation>Открыть</translation>
+    </message>
+    <message>
+        <source>Save As</source>
+        <translation>Сохранить как</translation>
+    </message>
+    <message>
+        <source>&amp;Open</source>
+        <translation>&amp;Открыть</translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation>&amp;Сохранить</translation>
+    </message>
+    <message>
+        <source>&amp;Rename</source>
+        <translation>&amp;Переименовать</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation>&amp;Удалить</translation>
+    </message>
+    <message>
+        <source>R&amp;eload</source>
+        <translation>О&amp;бновить</translation>
+    </message>
+    <message>
+        <source>Sort by &amp;Name</source>
+        <translation>По &amp;имени</translation>
+    </message>
+    <message>
+        <source>Sort by &amp;Size</source>
+        <translation>По &amp;размеру</translation>
+    </message>
+    <message>
+        <source>Sort by &amp;Date</source>
+        <translation>По &amp;дате</translation>
+    </message>
+    <message>
+        <source>&amp;Unsorted</source>
+        <translation>&amp;Не упорядочивать</translation>
+    </message>
+    <message>
+        <source>Sort</source>
+        <translation>Упорядочить</translation>
+    </message>
+    <message>
+        <source>Show &amp;hidden files</source>
+        <translation>Показать &amp;скрытые файлы</translation>
+    </message>
+    <message>
+        <source>the file</source>
+        <translation>файл</translation>
+    </message>
+    <message>
+        <source>the directory</source>
+        <translation>каталог</translation>
+    </message>
+    <message>
+        <source>the symlink</source>
+        <translation>ссылка</translation>
+    </message>
+    <message>
+        <source>Delete %1</source>
+        <translation>Удалить %1</translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;Are you sure you wish to delete %1 &quot;%2&quot;?&lt;/qt&gt;</source>
+        <translation>&lt;qt&gt;Вы действительно хотите удалить %1 &quot;%2&quot;?&lt;/qt&gt;</translation>
+    </message>
+    <message>
+        <source>&amp;Yes</source>
+        <translation>&amp;Да</translation>
+    </message>
+    <message>
+        <source>&amp;No</source>
+        <translation>&amp;Нет</translation>
+    </message>
+    <message>
+        <source>New Folder</source>
+        <translation>Новый каталог</translation>
+    </message>
+    <message>
+        <source>New Folder %1</source>
+        <translation>Новый каталог %1</translation>
+    </message>
+    <message>
+        <source>Find Directory</source>
+        <translation>Найти каталог</translation>
+    </message>
+    <message>
+        <source>Directories</source>
+        <translation>Каталоги</translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation>Ошибка</translation>
+    </message>
+    <message>
+        <source>%1
+File not found.
+Check path and filename.</source>
+        <translation>%1
+<byte value="x9"/>Файл не найден.
+<byte value="x9"/>Проверьте правильность пути и имени файла.</translation>
+    </message>
+    <message>
+        <source>Directory:</source>
+        <translation>Каталог:</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;OK</translation>
+    </message>
+</context>
+<context>
     <name>QObject</name>
     <message>
         <source>Error</source>

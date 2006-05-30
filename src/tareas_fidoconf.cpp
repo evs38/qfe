@@ -74,10 +74,10 @@ bool ValidateDefines(TAreas *Base, QString Val)
 		return !strcompare(gettoken(Val, 1), gettoken(Val, 2));
 	} else
 	{
-		i = Val.find("==");
+		i = Val.find("=");
 		if (i != -1)
 		{
-			Val.replace("==", " ");
+			Val.replace("=", " ");
 			return strcompare(gettoken(Val, 1), gettoken(Val, 2));
 		}
 	}
@@ -292,6 +292,8 @@ bool InitAreas_Fidoconf(TAreas *Base)
 	AppendEnvVariable(Base, "[");
 	AppendEnvVariable(Base, "]");
 	AppendEnvVariable(Base, "\"");
+	AppendEnvVariable(Base, "'");
+	AppendEnvVariable(Base, "==", "=");
 
 #if defined(Q_OS_WIN)
 	AppendEnvVariable(Base, "OS", "WIN");
