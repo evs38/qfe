@@ -1,5 +1,5 @@
 QFE version SVN ==============================================================
-...
+- Fix update squish base UID when write new message.
 
 QFE version 0.5 === Released 30.05.2006 ======================================
 - Fix crash when append address from main list into AddressBook.

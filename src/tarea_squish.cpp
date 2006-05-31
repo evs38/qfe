@@ -422,6 +422,8 @@ bool RescanArea_Squish(TArea *Base)
 			}
 	}
 
+	b_obj->MaxUID = QMAX(b_obj->BaseInfo.num_msg, b_obj->MaxUID);
+
 	return true;
 }
 
@@ -485,6 +487,9 @@ bool WriteArea_Squish(TArea *Base, uint32_t Index)
 	TArea_Squish_PvtObject *b_obj = (TArea_Squish_PvtObject*)Base->AreaPvtData;
 
 	memset((char*)&Header, '\0', sizeof(AreaItem_Squish_Header));
+
+	Header.umsgid = it->uid;
+
 	qstrncpy((char*)&Header.from, (char*)&it->from, MAX_FROM_NAME_LEN + 1);
 	qstrncpy((char*)&Header.to, (char*)&it->to, MAX_TO_NAME_LEN + 1);
 	qstrncpy((char*)&Header.subj, (char*)&it->subj, MAX_SUBJ_LEN + 1);
@@ -600,6 +605,7 @@ bool WriteArea_Squish(TArea *Base, uint32_t Index)
 		b_obj->BaseInfo.end_frame = ftell(b_obj->SQD);
 		b_obj->BaseInfo.num_msg = Base->count();
 		b_obj->BaseInfo.high_msg = b_obj->BaseInfo.num_msg;
+		b_obj->BaseInfo.uid = b_obj->MaxUID;
 		rewind(b_obj->SQD);
 		if (fwrite((char*)&b_obj->BaseInfo, sizeof(AreaItem_Squish_Base), 1, b_obj->SQD) != 1)
 			break;
