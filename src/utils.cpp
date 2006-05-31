@@ -49,7 +49,8 @@ const char MonthNames[][4] = {
 	"Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
 };
 
-/* Some static translation texts */
+#undef _FAKE_STATIC_TRANSLATIONS_
+#ifdef _FAKE_STATIC_TRANSLATIONS_
 const char *Static_Translations[] =
 {
 	/* QColorDialog */
@@ -128,6 +129,7 @@ const char *Static_Translations[] =
 	QT_TRANSLATE_NOOP("QFileDialog", "Directory:"),
 	QT_TRANSLATE_NOOP("QFileDialog", "&OK")
 };
+#endif
 
 const uint32_t CRC32_TABLE[256] = {
 	0x00000000, 0x77073096, 0xee0e612c, 0x990951ba, 0x076dc419, 0x706af48f, 0xe963a535, 0x9e6495a3,
