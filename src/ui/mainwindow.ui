@@ -1504,6 +1504,7 @@
     <variable access="private">bool FirstTimeInit;</variable>
     <variable access="private">QString LastAreaName;</variable>
     <variable access="private">QString MessageGeekBuffer;</variable>
+    <variable access="private">QString DefaultCharset;</variable>
     <variable access="private">bool MessageGeekR;</variable>
     <variable access="private">volatile uint ActiveEditCnt;</variable>
     <variable access="private">QPopupMenu *AreaListPopup;</variable>

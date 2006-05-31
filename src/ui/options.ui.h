@@ -89,7 +89,7 @@ void TOptions::showEvent(QShowEvent *)
 	FidoconfPathEdit->setText(Config->GetStr(CONFIG_SECTION_FIDO, CONFIG_FIDOCONFNAME, getConfigFileName()));
 
 	for (i = 0; i < CODEPAGES_COUNT; i++)
-		CodepageCombo->insertItem(QFECodePages[i][0]);
+		CodepageCombo->insertItem(CharSetRecords[i].Name);
 	CodepageCombo->setCurrentItem(CodepageCombo->listBox()->index(CodepageCombo->listBox()->findItem(Config->GetStr(CONFIG_SECTION_FIDO, CONFIG_FIDOCODEPAGE, "IBM 866"), Qt::ExactMatch)));
 
 	ZoneBox->setValue(Config->GetInt(CONFIG_SECTION_FIDO, CONFIG_FIDODEFZONE, 2));

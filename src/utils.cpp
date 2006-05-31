@@ -35,16 +35,48 @@
 bool dodebug = false;
 extern TConfig *Config;
 
-/* Viewed Value, QTextCodec Value, CHRS Value */
-//TODO: This stuff need rewrite
-const QString QFECodePages[CODEPAGES_COUNT][3] = {
-	{ "ISO8859-1", "ISO8859-1", "LATIN-1" },
-	{ "IBM 850", "IBM 850", "CP850 2" },
-	{ "IBM 866", "IBM 866", "CP866 2" },
-	{ "UTF-8", "utf8", "UTF-8 4" }
+const TCharSetRecord CharSetRecords[CODEPAGES_COUNT] =
+{
+	{
+		"ISO8859-1",
+		"CP437 ISO8859-1",
+		"ISO8859-1",
+		"LATIN-1 2"
+	},
+	{
+		"ISO8859-2",
+		"LATIN-2 ISO8859-2",
+		"ISO8859-2",
+		"LATIN-2 2"
+	},
+	{
+		"ISO8859-9",
+		"LATIN-5 ISO8859-9",
+		"ISO8859-9",
+		"LATIN-5 2"
+	},
+	{
+		"IBM 850",
+		"CP850",
+		"IBM 850",
+		"CP850 2"
+	},
+	{
+		"IBM 866",
+		"CP866 +7 +7_FIDO",
+		"IBM 866",
+		"CP866 2"
+	},
+	{
+		"UTF-8",
+		"UTF-8",
+		"utf8",
+		"UTF-8 4"
+	}
 };
 
-const char MonthNames[][4] = {
+const char MonthNames[][4] =
+{
 	"Jan", "Feb", "Mar", "Apr", "May", "Jun",
 	"Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
 };
@@ -1057,4 +1089,35 @@ void WrapLines(QStringList *List, QString str, QString Prefix, uint32_t MaxPos)
 bool isLowerKludge(QString *str)
 {
 	return (str->startsWith("SEEN-BY: ") || str->startsWith("\001PATH: ") || str->startsWith("\001Via ") || str->startsWith("\001Recd") || str->startsWith("\001Forwarded"));
+}
+
+QString GetCharSetForMessage(uint8_t *Buffer, QString DefVal)
+{
+	uint32_t i;
+	QString CHRS = GetKludge(Buffer, "CHRS: ");
+	QString Charset = GetKludge(Buffer, "CHARSET: ");
+
+	if (!CHRS.isEmpty())
+		CHRS = gettoken(CHRS, 2);
+	if (!Charset.isEmpty())
+		Charset = gettoken(Charset, 2);
+
+	if (Charset.isEmpty())
+	{
+		if (!CHRS.isEmpty())
+		{
+			for (i = 0; i < CODEPAGES_COUNT; i++)
+				if (QString(CharSetRecords[i].Aliases).find(CHRS, 0, false) > -1)
+					return CharSetRecords[i].CodecValue;
+			if ((!strcompare(CHRS, "IBMPC")) && (!strcompare(CHRS, "ASCII")))
+				return DefVal;
+		}
+		return DefVal;
+	}
+
+	for (i = 0; i < CODEPAGES_COUNT; i++)
+		if (QString(CharSetRecords[i].Aliases).find(Charset, 0, false) > -1)
+			return CharSetRecords[i].CodecValue;
+
+	return DefVal;
 }

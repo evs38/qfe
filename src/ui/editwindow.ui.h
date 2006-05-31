@@ -822,9 +822,7 @@ void TEditWindow::Save(bool isDraft)
 
 	Kludges.prepend(tmp);
 
-	tmp = Config->CharsetForMessages();
-	if (!tmp.isEmpty())
-		Kludges.append(QString("CHRS: %1").arg(tmp));
+	Kludges.append(QString("CHRS: %1").arg(Config->CharsetForMessages()));
 
 	addr2addr(&Message->origaddr, faddr);
 	addr2addr(&Message->destaddr, &taddr);

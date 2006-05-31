@@ -365,7 +365,8 @@ void TMainWindow::LoadSettings()
 {
 	int i;
 
-	Config->ChangeTextCodec(Config->GetStr(CONFIG_SECTION_FIDO, CONFIG_FIDOCODEPAGE, "IBM 866"));
+	DefaultCharset = Config->GetStr(CONFIG_SECTION_FIDO, CONFIG_FIDOCODEPAGE, "IBM 866");
+	Config->ChangeTextCodec(DefaultCharset);
 
 	TextEdit->setFont(QFont(Config->GetStr(QString::null, CONFIG_FONTNAME, DEFAULT_VIEW_FONT), Config->GetInt(QString::null, CONFIG_FONTSIZE, DEFAULT_VIEW_FONTSIZE)));
 	TextEdit->setPaletteBackgroundColor(QColor(Config->GetInt(QString::null, CONFIG_FONTBACK, QColor(0, 0, 0).rgb())));
@@ -1863,14 +1864,7 @@ void TMainWindow::MessageChanged(QListViewItem *Item)
 			MarkMessAction->setEnabled(true);
 			AddToBookAction->setEnabled(true);
 
-			//TODO: Process CHRS
-			//QString chrs = GetKludge(Current->Area->CtlBuff, "CHRS: ");
-			//QString chrs = GetKludge(Current->Area->CtlBuff, "CHARSET: ");
-			//if (!chrs.isEmpty())
-			//{
-			//	chrs.mid(6)
-			//	ChrsStatusBar
-			//}
+			charset = GetCharSetForMessage(Current->Area->CtlBuff, DefaultCharset);
 
 			FNLabel->setText(CurrentItem->text(2));
 
@@ -1897,8 +1891,8 @@ void TMainWindow::MessageChanged(QListViewItem *Item)
 					DecodeGeek(Current->Area->CtlBuff);
 			}
 
-			QString Kludges = ViewKludgesAction->isOn() ? QStyleSheet::escape(Config->toUTF((char*)Current->Area->CtlBuff)) : QString::null;
-			QString tmp, Buffer = Config->toUTF((char*)Current->Area->TxtBuff);
+			QString Kludges = ViewKludgesAction->isOn() ? QStyleSheet::escape(Config->toUTF((char*)Current->Area->CtlBuff, charset)) : QString::null;
+			QString tmp, Buffer = Config->toUTF((char*)Current->Area->TxtBuff, charset);
 			ReplaceUnicodeChars(&Buffer);
 
 			int i = Buffer.find("<html>", 0, false);

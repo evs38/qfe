@@ -27,6 +27,7 @@
 #include <qimage.h>
 #include <qtimer.h>
 #include <qregexp.h>
+#include <qstring.h>
 #include <qwidget.h>
 #include <qprocess.h>
 #include <qmessagebox.h>
@@ -43,10 +44,21 @@
 #include "extmessage.h"
 #include "tfidoconfig.h"
 
-#define CODEPAGES_COUNT		4
+#define CHARSETREC_LENGTH	32
+
+struct TCharSetRecord
+{
+	char Name[CHARSETREC_LENGTH];
+	char Aliases[CHARSETREC_LENGTH];
+	char CodecValue[CHARSETREC_LENGTH];
+	char CHRS[CHARSETREC_LENGTH];
+};
+
+#define CODEPAGES_COUNT		6
+
+extern const TCharSetRecord CharSetRecords[CODEPAGES_COUNT];
 
 extern bool dodebug;
-extern const QString QFECodePages[CODEPAGES_COUNT][3];
 
 void errormessage(QWidget*, QString);
 void informationmessage(QWidget*, QString);
@@ -134,5 +146,7 @@ void DateTime2Opus(time_t, uint32_t*);
 void WrapLines(QStringList*, QString, QString, uint32_t);
 
 bool isLowerKludge(QString*);
+
+QString GetCharSetForMessage(uint8_t*, QString);
 
 #endif /* _UTILS_H_ */

@@ -276,8 +276,9 @@ QString TConfig::CharsetForMessages()
 {
 	QString tmp = GetStr(CONFIG_SECTION_FIDO, CONFIG_FIDOCODEPAGE, "IBM 866");
 	for (uint32_t i = 0; i < CODEPAGES_COUNT; i++)
-		if (tmp == QFECodePages[i][0])
-			return (QFECodePages[i][2]);
+		if (strcompare(CharSetRecords[i].Name, tmp))
+			return CharSetRecords[i].CHRS;
+
 	return "IBMPC 2";
 }
 
