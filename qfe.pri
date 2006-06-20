@@ -71,7 +71,7 @@ exists($$QT_DIR_BIN/lrelease*) {
 	win32 {
 		TEST_QTVER = $$system(grep "QT_VERSION_STR" $$QGLOBAL | tr -d "\042" | tr -s [:space:])
 	} else {
-		TEST_QTVER = $$system(cat $$QGLOBAL | awk '/QT_VERSION_STR/ {print $3}' | sed s/\"//g)
+		TEST_QTVER = $$system(awk '/QT_VERSION_STR/ {print $3}' <$$QGLOBAL | sed s/\"//g)
 	}
 	TEST_QT4 = $$system(echo $$TEST_QTVER | $$GREPCMD "^4\.")
 	!isEmpty(TEST_QT4) {
@@ -123,7 +123,7 @@ win32 {
 QMAKE_UIC = $$QMAKE_UIC -tr QObject::tr
 
 unix {
-	VERSION = $$system(cat $$PWD/config.h | awk '/QFE_VERSION/ {print $3}' | sed s/\"//g)
+	VERSION = $$system(awk '/QFE_VERSION/ {print $3}' <$$PWD/config.h | sed s/\"//g)
 }
 
 !win32 {

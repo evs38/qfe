@@ -191,7 +191,7 @@ bool ReadIncludedFidoConfFile(TAreas *Base, QString FileName)
 						} else if (strcompare(tok1, "endif"))
 						{
 							if (b_obj->IfDefList.count() > 0)
-								b_obj->IfDefList.remove(b_obj->IfDefList.count() - 1);
+								b_obj->IfDefList.Delete();
 							else {
 								debugmessage("Misplaces \"endif\" token.");
 								break;
@@ -253,7 +253,7 @@ bool ReadIncludedFidoConfFile(TAreas *Base, QString FileName)
 							b_obj->IfDefList.Toggle();
 						} else if (strcompare(tok1, "endif"))
 						{
-							b_obj->IfDefList.remove(b_obj->IfDefList.count() - 1);
+							b_obj->IfDefList.Delete();
 						}
 					}
 
@@ -303,7 +303,7 @@ bool InitAreas_Fidoconf(TAreas *Base)
 
 	AppendEnvVariable(Base, "MODULE", "QFE");
 
-	b_obj->IfDefList.clear();
+	b_obj->IfDefList.Clear();
 
 	if (ReadIncludedFidoConfFile(Base, Base->FileName))
 	{

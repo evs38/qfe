@@ -57,8 +57,8 @@ release {
 gcc {
 	QMAKE_CFLAGS_DEBUG += -O0
 	QMAKE_CXXFLAGS_DEBUG += -O0
-	QMAKE_CFLAGS_RELEASE += -funroll-all-loops -fomit-frame-pointer -ffast-math -falign-loops=2 -falign-jumps=2 -falign-functions=2 -fPIC
-	QMAKE_CXXFLAGS_RELEASE += -funroll-all-loops -fomit-frame-pointer -ffast-math -falign-loops=2 -falign-jumps=2 -falign-functions=2 -fPIC
+	QMAKE_CFLAGS_RELEASE += -fomit-frame-pointer -ffast-math -falign-loops=2 -falign-jumps=2 -falign-functions=2 -fPIC
+	QMAKE_CXXFLAGS_RELEASE += -fomit-frame-pointer -ffast-math -falign-loops=2 -falign-jumps=2 -falign-functions=2 -fPIC
 	QMAKE_LFLAGS_RELEASE += --gc-sections -O
 
 	gcc4 {

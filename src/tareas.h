@@ -21,7 +21,7 @@
 #ifndef _TAREAS_H_
 #define _TAREAS_H_
 
-#include <qlist.h>
+#include <qbitarray.h>
 
 class TAreas;
 

@@ -25,37 +25,40 @@
 
 #include "tareas.h"
 
-class TBoolList : public QList<bool>
+class TBoolList : public QBitArray
 {
 public:
-	TBoolList()
+	inline void Clear()
 	{
-		setAutoDelete(true);
+		resize(0);
 	};
 
 	bool CheckValid()
 	{
 		bool ret = true;
 
-		if (count() == 0)
-			return true;
-
 		for (uint32_t i = 0; i < count(); i++)
-			ret = ret && *at(i);
+			ret = ret && at(i);
 
 		return ret;
 	};
 
 	void Add(bool Value)
 	{
-		bool *BoolVal = new bool;
-		*BoolVal = Value;
-		append(BoolVal);
+		resize(count() + 1);
+		setBit(count() - 1, Value);
 	}
 
-	void Toggle()
+	inline void Delete()
 	{
-		*at(count() - 1) = !(*at(count() - 1));
+		if (count() > 0)
+			resize(count() - 1);
+	};
+
+	inline void Toggle()
+	{
+		if (count() > 0)
+			toggleBit(count() - 1);
 	};
 };
 
