@@ -21,6 +21,20 @@
 #ifndef _TTYPES_H_
 #define _TTYPES_H_
 
+#if defined(__x86_64__) || defined (__alpha__)
+#	define PLATFORM_64BIT
+#else
+#	define PLATFORM_32BIT
+#endif
+
+#if defined(PLATFORM_64BIT)
+#	define PLATF_U	uint64_t
+#	define PLATF_S	int64_t
+#else
+#	define PLATF_U	uint32_t
+#	define PLATF_S	int32_t
+#endif
+
 #if defined(Q_OS_MACX)
 #	include <machine/endian.h>
 #elif defined(Q_OS_WIN)
