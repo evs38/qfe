@@ -150,10 +150,10 @@ enum Config_Type
 {
 	CONFTYPE_UNKNOWN,
 	CONFTYPE_FIDOCONFIG,
-	CONFTYPE_FASTECHO,
-	CONFTYPE_PARTOSS,
-	CONFTYPE_SQUISH,
-	CONFTYPE_AREASBBS
+	CONFTYPE_FASTECHO,	/* Not implemented */
+	CONFTYPE_PARTOSS,	/* Not implemented */
+	CONFTYPE_SQUISH,	/* Not implemented */
+	CONFTYPE_AREASBBS	/* Not implemented */
 };
 
 #endif /* _TTYPES_H_ */

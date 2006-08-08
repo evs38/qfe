@@ -230,7 +230,7 @@ bool ReadArea_Jam(TArea *Base, uint32_t Index)
 	TMessage *it = Base->at(Index);
 	TArea_Jam_PvtObject *b_obj = (TArea_Jam_PvtObject*)Base->AreaPvtData;
 
-	if (fseek(b_obj->JDX, ((QMAX(b_obj->HdrInfo.basemsgnum, 1) - 1) + Index) * sizeof(AreaItem_Jam_Index), SEEK_SET) != 0)
+	if (fseek(b_obj->JDX, ((QMAX(b_obj->HdrInfo.basemsgnum, 1) - 1) + (it->uid - 1)) * sizeof(AreaItem_Jam_Index), SEEK_SET) != 0)
 		return false;
 
 	if (fread((char*)&JamIndex, sizeof(AreaItem_Jam_Index), 1, b_obj->JDX) != 1)
@@ -431,30 +431,16 @@ bool WriteArea_Jam(TArea *Base, uint32_t Index)
 	TMessage *it = Base->at(Index);
 	TArea_Jam_PvtObject *b_obj = (TArea_Jam_PvtObject*)Base->AreaPvtData;
 
-	fseek(b_obj->JDX, ((QMAX(b_obj->HdrInfo.basemsgnum, 1) - 1) + Index) * sizeof(AreaItem_Jam_Index), SEEK_SET);
+	fseek(b_obj->JDX, ((QMAX(b_obj->HdrInfo.basemsgnum, 1) - 1) + (it->uid - 1)) * sizeof(AreaItem_Jam_Index), SEEK_SET);
 	IdxOfs = ftell(b_obj->JDX);
 
 	if (Index < b_obj->HdrInfo.activemsgs)
 	{
 		/* Mark existing item as deleted */
-		if (fread((char*)&JamIndex, sizeof(AreaItem_Jam_Index), 1, b_obj->JDX) != 1)
+		if (!DeleteArea_Jam(Base, Index))
 			return false;
-
-		if (fseek(b_obj->JHR, JamIndex.hdroffset, SEEK_SET) != 0)
-			return false;
-
-		if (fread((char*)&JamHeader, sizeof(AreaItem_Jam_Header), 1, b_obj->JHR) == 1)
-		{
-			JamHeader.attribute = JamHeader.attribute | JAM_FLAG_DELETED;
-			if (fseek(b_obj->JHR, JamIndex.hdroffset, SEEK_SET) == 0)
-				if (fwrite((char*)&JamHeader, sizeof(AreaItem_Jam_Header), 1, b_obj->JHR) == 1)
-				{
-					b_obj->HdrInfo.activemsgs = b_obj->HdrInfo.activemsgs - 1;
-					rewind(b_obj->JHR);
-					fwrite((char*)&b_obj->HdrInfo, sizeof(AreaItem_Jam_HeaderInfo), 1, b_obj->JHR);
-					return true;
-				}
-		}
+		Base->remove(Index);
+		it->uid = ++b_obj->MaxUID;
 	}
 
 	memset((char*)&JamHeader, '\0', sizeof(AreaItem_Jam_Header));
@@ -716,8 +702,9 @@ bool DeleteArea_Jam(TArea *Base, uint32_t Index)
 	AreaItem_Jam_Index JamIndex;
 	AreaItem_Jam_Header JamHeader;
 	TArea_Jam_PvtObject *b_obj = (TArea_Jam_PvtObject*)Base->AreaPvtData;
+	TMessage *it = Base->at(Index);
 
-	if (fseek(b_obj->JDX, ((QMAX(b_obj->HdrInfo.basemsgnum, 1) - 1) + Index) * sizeof(AreaItem_Jam_Index), SEEK_SET) != 0)
+	if (fseek(b_obj->JDX, ((QMAX(b_obj->HdrInfo.basemsgnum, 1) - 1) + (it->uid - 1)) * sizeof(AreaItem_Jam_Index), SEEK_SET) != 0)
 		return false;
 
 	if (fread((char*)&JamIndex, sizeof(AreaItem_Jam_Index), 1, b_obj->JDX) != 1)
@@ -735,26 +722,6 @@ bool DeleteArea_Jam(TArea *Base, uint32_t Index)
 				b_obj->HdrInfo.activemsgs = b_obj->HdrInfo.activemsgs - 1;
 				rewind(b_obj->JHR);
 				fwrite((char*)&b_obj->HdrInfo, sizeof(AreaItem_Jam_HeaderInfo), 1, b_obj->JHR);
-
-				if ((Index < (Base->count() - 1)) && (Base->count() > 1))
-				{
-					uint32_t JDXSize = ((QMAX(b_obj->HdrInfo.basemsgnum, 1) - 1) + Base->count()) * sizeof(AreaItem_Jam_Index);
-					char *JDXBuff = new char[JDXSize];
-					rewind(b_obj->JDX);
-					if (fread(JDXBuff, 1, JDXSize, b_obj->JDX) == JDXSize)
-					{
-						b_obj->JDX = freopen(b_obj->JDXName.ascii(), "w+b", b_obj->JDX);
-
-						uint32_t DestIdx = (Index > 0) ? Index : 0;
-						uint32_t SrcIdx = QMIN(Index + 1, Base->count() - 1);
-						uint32_t CopyCnt = Base->count() - SrcIdx;
-						qmemmove(JDXBuff + (DestIdx * sizeof(AreaItem_Jam_Index)), JDXBuff + (SrcIdx * sizeof(AreaItem_Jam_Index)), CopyCnt * sizeof(AreaItem_Jam_Index));
-						fwrite(JDXBuff, 1, JDXSize - sizeof(AreaItem_Jam_Index), b_obj->JDX);
-
-						b_obj->JDX = freopen(b_obj->JDXName.ascii(), "r+b", b_obj->JDX);
-					}
-					delete JDXBuff;
-				}
 
 				return true;
 			}
@@ -856,8 +823,9 @@ void MarkAsReadArea_Jam(TArea *Base, uint32_t Index)
 	AreaItem_Jam_Index JamIndex;
 	AreaItem_Jam_Header JamHeader;
 	TArea_Jam_PvtObject *b_obj = (TArea_Jam_PvtObject*)Base->AreaPvtData;
+	TMessage *it = Base->at(Index);
 
-	if (fseek(b_obj->JDX, ((QMAX(b_obj->HdrInfo.basemsgnum, 1) - 1) + Index) * sizeof(AreaItem_Jam_Index), SEEK_SET) == 0)
+	if (fseek(b_obj->JDX, ((QMAX(b_obj->HdrInfo.basemsgnum, 1) - 1) + (it->uid - 1)) * sizeof(AreaItem_Jam_Index), SEEK_SET) == 0)
 		if (fread((char*)&JamIndex, sizeof(AreaItem_Jam_Index), 1, b_obj->JDX) == 1)
 			if (fseek(b_obj->JHR, JamIndex.hdroffset, SEEK_SET) == 0)
 				if (fread((char*)&JamHeader, sizeof(AreaItem_Jam_Header), 1, b_obj->JHR) == 1)
