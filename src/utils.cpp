@@ -589,11 +589,11 @@ bool testexists(QString Name)
 	return ret;
 }
 
-int32_t tokencount(QString str, QString sep)
+PLATF_S tokencount(QString str, QString sep)
 {
 	QString tmp = str.stripWhiteSpace();
-	uint32_t j;
-	int32_t i, k, ret;
+	PLATF_U j;
+	PLATF_S i, k, ret;
 
 	ret = tmp.isEmpty() ? 0 : 1;
 
@@ -621,11 +621,11 @@ int32_t tokencount(QString str, QString sep)
 	return ret;
 }
 
-QString gettoken(QString str, int32_t num, QString sep)
+QString gettoken(QString str, PLATF_S num, QString sep)
 {
 	QString ret = QString::null, tmp = str.stripWhiteSpace();
-	uint32_t j;
-	int32_t i, k, cnt = 0;
+	PLATF_U j;
+	PLATF_S i, k, cnt = 0;
 
 	for (;;)
 	{

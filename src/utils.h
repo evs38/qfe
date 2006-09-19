@@ -103,8 +103,8 @@ inline bool strcompare(QString str1, QString str2)
 	return (qstricmp(str1.ascii(), str2.ascii()) == 0);
 }
 
-int32_t tokencount(QString, QString = " ");
-QString gettoken(QString, int32_t, QString = " ");
+PLATF_S tokencount(QString, QString = " ");
+QString gettoken(QString, PLATF_S, QString = " ");
 
 void AppendArray(QByteArray*, QByteArray*);
 

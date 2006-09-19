@@ -45,11 +45,12 @@ TAreas::TAreas(Config_Type _ConfigType, QString _FileName)
 
 #if defined(ENABLE_DEBUG)
 	/* This calls is only test for future areas config parser */
-	if (InitAreas_(this))
-	{
-		RescanAreas_(this);
-		DoneAreas_(this);
-	}
+	if (InitAreas_ != NULL)
+		if (InitAreas_(this))
+		{
+			RescanAreas_(this);
+			DoneAreas_(this);
+		}
 #endif
 
 	setAutoDelete(true);

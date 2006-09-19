@@ -22,6 +22,8 @@
 
 #include "tareas_fidoconf.h"
 
+#define FIDOCONF_TOKEN_SEPARATORS	" \t"
+
 int FindEnvVariable(TAreas *Base, QString Key)
 {
 	TAreas_Fidoconfig_PvtObject *b_obj = (TAreas_Fidoconfig_PvtObject*)Base->AreasPvtData;
@@ -131,8 +133,8 @@ bool ReadIncludedFidoConfFile(TAreas *Base, QString FileName)
 
 					for (;;)
 					{
-						tok1 = gettoken(tmp, 1);
-						tok2 = gettoken(tmp, 2);
+						tok1 = gettoken(tmp, 1, FIDOCONF_TOKEN_SEPARATORS);
+						tok2 = gettoken(tmp, 2, FIDOCONF_TOKEN_SEPARATORS);
 
 						if (strcompare(tok1, "else") && strcompare(tok2, "if"))
 						{
@@ -221,7 +223,7 @@ bool ReadIncludedFidoConfFile(TAreas *Base, QString FileName)
 								tmp = tok2.mid(i + 1);
 								tok2.truncate(i - 1);
 							} else
-								tmp = gettoken(tmp, 3);
+								tmp = gettoken(tmp, 3, FIDOCONF_TOKEN_SEPARATORS);
 							AppendEnvVariable(Base, tok2, tmp);
 						} else if ((strcompare(tok1, "unset") || strcompare(tok1, "undef")) && !tok2.isEmpty())
 						{
@@ -326,7 +328,8 @@ bool InitAreas_Fidoconf(TAreas *Base)
 */
 			//
 			//
-			//
+
+			return true;
 		} else
 			debugmessage("Found difference with count of \"if\" and \"endif\" tokens.");
 	} else
@@ -337,7 +340,63 @@ bool InitAreas_Fidoconf(TAreas *Base)
 
 bool RescanAreas_Fidoconf(TAreas *Base)
 {
-	Q_UNUSED(Base);
+	TAreas_Fidoconfig_PvtObject *b_obj = (TAreas_Fidoconfig_PvtObject*)Base->AreasPvtData;
+
+	for (PLATF_U i = 0; i < b_obj->AreasDump.count(); i++)
+	{
+		QString tmp = b_obj->AreasDump[i];
+		PLATF_S tok_cnt = tokencount(tmp, FIDOCONF_TOKEN_SEPARATORS);
+
+		if (tok_cnt > 2)
+		{
+			QString tok1 = gettoken(tmp, 1, FIDOCONF_TOKEN_SEPARATORS);
+			Area_Type tmp_at = AREATYPE_UNKNOWN;
+			Base_Type tmp_bt = BASETYPE_UNKNOWN;
+
+			if (strcompare(tok1, "NetMailArea"))
+			{
+				tmp_at = AREATYPE_NETMAIL;
+			} else if (strcompare(tok1, "LocalArea"))
+			{
+				tmp_at = AREATYPE_LOCALMAIL;
+			} else if (strcompare(tok1, "BadArea"))
+			{
+				tmp_at = AREATYPE_BADMAIL;
+			} else if (strcompare(tok1, "DupeArea"))
+			{
+				tmp_at = AREATYPE_DUPEMAIL;
+			} else if (strcompare(tok1, "EchoArea"))
+			{
+				tmp_at = AREATYPE_ECHOMAIL;
+			} else
+				continue;
+
+			for (PLATF_S i = 4; i <= tok_cnt; i++)
+			{
+				/* Find Base Type Token */
+				if (strcompare(gettoken(tmp, i, FIDOCONF_TOKEN_SEPARATORS), "-b"))
+				{
+					QString tokb = gettoken(tmp, i + 1, FIDOCONF_TOKEN_SEPARATORS);
+					if (strcompare(tokb, "Msg"))
+					{
+						tmp_bt = BASETYPE_MSG;
+					} else if (strcompare(tokb, "Jam"))
+					{
+						tmp_bt = BASETYPE_JAM;
+					} else if (strcompare(tokb, "Squish"))
+					{
+						tmp_bt = BASETYPE_SQUISH;
+					} else if (strcompare(tokb, "Passtrough"))
+					{
+						tmp_bt = BASETYPE_PASSTROUGH;
+					}
+					break;
+				}
+			}
+
+			qDebug("Found Area: %s", gettoken(tmp, 2, FIDOCONF_TOKEN_SEPARATORS).ascii());
+		}
+	}
 
 	//TODO:
 	//
@@ -348,5 +407,9 @@ bool RescanAreas_Fidoconf(TAreas *Base)
 
 void DoneAreas_Fidoconf(TAreas *Base)
 {
-	delete (TAreas_Fidoconfig_PvtObject*)Base->AreasPvtData;
+	if (Base->AreasPvtData != NULL)
+	{
+		delete (TAreas_Fidoconfig_PvtObject*)Base->AreasPvtData;
+		Base->AreasPvtData = NULL;
+	}
 }

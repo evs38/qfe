@@ -59,7 +59,8 @@ gcc {
 	QMAKE_CXXFLAGS_DEBUG += -O0
 	QMAKE_CFLAGS_RELEASE += -fomit-frame-pointer -ffast-math -fPIC
 	QMAKE_CXXFLAGS_RELEASE += -fomit-frame-pointer -ffast-math -fPIC
-	QMAKE_LFLAGS_RELEASE += --gc-sections -O
+	QMAKE_LFLAGS_DEBUG += -O1
+	QMAKE_LFLAGS_RELEASE += --gc-sections -O1
 
 	gcc4 {
 		unix:QMAKE_CFLAGS_DEBUG += -Wextra
