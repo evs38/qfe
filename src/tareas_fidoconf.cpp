@@ -24,6 +24,8 @@
 
 #define FIDOCONF_TOKEN_SEPARATORS	" \t"
 
+extern TConfig *Config;
+
 int FindEnvVariable(TAreas *Base, QString Key)
 {
 	TAreas_Fidoconfig_PvtObject *b_obj = (TAreas_Fidoconfig_PvtObject*)Base->AreasPvtData;
@@ -104,7 +106,7 @@ bool ReadIncludedFidoConfFile(TAreas *Base, QString FileName)
 			if (FileOpenFunc(&AreasFile, IO_ReadOnly))
 			{
 				QTextStream AreasStream(&AreasFile);
-				AreasStream.setEncoding(QTextStream::Locale);
+				AreasStream.setEncoding(QTextStream::Latin1);
 
 				for (;;)
 				{
@@ -349,6 +351,8 @@ bool RescanAreas_Fidoconf(TAreas *Base)
 
 		if (tok_cnt > 2)
 		{
+			QString tmp_dsc = QString::null;
+			QString tmp_aka = Config->GetAddress(0);
 			QString tok1 = gettoken(tmp, 1, FIDOCONF_TOKEN_SEPARATORS);
 			Area_Type tmp_at = AREATYPE_UNKNOWN;
 			Base_Type tmp_bt = BASETYPE_UNKNOWN;
@@ -371,12 +375,12 @@ bool RescanAreas_Fidoconf(TAreas *Base)
 			} else
 				continue;
 
-			for (PLATF_S i = 4; i <= tok_cnt; i++)
+			for (PLATF_S j = 4; j <= tok_cnt; j++)
 			{
-				/* Find Base Type Token */
-				if (strcompare(gettoken(tmp, i, FIDOCONF_TOKEN_SEPARATORS), "-b"))
+				/* Find Base Type */
+				if (strcompare(gettoken(tmp, j, FIDOCONF_TOKEN_SEPARATORS), "-b"))
 				{
-					QString tokb = gettoken(tmp, i + 1, FIDOCONF_TOKEN_SEPARATORS);
+					QString tokb = gettoken(tmp, j + 1, FIDOCONF_TOKEN_SEPARATORS);
 					if (strcompare(tokb, "Msg"))
 					{
 						tmp_bt = BASETYPE_MSG;
@@ -394,7 +398,43 @@ bool RescanAreas_Fidoconf(TAreas *Base)
 				}
 			}
 
-			qDebug("Found Area: %s", gettoken(tmp, 2, FIDOCONF_TOKEN_SEPARATORS).ascii());
+			for (PLATF_S j = 4; j <= tok_cnt; j++)
+			{
+				/* Find Base Description */
+				if (strcompare(gettoken(tmp, j, FIDOCONF_TOKEN_SEPARATORS), "-d"))
+				{
+					tmp_dsc = Config->toUTF((char*)gettoken(tmp, j + 1, FIDOCONF_TOKEN_SEPARATORS).ascii());
+					if (tmp_dsc.startsWith("\""))
+						tmp_dsc = tmp_dsc.mid(1);
+
+					for (PLATF_S k = j + 2; k <= tok_cnt; k++)
+					{
+						QString tokb = Config->toUTF((char*)gettoken(tmp, k, FIDOCONF_TOKEN_SEPARATORS).ascii());
+						tmp_dsc.append(" " + tokb);
+						if (tokb.endsWith("\""))
+						{
+							tmp_dsc.truncate(tmp_dsc.length() - 1);
+							break;
+						}
+					}
+					break;
+				}
+			}
+
+			for (PLATF_S j = 4; j <= tok_cnt; j++)
+			{
+				/* Find AKA */
+				//
+				//tmp_aka
+				//
+			}
+
+			//
+			//
+			//
+
+			tmp = QString("Found Area: %1 with desc: %2\n").arg(gettoken(tmp, 2, FIDOCONF_TOKEN_SEPARATORS)).arg(tmp_dsc);
+			fprintf(stdout, tmp.local8Bit());
 		}
 	}
 
