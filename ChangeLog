@@ -1,6 +1,7 @@
 QFE version SVN ==============================================================
 - Fix update squish base UID when write new message.
 - Fix write new message & delete message in Jam-areas.
+- Fix UU-decoder for work with badly-encoded UU-parts.
 - Rewrite "CHRS" and "CHARSET" kludge handler.
 
 QFE version 0.5 === Released 30.05.2006 ======================================

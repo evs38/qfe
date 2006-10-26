@@ -350,7 +350,10 @@ bool DecodeBase64(QString Str, QByteArray *Arr)
 	while (Cnt < Count)
 	{
 		if ((Cnt < Count) && (*(raw + Cnt) == '\n'))
+		{
 			Cnt++;
+			continue;
+		}
 
 		for (uint32_t i = 0; i < 4; i++)
 		{
