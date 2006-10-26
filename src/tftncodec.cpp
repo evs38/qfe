@@ -228,7 +228,10 @@ bool DecodeUUCode(QString Str, QByteArray *Arr)
 	while (Cnt < Count)
 	{
 		if ((Cnt < Count) && (*(raw + Cnt) < ' '))
+		{
 			Cnt++;
+			continue;
+		}
 
 		if ((*(raw + Cnt) < 0x80) && (Cnt < Count))
 			LineLen = UUDecMap[*(raw + Cnt)];
