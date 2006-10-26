@@ -34,25 +34,26 @@ typedef enum {
 
 
 #ifndef BINRELOC_RUNNING_DOXYGEN
-/* Mangle symbol names to avoid symbol collisions with other ELF objects. */
-	#define br_init             NYoq47758474795871_br_init
-	#define br_init_lib         NYoq47758474795871_br_init_lib
-	#define br_find_exe         NYoq47758474795871_br_find_exe
-	#define br_find_exe_dir     NYoq47758474795871_br_find_exe_dir
-	#define br_find_prefix      NYoq47758474795871_br_find_prefix
-	#define br_find_bin_dir     NYoq47758474795871_br_find_bin_dir
-	#define br_find_sbin_dir    NYoq47758474795871_br_find_sbin_dir
-	#define br_find_data_dir    NYoq47758474795871_br_find_data_dir
-	#define br_find_locale_dir  NYoq47758474795871_br_find_locale_dir
-	#define br_find_lib_dir     NYoq47758474795871_br_find_lib_dir
-	#define br_find_libexec_dir NYoq47758474795871_br_find_libexec_dir
-	#define br_find_etc_dir     NYoq47758474795871_br_find_etc_dir
-	#define br_strcat           NYoq47758474795871_br_strcat
-	#define br_build_path       NYoq47758474795871_br_build_path
-	#define br_dirname          NYoq47758474795871_br_dirname
-
-
+	/* Mangle symbol names to avoid symbol
+	 * collisions with other ELF objects.
+	 */
+	#define br_init             qjoU10877670709767_br_init
+	#define br_init_lib         qjoU10877670709767_br_init_lib
+	#define br_find_exe         qjoU10877670709767_br_find_exe
+	#define br_find_exe_dir     qjoU10877670709767_br_find_exe_dir
+	#define br_find_prefix      qjoU10877670709767_br_find_prefix
+	#define br_find_bin_dir     qjoU10877670709767_br_find_bin_dir
+	#define br_find_sbin_dir    qjoU10877670709767_br_find_sbin_dir
+	#define br_find_data_dir    qjoU10877670709767_br_find_data_dir
+	#define br_find_locale_dir  qjoU10877670709767_br_find_locale_dir
+	#define br_find_lib_dir     qjoU10877670709767_br_find_lib_dir
+	#define br_find_libexec_dir qjoU10877670709767_br_find_libexec_dir
+	#define br_find_etc_dir     qjoU10877670709767_br_find_etc_dir
+	#define br_strcat           qjoU10877670709767_br_strcat
+	#define br_build_path       qjoU10877670709767_br_build_path
+	#define br_dirname          qjoU10877670709767_br_dirname
 #endif
+
 int   br_init             (BrInitError *error);
 int   br_init_lib         (BrInitError *error);
 

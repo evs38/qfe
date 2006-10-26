@@ -182,8 +182,6 @@ _br_find_exe_for_symbol (const void *symbol, BrInitError *error)
 		*error = BR_INIT_ERROR_DISABLED;
 	return (char *) NULL;
 #else
-	if (error) {}; /* Avoid unused symbol warning */
-
 	#define SIZE PATH_MAX + 100
 	FILE *f;
 	size_t address_string_len;
@@ -282,7 +280,7 @@ _br_find_exe_for_symbol (const void *symbol, BrInitError *error)
 
 #ifndef BINRELOC_RUNNING_DOXYGEN
 	#undef NULL
-	#define NULL ((void *) 0) /* typecasted as char* for C++ type safeness */
+	#define NULL ((char *) 0) /* typecasted as char* for C++ type safeness */
 #endif
 
 static char *exe = (char *) NULL;
@@ -295,6 +293,8 @@ static char *exe = (char *) NULL;
  *
  * @note If you want to use BinReloc for a library, then you should call
  *       br_init_lib() instead.
+ * @note Initialization failure is not fatal. BinReloc functions will just
+ *       fallback to the supplied default path.
  *
  * @param error  If BinReloc failed to initialize, then the error code will
  *               be stored in this variable. Set to NULL if you want to
@@ -317,6 +317,8 @@ br_init (BrInitError *error)
  *
  * @note The BinReloc source code MUST be included in your library, or this
  *       function won't work correctly.
+ * @note Initialization failure is not fatal. BinReloc functions will just
+ *       fallback to the supplied default path.
  *
  * @param error  If BinReloc failed to initialize, then the error code will
  *               be stored in this variable. Set to NULL if you want to

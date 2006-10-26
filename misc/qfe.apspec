@@ -14,11 +14,12 @@ Summary: Full-featured FTN message editor with a graphical interface.
 Maintainer: Alexander Shiyan <shc@users.sourceforge.net>
 Packager: Alexander Shiyan <shc@users.sourceforge.net>
 CPUArchitectures: x86
-AutopackageTarget: 1.0
+AutopackageTarget: 1.2
 Type: Application
 License: GNU General Public License, Version 2
 URL: http://qfe.sourceforge.net
 PackageFileName: $SHORTNAME-$SOFTWAREVERSION.$CPUARCHITECTURES.package
+PackageDesktop: /usr/share/applications/qfe.desktop
 DisplayName[ru]: Почтовый редактор для сети ФИДОНЕТ.
 Summary[ru]: Почтовый редактор для сети ФИДОНЕТ с графическим интерфейсом.
 
