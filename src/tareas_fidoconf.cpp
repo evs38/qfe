@@ -30,7 +30,7 @@ int FindEnvVariable(TAreas *Base, QString Key)
 {
 	TAreas_Fidoconfig_PvtObject *b_obj = (TAreas_Fidoconfig_PvtObject*)Base->AreasPvtData;
 
-	for (uint i = 0; i < b_obj->Environment.count(); i++)
+	for (PLATF_U i = 0; i < b_obj->Environment.count(); i++)
 		if (strcompare(gettoken(b_obj->Environment[i], 1), Key))
 			return (int)i;
 
@@ -60,7 +60,7 @@ QString ExpandEnvVariables(TAreas *Base, QString Val)
 
 	QString ret = Val;
 
-	for (uint i = 0; i < b_obj->Environment.count(); i++)
+	for (PLATF_U i = 0; i < b_obj->Environment.count(); i++)
 	{
 		QString tmp = gettoken(b_obj->Environment[i], 1);
 		ret = ret.replace(tmp, b_obj->Environment[i].mid(tmp.length() + 1), false);
@@ -116,7 +116,7 @@ bool ReadIncludedFidoConfFile(TAreas *Base, QString FileName)
 					if (tmp.at(0) == b_obj->CommentCharacter)
 						continue;
 
-					for (int i = 0;;)
+					for (PLATF_S i = 0;;)
 					{
 						i = tmp.find(b_obj->CommentCharacter, i);
 						if (i > 0)
@@ -407,25 +407,38 @@ bool RescanAreas_Fidoconf(TAreas *Base)
 					if (tmp_dsc.startsWith("\""))
 						tmp_dsc = tmp_dsc.mid(1);
 
-					for (PLATF_S k = j + 2; k <= tok_cnt; k++)
+					if (!tmp_dsc.endsWith("\""))
 					{
-						QString tokb = Config->toUTF((char*)gettoken(tmp, k, FIDOCONF_TOKEN_SEPARATORS).ascii());
-						tmp_dsc.append(" " + tokb);
-						if (tokb.endsWith("\""))
+						for (PLATF_S k = j + 2; k <= tok_cnt; k++)
 						{
-							tmp_dsc.truncate(tmp_dsc.length() - 1);
-							break;
+							QString tokb = Config->toUTF((char*)gettoken(tmp, k, FIDOCONF_TOKEN_SEPARATORS).ascii());
+							tmp_dsc.append(" " + tokb);
+							if (tokb.endsWith("\""))
+							{
+								tmp_dsc.truncate(tmp_dsc.length() - 1);
+								break;
+							}
 						}
-					}
+					} else
+						tmp_dsc.truncate(tmp_dsc.length() - 1);
+
 					break;
 				}
 			}
 
-			for (PLATF_S j = 4; j <= tok_cnt; j++)
+			for (PLATF_S j = 4; j <= (tok_cnt - 1); j++)
 			{
 				/* Find AKA */
-				//
-				//tmp_aka
+
+				hs_addr tmp_aka;
+				if (strcompare(gettoken(tmp, j, FIDOCONF_TOKEN_SEPARATORS), "-a"))
+					if (str2addr(gettoken(tmp, j + 1, FIDOCONF_TOKEN_SEPARATORS), &tmp_aka))
+					{
+						//
+						//
+						QString tmp2 = QString("Found Aka: %1\n").arg(addr2str2(tmp_aka));
+						fprintf(stdout, tmp2.local8Bit());
+					}
 				//
 			}
 
