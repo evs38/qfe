@@ -353,6 +353,7 @@ bool RescanAreas_Fidoconf(TAreas *Base)
 		{
 			QString tmp_dsc = QString::null;
 			QString tmp_aka = Config->GetAddress(0);
+			QString tmp_upl = QString::null;
 			QString tok1 = gettoken(tmp, 1, FIDOCONF_TOKEN_SEPARATORS);
 			Area_Type tmp_at = AREATYPE_UNKNOWN;
 			Base_Type tmp_bt = BASETYPE_UNKNOWN;
@@ -430,23 +431,28 @@ bool RescanAreas_Fidoconf(TAreas *Base)
 			{
 				/* Find AKA */
 
-				hs_addr tmp_aka;
+				hs_addr tmp_addr;
 				if (strcompare(gettoken(tmp, j, FIDOCONF_TOKEN_SEPARATORS), "-a"))
-					if (str2addr(gettoken(tmp, j + 1, FIDOCONF_TOKEN_SEPARATORS), &tmp_aka))
-					{
-						//
-						//
-						QString tmp2 = QString("Found Aka: %1\n").arg(addr2str2(tmp_aka));
-						fprintf(stdout, tmp2.local8Bit());
-					}
-				//
+					if (str2addr(gettoken(tmp, j + 1, FIDOCONF_TOKEN_SEPARATORS), &tmp_addr))
+						tmp_aka = addr2str2(tmp_addr);
+			}
+
+
+			for (PLATF_S j = 4; j <= (tok_cnt - 1); j++)
+			{
+				/* Find Uplink */
+
+				hs_addr tmp_addr;
+				if (str2addr(gettoken(tmp, j, FIDOCONF_TOKEN_SEPARATORS), &tmp_addr))
+					if (strcompare(gettoken(tmp, j + 1, FIDOCONF_TOKEN_SEPARATORS), "-def"))
+						tmp_upl = addr2str2(tmp_addr);
 			}
 
 			//
 			//
 			//
 
-			tmp = QString("Found Area: %1 with desc: %2\n").arg(gettoken(tmp, 2, FIDOCONF_TOKEN_SEPARATORS)).arg(tmp_dsc);
+			tmp = QString("Found Area: %1, AKA: %2, Uplink: %3, Desc: %4\n").arg(gettoken(tmp, 2, FIDOCONF_TOKEN_SEPARATORS)).arg(tmp_aka).arg(tmp_upl).arg(tmp_dsc);
 			fprintf(stdout, tmp.local8Bit());
 		}
 	}

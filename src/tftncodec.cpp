@@ -227,7 +227,7 @@ bool DecodeUUCode(QString Str, QByteArray *Arr)
 
 	while (Cnt < Count)
 	{
-		if ((Cnt < Count) && (*(raw + Cnt) < ' '))
+		if ((Cnt < Count) && (*(raw + Cnt) <= ' '))
 		{
 			Cnt++;
 			continue;
@@ -248,10 +248,11 @@ bool DecodeUUCode(QString Str, QByteArray *Arr)
 		while (LineLen > 0)
 		{
 			for (i = 0; i < 4; i++)
-			{
 				t[i] = 0xFF;
 
-				if ((*(raw + Cnt) < 0x80) && (Cnt < Count))
+			for (i = 0; (i < 4) && (Cnt < Count); i++)
+			{
+				if (*(raw + Cnt) < 0x80)
 					t[i] = UUDecMap[*(raw + Cnt)];
 				else
 					return false;
@@ -555,6 +556,7 @@ void TFTNCoDec::DecodeMessage(TMessage *Msg)
 					pn = pnum;
 					pc = pnum;
 					fn = fname;
+					pt = CODERTYPE_UU;
 					break;
 				}
 				Section = strstr(Section + 8, "section ");
@@ -632,6 +634,13 @@ void TFTNCoDec::DecodeMessage(TMessage *Msg)
 					LastEnd = Section + 4;
 				}
 				Section = strstr(Begin, "\nend");
+				if (Section)
+				{
+					*Section = '\0';
+					if (Section > LastEnd)
+						LastEnd = Section + 4;
+				}
+				Section = strstr(Begin, "\n--- ");
 				if (Section)
 				{
 					*Section = '\0';
