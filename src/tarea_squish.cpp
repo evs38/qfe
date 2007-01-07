@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2005-2006 by Alexander Shiyan                           *
+ *   Copyright (C) 2005-2007 by Alexander Shiyan                           *
  *   shc@users.sourceforge.net                                             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -429,13 +429,14 @@ bool RescanArea_Squish(TArea *Base)
 
 bool ReadArea_Squish(TArea *Base, uint32_t Index)
 {
-	bool ret1 = false, ret2 = false;
+	bool ret = false;
 	AreaItem_Squish_Index BaseIndex;
 	AreaItem_Squish_Frame Frame;
 	TMessage *it = Base->at(Index);
 	TArea_Squish_PvtObject *b_obj = (TArea_Squish_PvtObject*)Base->AreaPvtData;
 
 	if (fseek(b_obj->SQI, Index * sizeof(AreaItem_Squish_Index), SEEK_SET) == 0)
+	{
 		if (fread((char*)&BaseIndex, sizeof(AreaItem_Squish_Index), 1, b_obj->SQI) == 1)
 		{
 			fseek(b_obj->SQD, BaseIndex.ofs, SEEK_SET);
@@ -456,8 +457,6 @@ bool ReadArea_Squish(TArea *Base, uint32_t Index)
 						*tmp++ = '\n';
 
 					it->attr = ExtendFlags(it->attr, GetKludge(Base->CtlBuff, "FLAGS "));
-
-					ret1 = true;
 				}
 			}
 
@@ -470,11 +469,13 @@ bool ReadArea_Squish(TArea *Base, uint32_t Index)
 
 				Fts2CRLF((char*)Base->TxtBuff);
 
-				ret2 = true;
+				ret = true;
 			}
 		}
+	} else
+		debugmessage("Can't seek Squish message index " + QString::number(Index) + " in area \"" + Base->Name + "\"!");
 
-	return ret1 && ret2;
+	return ret;
 }
 
 bool WriteArea_Squish(TArea *Base, uint32_t Index)

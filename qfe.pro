@@ -1,5 +1,5 @@
 #***************************************************************************
-#*   Copyright (C) 2005-2006 by Alexander Shiyan                           *
+#*   Copyright (C) 2005-2007 by Alexander Shiyan                           *
 #*   shc@users.sourceforge.net                                             *
 #*                                                                         *
 #*   This program is free software; you can redistribute it and/or modify  *

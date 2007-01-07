@@ -9,7 +9,7 @@ Name: ru; MessagesFile: "compiler:Default.isl,compiler:Languages\Russian.isl"
 AppName=QFE
 AppVersion=0.5
 AppVerName=QFE Version 0.5
-AppCopyright=Copyright © 2005-2006 Alexander Shiyan
+AppCopyright=Copyright © 2005-2007 Alexander Shiyan
 AppPublisher=Alexander Shiyan, St.Petersburg, Russia
 VersionInfoCopyright=Alexander Shiyan, St.Petersburg, Russia
 AppPublisherURL=http://qfe.sourceforge.net/

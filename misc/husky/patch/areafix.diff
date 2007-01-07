@@ -6,7 +6,7 @@ diff -urN areafix.orig/src/areafix.c areafix/src/areafix.c
  
  char *list(s_listype type, s_link *link, char *cmdline) {
 -    unsigned int cnt, i, j, export, import, mandatory, active, avail, rc = 0;
-+    unsigned int cnt, i, j, n_export, n_import, mandatory, active, avail, rc = 0;
++    unsigned int cnt, i, j, h_export, h_import, mandatory, active, avail, rc = 0;
      char *report = NULL;
      char *list = NULL;
      char *pattern = NULL;
@@ -15,13 +15,13 @@ diff -urN areafix.orig/src/areafix.c areafix/src/areafix.c
             ) { /*  add line */
  
 -            import = export = 1; mandatory = 0;
-+            n_import = n_export = 1; mandatory = 0;
++            h_import = h_export = 1; mandatory = 0;
              for (j = 0; j < area->downlinkCount; j++) {
                 if (addrComp(link->hisAka, area->downlinks[j]->link->hisAka) == 0) {
 -                  import = area->downlinks[j]->import;
 -                  export = area->downlinks[j]->export;
-+                  n_import = area->downlinks[j]->n_import;
-+                  n_export = area->downlinks[j]->n_export;
++                  h_import = area->downlinks[j]->h_import;
++                  h_export = area->downlinks[j]->h_export;
                    mandatory = area->downlinks[j]->mandatory;
                    break;
                 }
@@ -30,13 +30,13 @@ diff -urN areafix.orig/src/areafix.c areafix/src/areafix.c
                  if (patimat(area->areaName, pattern)!=reversed)
                  {
 -                    addAreaListItem(al,rc==0, getLinkRescanAccess(area, link), import, export, mandatory, area->areaName,area->description,area->group);
-+                    addAreaListItem(al,rc==0, getLinkRescanAccess(area, link), n_import, n_export, mandatory, area->areaName,area->description,area->group);
++                    addAreaListItem(al,rc==0, getLinkRescanAccess(area, link), h_import, h_export, mandatory, area->areaName,area->description,area->group);
                      if (rc==0) active++; avail++;
                  }
              } else
              {
 -                addAreaListItem(al,rc==0, getLinkRescanAccess(area, link), import, export, mandatory, area->areaName,area->description,area->group);
-+                addAreaListItem(al,rc==0, getLinkRescanAccess(area, link), n_import, n_export, mandatory, area->areaName,area->description,area->group);
++                addAreaListItem(al,rc==0, getLinkRescanAccess(area, link), h_import, h_export, mandatory, area->areaName,area->description,area->group);
                  if (rc==0) active++; avail++;
              }
  	} /* end add line */
@@ -45,7 +45,7 @@ diff -urN areafix.orig/src/areafix.c areafix/src/areafix.c
                              if (patimat(areas[i].areaName, af_config->readOnly[k].areaMask) &&
                                  patmat(toAka, af_config->readOnly[k].addrMask)) {
 -                                    arealink->import = 0;
-+                                    arealink->n_import = 0;
++                                    arealink->h_import = 0;
                              }
                          } else {
                              exclMask = af_config->readOnly[k].areaMask;
@@ -53,7 +53,7 @@ diff -urN areafix.orig/src/areafix.c areafix/src/areafix.c
                              if (patimat(areas[i].areaName, exclMask) &&
                                  patmat(toAka, af_config->readOnly[k].addrMask)) {
 -                                    arealink->import = 1;
-+                                    arealink->n_import = 1;
++                                    arealink->h_import = 1;
                              }
                          }
                      }
@@ -62,7 +62,7 @@ diff -urN areafix.orig/src/areafix.c areafix/src/areafix.c
                              if (patimat(areas[i].areaName, af_config->writeOnly[k].areaMask) &&
                                  patmat(toAka, af_config->writeOnly[k].addrMask)) {
 -                                    arealink->export = 0;
-+                                    arealink->n_export = 0;
++                                    arealink->h_export = 0;
                              }
                          } else {
                              exclMask = af_config->writeOnly[k].areaMask;
@@ -70,17 +70,17 @@ diff -urN areafix.orig/src/areafix.c areafix/src/areafix.c
                              if (patimat(areas[i].areaName, exclMask) &&
                                  patmat(toAka, af_config->writeOnly[k].addrMask)) {
 -                                    arealink->export = 1;
-+                                    arealink->n_export = 1;
++                                    arealink->h_export = 1;
                              }
                          }
                      }
                  }
  
 -                if ((arealink->export == 0) || (arealink->import == 0)) {
-+                if ((arealink->n_export == 0) || (arealink->n_import == 0)) {
++                if ((arealink->h_export == 0) || (arealink->h_import == 0)) {
                      w_log(LL_AREAFIX, "%s: Link %s will not have full access (export=%s import=%s) to %s %s, skipped",
 -                           af_robot->name, toAka, arealink->export?"on":"off", arealink->import?"on":"off", af_robot->strA, areas[i].areaName);
-+                           af_robot->name, toAka, arealink->n_export?"on":"off", arealink->n_import?"on":"off", af_robot->strA, areas[i].areaName);
++                           af_robot->name, toAka, arealink->h_export?"on":"off", arealink->h_import?"on":"off", af_robot->strA, areas[i].areaName);
                      continue;
                  }
  
@@ -92,10 +92,10 @@ diff -urN areafix.orig/src/query.c areafix/src/query.c
      if (arealink) {
  	if (type==0) {
 -	    if (!arealink->import) writeAccess = BM_DENY_IMPORT;
-+	    if (!arealink->n_import) writeAccess = BM_DENY_IMPORT;
++	    if (!arealink->h_import) writeAccess = BM_DENY_IMPORT;
  	} else {
 -	    if (!arealink->export) writeAccess = BM_DENY_IMPORT;
-+	    if (!arealink->n_export) writeAccess = BM_DENY_IMPORT;
++	    if (!arealink->h_export) writeAccess = BM_DENY_IMPORT;
  	}
      } else {
  	if (addrComp(aka, *area->useAka)!=0) writeAccess = BM_NOT_LINKED;

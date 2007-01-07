@@ -12,7 +12,6 @@ A: The QEmbed tool, found in qt/tools/qembed, converts arbitrary files into C++
 Q: When I trying to compile QFE, I receive error:
    /usr/include/fidoconf/fidoconf.h:131: error: expected unqualified-id before
    "export"...
-A: You do not apply patch to husky. It located at qfe/misc/husky.patch.
-   MacOS users also need rename flavour constant 'normal' to f_normal, line 116
-   in fidoconf.h must be presented as: typedef enum flavour {f_normal=1, ...
+A: You must apply patches to husky before compile QFE. Patches located
+   at qfe/misc/husky/patch.
 -------------------------------------------------------------------------------

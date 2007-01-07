@@ -3,6 +3,7 @@ QFE version SVN ==============================================================
 - Fix write new message & delete message in Jam-areas.
 - Fix UU & Base64 decoder for work with badly-encoded parts.
 - Rewrite "CHRS" and "CHARSET" kludge handler.
+- Other minor fixes.
 
 QFE version 0.5 === Released 30.05.2006 ======================================
 - Fix crash when append address from main list into AddressBook.

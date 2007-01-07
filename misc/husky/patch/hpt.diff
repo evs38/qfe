@@ -6,7 +6,7 @@ diff -urN hpt.orig/src/carbon.c hpt/src/carbon.c
  {
      char *p, *text, *line, *old_text, *reason = carbon.reason;
 -    int i, old_textLength, export = carbon.export, rc = 0;
-+    int i, old_textLength, n_export = carbon.n_export, rc = 0;
++    int i, old_textLength, h_export = carbon.h_export, rc = 0;
  
      statToss.CC++;
  
@@ -17,9 +17,9 @@ diff -urN hpt.orig/src/carbon.c hpt/src/carbon.c
 -                 (export) ? "AREA:" : "",
 -                 (export) ? area->areaName : "",
 -                 (export) ? "\r" : "",
-+                 (n_export) ? "AREA:" : "",
-+                 (n_export) ? area->areaName : "",
-+                 (n_export) ? "\r" : "",
++                 (h_export) ? "AREA:" : "",
++                 (h_export) ? area->areaName : "",
++                 (h_export) ? "\r" : "",
                   "\001AREA:", echo->areaName,
                   "\r" , NULL);
      }
@@ -28,7 +28,7 @@ diff -urN hpt.orig/src/carbon.c hpt/src/carbon.c
      msg->textLength += i;
  
 -    if (!export) {
-+    if (!n_export) {
++    if (!h_export) {
  	if (msg->netMail) rc = putMsgInArea(area,msg,0,MSGSENT);
  	else rc = putMsgInArea(area,msg,0,0);
  	area->imported++;  /*  area has got new messages */
@@ -40,7 +40,7 @@ diff -urN hpt.orig/src/hptafix.c hpt/src/hptafix.c
                      rescanCount = link->rescanLimit;
                  }
 -                if (arealink->export) {
-+                if (arealink->n_export) {
++                if (arealink->h_export) {
                      rcc = rescanEMArea(area, arealink, rescanCount, rescanAfter);
                      tossTempOutbound(config->tempOutbound);
                  } else {
@@ -71,8 +71,8 @@ diff -urN hpt.orig/src/perl.c hpt/src/perl.c
                              | config->echoAreas[i].downlinks[j]->mandatory << 3
 -                            | config->echoAreas[i].downlinks[j]->import << 4
 -                            | config->echoAreas[i].downlinks[j]->export << 5
-+                            | config->echoAreas[i].downlinks[j]->n_import << 4
-+                            | config->echoAreas[i].downlinks[j]->n_export << 5
++                            | config->echoAreas[i].downlinks[j]->h_import << 4
++                            | config->echoAreas[i].downlinks[j]->h_export << 5
                             );
            }
            /* val r/o: SvREADONLY_on(hv3); */
@@ -150,7 +150,7 @@ diff -urN hpt.orig/src/seenby.c hpt/src/seenby.c
              pktOrigAddr, echo)!=0) continue;
          /*  link with "export off" */
 -        if (echo->downlinks[i]->export == 0) continue;
-+        if (echo->downlinks[i]->n_export == 0) continue;
++        if (echo->downlinks[i]->h_export == 0) continue;
          
          if (pktOrigAddr.zone==echo->downlinks[i]->link->hisAka.zone) {
              /*  links with same zone */
