@@ -41,6 +41,7 @@ void TAbout::init()
 	Txt.append("<nobr>" + QString(QObject::tr("Written by %1")).arg("Alexander Shiyan") + "</nobr><br><br>");
 	Txt.append("<nobr><b>Web:</b> <a href=\"" + QString(MAIN_URL) + "\">" + QString(MAIN_URL) + "</a></nobr><br>");
 	Txt.append("<nobr><b>EMail:</b> <a href=\"" + QString(AUTHOR_EMAIL) + "\">" + QString(AUTHOR_EMAIL) + "</a></nobr><br>");
+	Txt.append("<nobr><b>Fido:</b> <a href=\"" + QString(AUTHOR_FTN) + "\">" + QString(AUTHOR_FTN) + "</a></nobr><br>");
 	AboutText->setText(Txt.prepend("<center>").append("</center>"));
 
 	Config->GetPos(this);

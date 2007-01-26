@@ -68,25 +68,7 @@ HEADERS = funchider.h \
           tspellcheck.h \
           ttagitem.h \
           ttypes.h \
-          utils.h \
-          ui/about.ui.h \
-          ui/addressbook.ui.h \
-          ui/areaprop.ui.h \
-          ui/areaselect.ui.h \
-          ui/attachform.ui.h \
-          ui/editwindow.ui.h \
-          ui/extmessage.ui.h \
-          ui/finddlg.ui.h \
-          ui/geekform.ui.h \
-          ui/helpwindow.ui.h \
-          ui/mainwindow.ui.h \
-          ui/messattr.ui.h \
-          ui/messprop.ui.h \
-          ui/nodelistbrowser.ui.h \
-          ui/options.ui.h \
-          ui/photownd.ui.h \
-          ui/replacedlg.ui.h \
-          ui/styledlg.ui.h
+          utils.h
 
 SOURCES = funchider.cpp \
           qfe.cpp \

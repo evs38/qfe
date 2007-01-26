@@ -157,6 +157,7 @@ class TConfig;
 
 #define MAIN_URL			"http://qfe.sourceforge.net/"
 #define AUTHOR_EMAIL			"shc@users.sourceforge.net"
+#define AUTHOR_FTN			"2:5030/39.2"
 #define BUG_REPORT_URL			"http://sourceforge.net/tracker/?group_id=132811"
 
 #define ERROR_INITFIDO_OK		0
