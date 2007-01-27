@@ -22,20 +22,9 @@ extern TConfig *Config;
 
 void TPhotoWnd::init()
 {
-	FirstTimeInit = false;
-
         setIcon(*Config->FindPixmap("icon_multimedia"));
 
 	Config->GetPos(this);
-}
-
-void TPhotoWnd::showEvent(QShowEvent *)
-{
-	if (FirstTimeInit)
-		return;
-	FirstTimeInit = true;
-
-	installEventFilter(this);
 }
 
 void TPhotoWnd::hideEvent(QHideEvent *)
@@ -43,10 +32,12 @@ void TPhotoWnd::hideEvent(QHideEvent *)
 	Config->SetPos(this);
 }
 
-bool TPhotoWnd::eventFilter(QObject *o, QEvent *e)
+void TPhotoWnd::keyPressEvent(QKeyEvent *e)
 {
-	if ((e->type() == QEvent::KeyPress) || (e->type() == QEvent::KeyRelease))
-		return QApplication::sendEvent(qApp->mainWidget(), e);
+	e->ignore();
+}
 
-	return QWidget::eventFilter(o, e);
+void TPhotoWnd::keyReleaseEvent(QKeyEvent *e)
+{
+	e->ignore();
 }

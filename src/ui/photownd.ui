@@ -64,13 +64,10 @@
     <include location="local" impldecl="in implementation">tconfig.h</include>
     <include location="local" impldecl="in implementation">photownd.ui.h</include>
 </includes>
-<variables>
-    <variable access="private">bool FirstTimeInit;</variable>
-</variables>
 <slots>
-    <slot access="protected">showEvent( QShowEvent * )</slot>
     <slot access="protected">hideEvent( QHideEvent * )</slot>
-    <slot access="protected" returnType="bool">eventFilter( QObject * o, QEvent * e )</slot>
+    <slot access="protected">keyPressEvent( QKeyEvent * e )</slot>
+    <slot access="protected">keyReleaseEvent( QKeyEvent * e )</slot>
 </slots>
 <functions>
     <function access="private" specifier="non virtual">init()</function>

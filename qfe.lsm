@@ -1,7 +1,7 @@
 Begin4
 Title:          qfe
-Version:        0.5
-Entered-date:   2005-05-30
+Version:        0.5.1
+Entered-date:   2007-01-27
 Description:    QFE is full-featured cross-platform FTN message editor with a
                 graphical interface written on C++/Qt, and does not depend on
                 either KDE, Gnome or other window managers.
@@ -14,9 +14,9 @@ Keywords:       qt, gui, graphical, fido, ftn, fidonet, message, mail, editor
 Author:         shc@users.sourceforge.net (Alexander Shiyan)
 Maintained-by:  shc@users.sourceforge.net (Alexander Shiyan)
 Primary-site:   http://dl.sourceforge.net/sourceforge/qfe/
-                251 kB qfe-0.5.tar.bz2
-                256 kB qfe-0.5-0.fc5.src.rpm
-                547 kB qfe-0.5-0.fc5.i386.rpm
+                260 kB qfe-0.5.1.tar.bz2
+                264 kB qfe-0.5.1-0.fc5.src.rpm
+                528 kB qfe-0.5.1-0.fc5.i386.rpm
 Alternate-site: http://qfe.sourceforge.net/
 Platforms:      Linux, MacOS X, Win32. Depends on Qt-library.
 Copying-policy: GPL

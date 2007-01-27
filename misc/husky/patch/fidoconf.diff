@@ -1,6 +1,6 @@
 diff -urN fidoconf.orig/fidoconf/fidoconf.h fidoconf/fidoconf/fidoconf.h
 --- fidoconf.orig/fidoconf/fidoconf.h	2006-12-21 10:14:08.000000000 +0300
-+++ fidoconf/fidoconf/fidoconf.h	2006-12-21 10:40:25.000000000 +0300
++++ fidoconf/fidoconf/fidoconf.h	2007-01-27 11:44:14.000000000 +0300
 @@ -113,7 +113,7 @@
     char    *command;
  } s_execonfile, *ps_execonfile;
@@ -39,9 +39,45 @@ diff -urN fidoconf.orig/fidoconf/fidoconf.h fidoconf/fidoconf/fidoconf.h
     int          netMail;  /*  do this in netmail, not echomail */
     int          move;	  /*  move (not copy) original msg */
     int          extspawn; /*  areaName is name of external program to exec */
+diff -urN fidoconf.orig/Makefile fidoconf/Makefile
+--- fidoconf.orig/Makefile	2006-02-04 12:44:14.000000000 +0300
++++ fidoconf/Makefile	2007-01-27 16:24:40.000000000 +0300
+@@ -80,7 +80,7 @@
+ else
+ $(TARGETDLL).$(VER): $(LOBJS)
+ 	$(CC) -shared -Wl,-soname,$(TARGETDLL).$(VERH) \
+-	-o $(TARGETDLL).$(VER) $(LOBJS)
++        -L$(LIBDIR) -lhusky -o $(TARGETDLL).$(VER) $(LOBJS)
+ endif
+ 	$(LN) $(LNOPT) $(TARGETDLL).$(VER) $(TARGETDLL).$(VERH) ;\
+ 	$(LN) $(LNOPT) $(TARGETDLL).$(VER) $(TARGETDLL)
+diff -urN fidoconf.orig/makefile.in2 fidoconf/makefile.in2
+--- fidoconf.orig/makefile.in2	2006-02-04 12:44:21.000000000 +0300
++++ fidoconf/makefile.in2	2007-01-27 16:21:41.000000000 +0300
+@@ -8,7 +8,7 @@
+ AR_R = rs
+ RM   = rm
+ 
+-CDEFS  += -c -fPIC -Wall -ggdb -DUNIX -I.. -Wno-char-subscripts $(CINCL)
++CDEFS  += -c -fPIC -Wall -ggdb -I.. -Wno-char-subscripts $(CINCL)
+ COPT   += -O3
+ LFLAGS += -L.
+ 
+diff -urN fidoconf.orig/makefile.inc fidoconf/makefile.inc
+--- fidoconf.orig/makefile.inc	2007-01-27 11:41:15.000000000 +0300
++++ fidoconf/makefile.inc	2007-01-27 16:22:42.000000000 +0300
+@@ -10,6 +10,8 @@
+ 
+ include makefile.in1
+ 
++LIBS = -lfidoconfig -lsmapi -lhusky
++
+ commonlibs: $(LIBFIDOCONFIG)$(_LIB) $(SYMBOLIC)
+ 	$(NULL)
+ 
 diff -urN fidoconf.orig/src/afixcmd.c fidoconf/src/afixcmd.c
 --- fidoconf.orig/src/afixcmd.c	2005-03-13 22:03:43.000000000 +0300
-+++ fidoconf/src/afixcmd.c	2006-12-21 10:46:42.000000000 +0300
++++ fidoconf/src/afixcmd.c	2007-01-27 11:44:14.000000000 +0300
 @@ -458,14 +458,14 @@
                  if(config->readOnly[i].areaMask[0] != '!') {
                      if (patimat(area->areaName, config->readOnly[i].areaMask) &&
@@ -77,9 +113,9 @@ diff -urN fidoconf.orig/src/afixcmd.c fidoconf/src/afixcmd.c
                  }
              }
 diff -urN fidoconf.orig/src/common.c fidoconf/src/common.c
---- fidoconf.orig/src/common.c	2006-12-21 10:14:09.000000000 +0300
-+++ fidoconf/src/common.c	2006-12-21 10:41:41.000000000 +0300
-@@ -316,7 +316,7 @@
+--- fidoconf.orig/src/common.c	2007-01-10 12:33:13.000000000 +0300
++++ fidoconf/src/common.c	2007-01-27 11:44:14.000000000 +0300
+@@ -317,7 +317,7 @@
  		   break;
  	   case immediate : xstrcat(&name, "i");
  		   break;
@@ -90,7 +126,7 @@ diff -urN fidoconf.orig/src/common.c fidoconf/src/common.c
  		   break;
 diff -urN fidoconf.orig/src/fidoconf.c fidoconf/src/fidoconf.c
 --- fidoconf.orig/src/fidoconf.c	2006-12-21 10:14:09.000000000 +0300
-+++ fidoconf/src/fidoconf.c	2006-12-21 10:42:57.000000000 +0300
++++ fidoconf/src/fidoconf.c	2007-01-27 11:44:14.000000000 +0300
 @@ -293,7 +293,7 @@
  		   if (stricmp(cbaName, aptr->areaName)==0) {
  		       found++;
@@ -175,8 +211,8 @@ diff -urN fidoconf.orig/src/fidoconf.c fidoconf/src/fidoconf.c
                 memcpy ( &(clink->hisAka), &(config->addr[i]), sizeof(hs_addr));
                 clink->ourAka = &(config->addr[i]);
 diff -urN fidoconf.orig/src/line.c fidoconf/src/line.c
---- fidoconf.orig/src/line.c	2006-12-21 10:14:09.000000000 +0300
-+++ fidoconf/src/line.c	2006-12-21 10:46:06.000000000 +0300
+--- fidoconf.orig/src/line.c	2007-01-10 12:33:13.000000000 +0300
++++ fidoconf/src/line.c	2007-01-27 11:44:14.000000000 +0300
 @@ -626,21 +626,21 @@
      
      if (link->numOptGrp > 0) {
@@ -279,7 +315,7 @@ diff -urN fidoconf.orig/src/line.c fidoconf/src/line.c
    else if (strcmp(iLine, "direct")==0) *flavour = direct;
    else if (strcmp(iLine, "crash")==0) *flavour = crash;
    else if (strcmp(iLine, "immediate")==0) *flavour = immediate;
-@@ -3149,8 +3149,8 @@
+@@ -3150,8 +3150,8 @@
        config->linkDefaults->filefix.on = 1;
  
        /*  set defaults to export, import, mandatory (0), manual (0) */
@@ -290,7 +326,7 @@ diff -urN fidoconf.orig/src/line.c fidoconf/src/line.c
        config->linkDefaults->ourAka = &(config->addr[0]);
  
        /*  set defaults maxUnpackedNetmail */
-@@ -4058,14 +4058,14 @@
+@@ -4064,14 +4064,14 @@
              break;
          case ID_EXPORT:
              if( (clink = getDescrLink(config)) != NULL ) {
@@ -309,7 +345,7 @@ diff -urN fidoconf.orig/src/line.c fidoconf/src/line.c
              }
 diff -urN fidoconf.orig/src/tparser.c fidoconf/src/tparser.c
 --- fidoconf.orig/src/tparser.c	2006-12-21 10:14:09.000000000 +0300
-+++ fidoconf/src/tparser.c	2006-12-21 10:48:46.000000000 +0300
++++ fidoconf/src/tparser.c	2007-01-27 11:44:14.000000000 +0300
 @@ -412,19 +412,19 @@
         printf("\t");
         printAddr(&(area.downlinks[i]->link->hisAka));

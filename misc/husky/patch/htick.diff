@@ -1,6 +1,6 @@
 diff -urN htick.orig/src/clean.c htick/src/clean.c
 --- htick.orig/src/clean.c	2004-03-28 00:30:04.000000000 +0300
-+++ htick/src/clean.c	2006-12-21 10:56:02.000000000 +0300
++++ htick/src/clean.c	2007-01-27 11:46:11.000000000 +0300
 @@ -115,7 +115,7 @@
              aka = &(config->links[i]->hisAka);
              do
@@ -11,8 +11,8 @@ diff -urN htick.orig/src/clean.c htick/src/clean.c
                    sprintf(strrchr(tmpdir, '.'), ".sep");
                    if (direxist(tmpdir)) {
 diff -urN htick.orig/src/htickafix.c htick/src/htickafix.c
---- htick.orig/src/htickafix.c	2005-06-09 11:53:36.000000000 +0400
-+++ htick/src/htickafix.c	2006-12-21 10:55:44.000000000 +0300
+--- htick.orig/src/htickafix.c	2007-01-10 12:34:26.000000000 +0300
++++ htick/src/htickafix.c	2007-01-27 11:46:11.000000000 +0300
 @@ -109,14 +109,14 @@
  		
  		if (link->numOptGrp) {

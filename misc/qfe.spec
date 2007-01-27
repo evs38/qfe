@@ -1,5 +1,5 @@
 Name: qfe
-Version: 0.5
+Version: 0.5.1
 Release: 0.fc5
 License: GPL
 Summary: Full-featured FTN message editor with a graphical interface.
@@ -79,6 +79,9 @@ rmdir --ignore-fail-on-non-empty %{_datadir}/%{name}/translations
 rmdir --ignore-fail-on-non-empty %{_datadir}/%{name}
 
 %changelog
+* Sat Jan 27 2007 Alexander Shiyan <shc@users.sourceforge.net>
+- Update to version 0.5.1.
+
 * Mon May 30 2006 Alexander Shiyan <shc@users.sourceforge.net>
 - Add FTN mime-icons.
 - Added Russian description is spec.

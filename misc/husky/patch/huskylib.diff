@@ -1,0 +1,37 @@
+diff -urN huskylib.orig/Makefile huskylib/Makefile
+--- huskylib.orig/Makefile	2006-02-04 12:23:29.000000000 +0300
++++ huskylib/Makefile	2007-01-27 16:23:39.000000000 +0300
+@@ -34,7 +34,7 @@
+ endif
+ 
+ _SRC_DIR = src/
+-_H_DIR   = huskylib/
++_H_DIR   = huskylib
+ 
+ %$(_OBJ): $(_SRC_DIR)%.c
+ 	$(CC) $(CFLAGS) $(CDEFS) $(_SRC_DIR)$*.c
+diff -urN huskylib.orig/src/fexist.c huskylib/src/fexist.c
+--- huskylib.orig/src/fexist.c	2005-01-13 23:08:03.000000000 +0300
++++ huskylib/src/fexist.c	2007-01-27 11:56:40.000000000 +0300
+@@ -58,6 +58,8 @@
+    the old "ffind" method. */
+ #  include <sys/types.h>
+ #  include <sys/stat.h>
++#else
++#  include <ffind.h>
+ #endif
+ 
+ /* huskylib headers */
+diff -urN huskylib.orig/src/genverst.c huskylib/src/genverst.c
+--- huskylib.orig/src/genverst.c	2004-06-06 20:16:47.000000000 +0400
++++ huskylib/src/genverst.c	2007-01-27 11:58:14.000000000 +0300
+@@ -53,6 +53,9 @@
+ #ifdef UNAME                          /* Use '-DUNAME' compiler parameter */
+    platform = "/" UNAME;
+ 
++#elif defined(__x86_64__)
++   platform = "/lnx64";
++
+ #elif defined(__linux__)              /*  gcc on Linux                    */
+    platform = "/lnx";
+ 

@@ -7,8 +7,8 @@ Name: ru; MessagesFile: "compiler:Default.isl,compiler:Languages\Russian.isl"
 
 [Setup]
 AppName=QFE
-AppVersion=0.5
-AppVerName=QFE Version 0.5
+AppVersion=0.5.1
+AppVerName=QFE Version 0.5.1
 AppCopyright=Copyright © 2005-2007 Alexander Shiyan
 AppPublisher=Alexander Shiyan, St.Petersburg, Russia
 VersionInfoCopyright=Alexander Shiyan, St.Petersburg, Russia
@@ -33,7 +33,7 @@ UninstallDisplayIcon={app}\qfe.exe
 DirExistsWarning=0
 MinVersion=4.9,5.0
 DiskSpanning=0
-OutputBaseFilename=qfe-0.5-install
+OutputBaseFilename=qfe-0.5.1-install
 WindowResizable=0
 WindowStartMaximized=1
 WindowVisible=0
@@ -98,10 +98,10 @@ Source: "src\qfe.exe"; DestDir: "{app}\bin"; Components: main; Flags: ignorevers
 Source: "misc\config.sample"; DestDir: "{app}\share\qfe\examples"; Components: main; Flags: ignoreversion
 
 ;QFE require "qt-mt" library for work
-Source: "C:\Qt3Mgw\bin\qt-mt3.dll"; DestDir: "{app}\bin"; Components: main; Flags: ignoreversion
+Source: "C:\Qt3\bin\qt-mt3.dll"; DestDir: "{app}\bin"; Components: main; Flags: ignoreversion
 
 ;MinGW-compiled target require "mingwm10.dll" for work
-Source: "C:\Qt3Mgw\bin\mingwm10.dll"; DestDir: "{app}\bin"; Components: main; Flags: ignoreversion
+Source: "C:\Qt3\bin\mingwm10.dll"; DestDir: "{app}\bin"; Components: main; Flags: ignoreversion
 
 ;MSVC-compiled target require "msvc*71d.dll" for work
 ;Source: "C:\WINNT\system32\msvcr71d.dll"; DestDir: "{app}\bin"; Components: main; Flags: ignoreversion

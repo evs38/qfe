@@ -47,7 +47,7 @@ DEPENDPATH += .. ts ui
 INCLUDEPATH += .. $$OPTIONAL_INCLUDES
 
 QMAKE_CLEAN += *.bak ui/*~
-win32:QMAKE_CLEAN += qferc.o
+win32:QMAKE_CLEAN += qferc.o object_ld_script objmoc_ld_script
 
 release {
 	QMAKE_CLEAN += ts/*.qm
@@ -94,13 +94,9 @@ icc {
 !msvc:QMAKE_LFLAGS_RELEASE += -s
 icc9:QMAKE_LFLAGS += -O0
 
-win32:msvc:CONFIG += tmpdir
-!win32:CONFIG += tmpdir
-tmpdir {
-	UI_DIR = .tmp
-	OBJECTS_DIR = .tmp
-	MOC_DIR = .tmp
-}
+UI_DIR = .tmp
+OBJECTS_DIR = .tmp
+MOC_DIR = .tmp
 
 staticlibs {
 	!gcc:!icc {

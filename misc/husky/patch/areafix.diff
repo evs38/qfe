@@ -1,6 +1,27 @@
+diff -urN areafix.orig/Makefile areafix/Makefile
+--- areafix.orig/Makefile	2003-12-15 12:44:13.000000000 +0300
++++ areafix/Makefile	2007-01-27 16:19:16.000000000 +0300
+@@ -24,7 +24,7 @@
+ endif
+ 
+ SRC_DIR = src/
+-H_DIR   = areafix/
++H_DIR   = areafix
+ TARGETLIB = $(LIBPREFIX)$(LIBNAME)$(_LIB)
+ TARGETDLL = $(LIBPREFIX)$(LIBNAME)$(_DLL)
+ 
+@@ -53,7 +53,7 @@
+   else
+ $(TARGETDLL).$(VER): $(OBJS)
+ 	$(CC) -shared -Wl,-soname,$(TARGETDLL).$(VERH) \
+-          -o $(TARGETDLL).$(VER) $(OBJS)
++          -L$(LIBDIR) -lhusky -lfidoconfig -lsmapi -o $(TARGETDLL).$(VER) $(OBJS)
+   endif
+ 
+ instdyn: $(TARGETLIB) $(TARGETDLL).$(VER)
 diff -urN areafix.orig/src/areafix.c areafix/src/areafix.c
---- areafix.orig/src/areafix.c	2006-12-21 10:13:45.000000000 +0300
-+++ areafix/src/areafix.c	2006-12-21 10:50:48.000000000 +0300
+--- areafix.orig/src/areafix.c	2007-01-27 11:41:12.000000000 +0300
++++ areafix/src/areafix.c	2007-01-27 11:42:30.000000000 +0300
 @@ -131,7 +131,7 @@
  }
  
@@ -40,7 +61,7 @@ diff -urN areafix.orig/src/areafix.c areafix/src/areafix.c
                  if (rc==0) active++; avail++;
              }
  	} /* end add line */
-@@ -2721,14 +2721,14 @@
+@@ -2722,14 +2722,14 @@
                          if(af_config->readOnly[k].areaMask[0] != '!') {
                              if (patimat(areas[i].areaName, af_config->readOnly[k].areaMask) &&
                                  patmat(toAka, af_config->readOnly[k].addrMask)) {
@@ -57,7 +78,7 @@ diff -urN areafix.orig/src/areafix.c areafix/src/areafix.c
                              }
                          }
                      }
-@@ -2739,22 +2739,22 @@
+@@ -2740,22 +2740,22 @@
                          if(af_config->writeOnly[k].areaMask[0] != '!') {
                              if (patimat(areas[i].areaName, af_config->writeOnly[k].areaMask) &&
                                  patmat(toAka, af_config->writeOnly[k].addrMask)) {
@@ -85,8 +106,8 @@ diff -urN areafix.orig/src/areafix.c areafix/src/areafix.c
                  }
  
 diff -urN areafix.orig/src/query.c areafix/src/query.c
---- areafix.orig/src/query.c	2006-12-21 10:13:45.000000000 +0300
-+++ areafix/src/query.c	2006-12-21 10:51:12.000000000 +0300
+--- areafix.orig/src/query.c	2007-01-27 11:41:12.000000000 +0300
++++ areafix/src/query.c	2007-01-27 11:42:30.000000000 +0300
 @@ -1263,9 +1263,9 @@
      arealink = getAreaLink(area, aka);
      if (arealink) {
