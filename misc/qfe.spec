@@ -1,6 +1,6 @@
 Name: qfe
 Version: 0.5.1
-Release: 0.fc5
+Release: 0.fc6
 License: GPL
 Summary: Full-featured FTN message editor with a graphical interface.
 Group: Applications/Communications
@@ -9,7 +9,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}
 URL: http://qfe.sourceforge.net/
 Source: ftp://ftp.sourceforge.net/pub/sourceforge/q/qf/qfe/qfe-%{version}.tar.bz2
 Requires: qt > 3.2, qt < 4
-BuildPrereq: grep, sed, qt-devel > 3.2, fidoconf-devel >= 1.9
+BuildPrereq: grep, sed, qt-devel > 3.2
 
 %description
 QFE is full-featured cross-platform FTN message editor with a graphical

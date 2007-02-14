@@ -35,21 +35,22 @@
 #	define PLATF_S	int32_t
 #endif
 
-#if defined(Q_OS_MACX)
+#if defined(Q_OS_MACX) || defined(__FreeBSD__)
 #	include <machine/endian.h>
 #elif defined(Q_OS_WIN)
 #	include <sys/param.h>
-#	ifndef __BYTE_ORDER
-#		define __BYTE_ORDER	BYTE_ORDER
-#	endif
-#	ifndef __BIG_ENDIAN
-#		define __BIG_ENDIAN	BIG_ENDIAN
-#	endif
-#	ifndef __LITTLE_ENDIAN
-#		define __LITTLE_ENDIAN	LITTLE_ENDIAN
-#	endif
 #else
 #	include <endian.h>
+#endif
+
+#ifndef __BYTE_ORDER
+#	define __BYTE_ORDER	BYTE_ORDER
+#endif
+#ifndef __BIG_ENDIAN
+#	define __BIG_ENDIAN	BIG_ENDIAN
+#endif
+#ifndef __LITTLE_ENDIAN
+#	define __LITTLE_ENDIAN	LITTLE_ENDIAN
 #endif
 
 #include <stdint.h>

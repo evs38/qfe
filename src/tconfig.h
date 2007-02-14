@@ -45,178 +45,188 @@ class TConfig;
 #include "tfidoconfig.h"
 #include "tinisettings.h"
 
-#define CONFIG_SECTION_MAIN		"General"
-#define CONFIG_SECTION_CONF		"Config"
-#define CONFIG_SECTION_FIDO		"Fido"
-#define CONFIG_SECTION_EDIT		"Editor"
-#define CONFIG_SECTION_STYL		"StyleDlg"
-#define CONFIG_SECTION_KEYB		"Keyboard"
-#define CONFIG_SECTION_CONFIRM		"Confirm"
+#define CONFIG_SECTION_MAIN				"General"
+#define CONFIG_SECTION_CONF				"Config"
+#define CONFIG_SECTION_FIDO				"Fido"
+#define CONFIG_SECTION_EDIT				"Editor"
+#define CONFIG_SECTION_STYL				"StyleDlg"
+#define CONFIG_SECTION_KEYB				"Keyboard"
+#define CONFIG_SECTION_CONFIRM				"Confirm"
 
-#define CONFIG_FIRSTRUN			"FirstRun"
+#define CONFIG_FIRSTRUN					"FirstRun"
 
-#define CONFIG_WINDOWSTATE		"WindowState"
+#define CONFIG_WINDOWSTATE				"WindowState"
 
-#define CONFIG_VIEWSTATUSBAR		"ViewStatusBar"
-#define CONFIG_VIEWKLUDGES		"ViewKludges"
-#define CONFIG_VIEWHIGHLIGHT		"ViewHighlight"
-#define CONFIG_VIEWWORDWRAP		"ViewWordWrap"
-#define CONFIG_VIEWORIGIN		"ViewOrigin"
+#define CONFIG_VIEWSTATUSBAR				"ViewStatusBar"
+#define CONFIG_VIEWKLUDGES				"ViewKludges"
+#define CONFIG_VIEWHIGHLIGHT				"ViewHighlight"
+#define CONFIG_VIEWWORDWRAP				"ViewWordWrap"
+#define CONFIG_VIEWORIGIN				"ViewOrigin"
 
-#define CONFIG_FIDOCODEPAGE		"DefCodePage"
-#define CONFIG_FIDODEFZONE		"DefZone"
-#define CONFIG_FIDOCONFNAME		"ConfigName"
+#define CONFIG_FIDOCODEPAGE				"DefCodePage"
+#define CONFIG_FIDODEFZONE				"DefZone"
+#define CONFIG_FIDOCONFNAME				"ConfigName"
 
-#define CONFIG_EXTBROWSER_CMD		"HtmlBrowserCommand"
-#define CONFIG_EXTBROWSER_PRM		"HtmlBrowserParams"
-#define CONFIG_EXTEMAIL_CMD		"EMailClientCommand"
-#define CONFIG_EXTEMAIL_PRM		"EMailClientParams"
+#define CONFIG_EXTBROWSER_CMD				"HtmlBrowserCommand"
+#define CONFIG_EXTBROWSER_PRM				"HtmlBrowserParams"
+#define CONFIG_EXTEMAIL_CMD				"EMailClientCommand"
+#define CONFIG_EXTEMAIL_PRM				"EMailClientParams"
 
-#define CONFIG_FONTNAME			"FontName"
-#define CONFIG_FONTSIZE			"FontSize"
-#define CONFIG_FONTCOLOR		"FontColor"
-#define CONFIG_FONTBACK			"BackColor"
-#define CONFIG_VIEWSTYLE		"HighlightStyle"
+#define CONFIG_FONTNAME					"FontName"
+#define CONFIG_FONTSIZE					"FontSize"
+#define CONFIG_FONTCOLOR				"FontColor"
+#define CONFIG_FONTBACK					"BackColor"
+#define CONFIG_VIEWSTYLE				"HighlightStyle"
 
-#define CONFIG_SEARCHAREA		"SearchArea"
-#define CONFIG_SEARCHTEXT		"SearchText"
-#define CONFIG_SEARCHCASE		"SearchCase"
-#define CONFIG_SEARCHWHERE		"SearchWhere"
-#define CONFIG_SEARCHREGEXP		"SearchRegExp"
+#define CONFIG_SEARCHAREA				"SearchArea"
+#define CONFIG_SEARCHTEXT				"SearchText"
+#define CONFIG_SEARCHCASE				"SearchCase"
+#define CONFIG_SEARCHWHERE				"SearchWhere"
+#define CONFIG_SEARCHREGEXP				"SearchRegExp"
 
-#define CONFIG_REPLACELIST		"Replace"
+#define CONFIG_REPLACELIST				"Replace"
 
-#define CONFIG_SHOWKLUDGES		"ShowKldgesInEditor"
+#define CONFIG_SHOWKLUDGES				"ShowKldgesInEditor"
 
-#define CONFIG_SMILIES_REPLACE		"ReplaceSmilies"
+#define CONFIG_SMILIES_REPLACE				"ReplaceSmilies"
 
-#define CONFIG_LASTAREA			"LastArea"
-#define CONFIG_LASTOPENSAVE		"LastDir"
+#define CONFIG_LASTAREA					"LastArea"
+#define CONFIG_LASTOPENSAVE				"LastDir"
 
-#define CONFIG_MEDIA_DIR		"MediaDir"
-#define CONFIG_MEDIA_IMAGES		"MediaBmp"
-#define CONFIG_MEDIA_WAVES		"MediaWav"
+#define CONFIG_MEDIA_DIR				"MediaDir"
+#define CONFIG_MEDIA_IMAGES				"MediaBmp"
+#define CONFIG_MEDIA_WAVES				"MediaWav"
 
-#define CONFIG_CONFIRM_DELETE		"DeleteMessage"
-#define CONFIG_CONFIRM_QUIT		"Quit"
-#define CONFIG_CONFIRM_QUITSAVE		"QuitSave"
-#define CONFIG_CONFIRM_RRQ		"RRQ"
+#define CONFIG_CONFIRM_DELETE				"DeleteMessage"
+#define CONFIG_CONFIRM_QUIT				"Quit"
+#define CONFIG_CONFIRM_QUITSAVE				"QuitSave"
+#define CONFIG_CONFIRM_RRQ				"RRQ"
 
-#define STYLE_BOLD			(1<<0)
-#define STYLE_ITALIC			(1<<1)
-#define STYLE_UNDERLINE			(1<<2)
-#define STYLE_INVERSE			(1<<3)
+#define STYLE_BOLD					(1<<0)
+#define STYLE_ITALIC					(1<<1)
+#define STYLE_UNDERLINE					(1<<2)
+#define STYLE_INVERSE					(1<<3)
 
-#define MSG_OPERATION_NEW		(1<<0)
-#define MSG_OPERATION_EDIT		(1<<1)
-#define MSG_OPERATION_REPLY		(1<<2)
-#define MSG_OPERATION_REPLYNET		(1<<3)
-#define MSG_OPERATION_FORWARD		(1<<4)
-#define MSG_OPERATION_UNSUBSCRIBE	(1<<5)
-#define MSG_OPERATION_CONFIRM		(1<<6)
+#define MSG_OPERATION_NEW				(1<<0)
+#define MSG_OPERATION_EDIT				(1<<1)
+#define MSG_OPERATION_REPLY				(1<<2)
+#define MSG_OPERATION_REPLYNET				(1<<3)
+#define MSG_OPERATION_FORWARD				(1<<4)
+#define MSG_OPERATION_UNSUBSCRIBE			(1<<5)
+#define MSG_OPERATION_CONFIRM				(1<<6)
 
-#define SYSOPIMAGE_WIDTH		110
-#define SYSOPIMAGE_HEIGHT		110
+#define SYSOPIMAGE_WIDTH				110
+#define SYSOPIMAGE_HEIGHT				110
 
-#define TPL_MESSAGE_TPL			"message.tpl"
-#define TPL_REPLY_TPL			"reply.tpl"
-#define TPL_FORWARD_TPL			"forward.tpl"
-#define TPL_UNSUBSCRIBE_TPL		"unsubscribe.tpl"
-#define TPL_CONFIRM_TPL			"confirm.tpl"
+#define TPL_MESSAGE_TPL					"message.tpl"
+#define TPL_REPLY_TPL					"reply.tpl"
+#define TPL_FORWARD_TPL					"forward.tpl"
+#define TPL_UNSUBSCRIBE_TPL				"unsubscribe.tpl"
+#define TPL_CONFIRM_TPL					"confirm.tpl"
 
-#define TPL_ARCHIVE_TPL			"archive.tpl"
+#define TPL_ARCHIVE_TPL					"archive.tpl"
 
-#define TPL_SAVETXT_TPL			"save_txt.tpl"
-#define TPL_SAVEHTM_TPL			"save_htm.tpl"
+#define TPL_SAVETXT_TPL					"save_txt.tpl"
+#define TPL_SAVEHTM_TPL					"save_htm.tpl"
 
-#define TPL_CLIPBOARD_TPL		"clipboard.tpl"
+#define TPL_CLIPBOARD_TPL				"clipboard.tpl"
 
-#define TPL_ORIGIN_LST			"origin.lst"
-#define TPL_KLUDGES_LST			"kludges.lst"
+#define TPL_ORIGIN_LST					"origin.lst"
+#define TPL_KLUDGES_LST					"kludges.lst"
 
-#define PROGRESS_TYPE_RESCAN		1
-#define PROGRESS_TYPE_SEARCH		2
-#define PROGRESS_TYPE_COMPILE		3
-#define PROGRESS_TYPE_SAVENODES		4
-#define PROGRESS_TYPE_LOADNODES		5
+#define PROGRESS_TYPE_RESCAN				1
+#define PROGRESS_TYPE_SEARCH				2
+#define PROGRESS_TYPE_COMPILE				3
+#define PROGRESS_TYPE_SAVENODES				4
+#define PROGRESS_TYPE_LOADNODES				5
 
-#define ADDRESSBOOK_NAME		"addressbook.xml"
+#define ADDRESSBOOK_NAME				"addressbook.xml"
 
-#define DEBUG_LOG_FILE			"debug.log"
+#define DEBUG_LOG_FILE					"debug.log"
 
-#define COMPILED_NODELIST_FILE		"nodelist.dat"
+#define COMPILED_NODELIST_FILE				"nodelist.dat"
 
-#define REGEXP_ADDRESS			"^[\\d]{1,4}:[\\d]{1,4}/[\\d]{1,4}(\\.[\\d]{1,4}|\\b)(@[.\\S\\w]{1,15}|\\b)"
-#define REGEXP_FROMTO			"^[\\S].{1,36}$"
-#define REGEXP_EMAIL			"\\b([-_./\\d\\w]|[\\d][:]){1,20}[@][-_\\d\\w]{1,10}(\\.[-_\\d\\w]{2,12}){1,5}"
-#define REGEXP_URL			"((ftp|http|https)://|www\\.)([\\d\\S\\w]{2,}\\.)+[-/?&%_+=;:~a-zA-Z0-9]{2,}($|\\b)"
+#define REGEXP_ADDRESS					"^[\\d]{1,4}:[\\d]{1,4}/[\\d]{1,4}(\\.[\\d]{1,4}|\\b)(@[.\\S\\w]{1,15}|\\b)"
+#define REGEXP_FROMTO					"^[\\S].{1,36}$"
+#define REGEXP_EMAIL					"\\b([-_./\\d\\w]|[\\d][:]){1,20}[@][-_\\d\\w]{1,10}(\\.[-_\\d\\w]{2,12}){1,5}"
+#define REGEXP_URL					"((ftp|http|https)://|www\\.)([\\d\\S\\w]{2,}\\.)+[-/?&%_+=;:~a-zA-Z0-9]{2,}($|\\b)"
 
-#define REGEXP_FIPS_MM			"FmM[BW](2|4|2[\\x20]).?[\\d]{7,7}"
+#define REGEXP_FIPS_MM					"FmM[BW](2|4|2[\\x20]).?[\\d]{7,7}"
 
-#define REGEXP_UNICODE_CHRS		"&#[\\d]{2,5};"
+#define REGEXP_UNICODE_CHRS				"&#[\\d]{2,5};"
 
-#define MAIN_URL			"http://qfe.sourceforge.net/"
-#define AUTHOR_EMAIL			"shc@users.sourceforge.net"
-#define AUTHOR_FTN			"2:5030/39.2"
-#define BUG_REPORT_URL			"http://sourceforge.net/tracker/?group_id=132811"
+#define MAIN_URL					"http://qfe.sourceforge.net/"
+#define AUTHOR_EMAIL					"shc@users.sourceforge.net"
+#define AUTHOR_FTN					"2:5030/39.2"
+#define BUG_REPORT_URL					"http://sourceforge.net/tracker/?group_id=132811"
 
-#define ERROR_INITFIDO_OK		0
-#define ERROR_INITFIDO_CONFIG		1
-#define ERROR_INITFIDO_LOCK		2
+#define ERROR_INITFIDO_OK				0
+#define ERROR_INITFIDO_CONFIG				1
+#define ERROR_INITFIDO_LOCK				2
 
 #if defined(Q_OS_MACX)
 #	warning "Put true values in fields bellow!!!"
-#	define PLATFORM_NAME		"MacOS"
-#	define SHORT_PLATFORM_NAME	"Mac"
-#	define DEFAULT_VIEW_FONT	"Monaco"
-#	define DEFAULT_VIEW_FONTSIZE	12
-#	define DEFAULT_EXT_BROWSER	"/Applications/Safari.app/Contents/MacOS/Safari"
-#	define DEFAULT_EXT_BROWSER_PRM	""
-#	define DEFAULT_EXT_EMAIL	"/Applications/Mail.app/Contents/MacOS/Mail"
-#	define DEFAULT_EXT_EMAIL_PRM	""
+#	define PLATFORM_NAME				"MacOS"
+#	define SHORT_PLATFORM_NAME			"Mac"
+#	define DEFAULT_VIEW_FONT			"Monaco"
+#	define DEFAULT_VIEW_FONTSIZE			12
+#	define DEFAULT_EXT_BROWSER			"/Applications/Safari.app/Contents/MacOS/Safari"
+#	define DEFAULT_EXT_BROWSER_PRM			""
+#	define DEFAULT_EXT_EMAIL			"/Applications/Mail.app/Contents/MacOS/Mail"
+#	define DEFAULT_EXT_EMAIL_PRM			""
 #elif defined (Q_OS_WIN)
-#	define PLATFORM_NAME		"Windows"
-#	define SHORT_PLATFORM_NAME	"Win"
-#	define DEFAULT_VIEW_FONT	"Lucida Console"
-#	define DEFAULT_VIEW_FONTSIZE	10
-#	define DEFAULT_EXT_BROWSER	"explorer.exe"
-#	define DEFAULT_EXT_BROWSER_PRM	"%u"
-#	define DEFAULT_EXT_EMAIL	"msimn.exe"
-#	define DEFAULT_EXT_EMAIL_PRM	"/mailurl:mailto:%t?Subject=%s&Body=%B"
+#	define PLATFORM_NAME				"Windows"
+#	define SHORT_PLATFORM_NAME			"Win"
+#	define DEFAULT_VIEW_FONT			"Lucida Console"
+#	define DEFAULT_VIEW_FONTSIZE			10
+#	define DEFAULT_EXT_BROWSER			"explorer.exe"
+#	define DEFAULT_EXT_BROWSER_PRM			"%u"
+#	define DEFAULT_EXT_EMAIL			"msimn.exe"
+#	define DEFAULT_EXT_EMAIL_PRM			"/mailurl:mailto:%t?Subject=%s&Body=%B"
 #elif defined(Q_OS_UNIX)
 #	if defined(__x86_64__)
-#		define PLATFORM_NAME	"Linux(64Bit)"
-#		define SHORT_PLATFORM_NAME	"Lnx64"
+#		if defined(__FreeBSD__)
+#			define PLATFORM_NAME		"Linux(64Bit)"
+#			define SHORT_PLATFORM_NAME	"Lnx64"
+#		else
+#			define PLATFORM_NAME		"FreeBSD(64Bit)"
+#			define SHORT_PLATFORM_NAME	"BSD64"
+#		endif
 #	else
-#		define PLATFORM_NAME	"Linux"
-#		define SHORT_PLATFORM_NAME	"Lnx"
+#		if defined(__FreeBSD__)
+#			define PLATFORM_NAME		"FreeBSD"
+#			define SHORT_PLATFORM_NAME	"BSD"
+#		else
+#			define PLATFORM_NAME		"Linux"
+#			define SHORT_PLATFORM_NAME	"Lnx"
+#		endif
 #	endif
-#	define DEFAULT_VIEW_FONT	"Console"
-#	define DEFAULT_VIEW_FONTSIZE	12
-#	define DEFAULT_EXT_BROWSER	"mozilla"
-#	define DEFAULT_EXT_BROWSER_PRM	"%u"
-#	define DEFAULT_EXT_EMAIL	"kmail"
-#	define DEFAULT_EXT_EMAIL_PRM	"-s %s --body %B %t"
+#	define DEFAULT_VIEW_FONT			"Console"
+#	define DEFAULT_VIEW_FONTSIZE			12
+#	define DEFAULT_EXT_BROWSER			"firefox"
+#	define DEFAULT_EXT_BROWSER_PRM			"%u"
+#	define DEFAULT_EXT_EMAIL			"kmail"
+#	define DEFAULT_EXT_EMAIL_PRM			"-s %s --body %B %t"
 #else
 #	error "Unable to determine target operating system!"
 #endif
 
 #if defined(Q_OS_WIN)
-#	define FIXED_FILE_CASE(x)	x.lower()
+#	define FIXED_FILE_CASE(x)			x.lower()
 #else
-#	define FIXED_FILE_CASE(x)	x
+#	define FIXED_FILE_CASE(x)			x
 #endif
 
-#define QFE_LOGO_NAME	"qfe_logo.xpm"
-#define QFE_LOGO	QPixmap::fromMimeSource(QFE_LOGO_NAME)
+#define QFE_LOGO_NAME					"qfe_logo.xpm"
+#define QFE_LOGO					QPixmap::fromMimeSource(QFE_LOGO_NAME)
+
+#define GET_CURRENT_LOCALE()				QTextCodec::locale()
 
 typedef struct _TProgressCallBack_ {
 	void *InitProgress(uint32_t);
 	void *ProcProgress(uint32_t);
 	void *DoneProgress();
 } TProgressCallBack;
-
-#define GET_CURRENT_LOCALE()	QTextCodec::locale()
 
 class TConfig
 {

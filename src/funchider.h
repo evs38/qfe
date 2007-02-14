@@ -25,6 +25,8 @@
 #include <qwidget.h>
 #include <qtextstream.h>
 
+#include <sys/types.h>
+
 bool FileOpenFunc(QFile*, int32_t);
 void FileCloseFunc(QFile*);
 
