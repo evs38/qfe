@@ -64,7 +64,7 @@
 #define JAM_FLAG_LOCKED		0x40000000
 #define JAM_FLAG_DELETED	0x80000000
 
-struct AreaItem_Jam_HeaderInfo
+__PACKED_ATTR_PREF__ struct AreaItem_Jam_HeaderInfo
 {
 	uint8_t signature[4];
 	bo32_t datecreated;
@@ -74,9 +74,9 @@ struct AreaItem_Jam_HeaderInfo
 	bo32_t basemsgnum;
 	bo32_t highwater;
 	uint8_t reserved[996];
-} __PACKED_ATTR__;
+} __PACKED_ATTR_SUFF__;
 
-struct AreaItem_Jam_Header
+__PACKED_ATTR_PREF__ struct AreaItem_Jam_Header
 {
 	uint8_t signature[4];
 	bo16_t revision;
@@ -98,7 +98,7 @@ struct AreaItem_Jam_Header
 	bo32_t txtlen;
 	bo32_t passwordcrc;
 	bo32_t cost;
-} __PACKED_ATTR__;
+} __PACKED_ATTR_SUFF__;
 
 #define JAMSFLD_OADDRESS	0
 #define JAMSFLD_DADDRESS	1
@@ -122,32 +122,32 @@ struct AreaItem_Jam_Header
 #define JAMSFLD_TZUTCINFO	2004
 #define JAMSFLD_UNKNOWN		0xffff
 
-struct AreaItem_Jam_SubfieldHeader
+__PACKED_ATTR_PREF__ struct AreaItem_Jam_SubfieldHeader
 {
 	bo16_t loid;
 	bo16_t hiid;
 	bo32_t datlen;
-} __PACKED_ATTR__;
+} __PACKED_ATTR_SUFF__;
 
-struct AreaItem_Jam_Subfield
+__PACKED_ATTR_PREF__ struct AreaItem_Jam_Subfield
 {
 	AreaItem_Jam_SubfieldHeader Hdr;
 	uint8_t data[JAM_MAX_DATA_LEN];
-} __PACKED_ATTR__;
+} __PACKED_ATTR_SUFF__;
 
-struct AreaItem_Jam_Index
+__PACKED_ATTR_PREF__ struct AreaItem_Jam_Index
 {
 	bo32_t usercrc;
 	bo32_t hdroffset;
-} __PACKED_ATTR__;
+} __PACKED_ATTR_SUFF__;
 
-struct AreaItem_Jam_Lastread
+__PACKED_ATTR_PREF__ struct AreaItem_Jam_Lastread
 {
 	bo32_t usercrc;
 	bo32_t userid;
 	bo32_t lastread;
 	bo32_t highread;
-} __PACKED_ATTR__;
+} __PACKED_ATTR_SUFF__;
 
 class TArea_Jam_PvtObject
 {

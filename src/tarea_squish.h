@@ -58,7 +58,7 @@
 #define SQUISH_FLAG_SEEN	0x00080000
 #define SQUISH_FLAG_LOK		0x40000000
 
-struct AreaItem_Squish_Frame
+__PACKED_ATTR_PREF__ struct AreaItem_Squish_Frame
 {
 	bo32_t id;
 	bo32_t next_frame;
@@ -68,9 +68,9 @@ struct AreaItem_Squish_Frame
 	bo32_t clen;
 	bo16_t frame_type;
 	bo16_t rsvd;
-} __PACKED_ATTR__;
+} __PACKED_ATTR_SUFF__;
 
-struct AreaItem_Squish_Header
+__PACKED_ATTR_PREF__ struct AreaItem_Squish_Header
 {
 	bo32_t attr;
 	uint8_t from[36];
@@ -85,16 +85,16 @@ struct AreaItem_Squish_Header
 	bo32_t replies[9];
 	bo32_t umsgid;
 	uint8_t fts_date[20];
-} __PACKED_ATTR__;
+} __PACKED_ATTR_SUFF__;
 
-struct AreaItem_Squish_Index
+__PACKED_ATTR_PREF__ struct AreaItem_Squish_Index
 {
 	bo32_t ofs;
 	bo32_t umsgid;
 	bo32_t hash;
-} __PACKED_ATTR__;
+} __PACKED_ATTR_SUFF__;
 
-struct AreaItem_Squish_Base
+__PACKED_ATTR_PREF__ struct AreaItem_Squish_Base
 {
 	bo16_t len;
 	bo16_t rsvd1;
@@ -113,7 +113,7 @@ struct AreaItem_Squish_Base
 	bo16_t keep_days;
 	bo16_t framesize;
 	uint8_t rsvd2[124];
-} __PACKED_ATTR__;
+} __PACKED_ATTR_SUFF__;
 
 class TArea_Squish_PvtObject
 {

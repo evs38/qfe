@@ -46,7 +46,7 @@
 #define MSG_FLAG_AUDITREQ	0x4000
 #define MSG_FLAG_UPDREQ		0x8000
 
-struct AreaItem_Msg_Header
+__PACKED_ATTR_PREF__ struct AreaItem_Msg_Header
 {
 	uint8_t from[36];
 	uint8_t to[36];
@@ -76,7 +76,7 @@ struct AreaItem_Msg_Header
 	bo16_t replyto;
 	bo16_t attr;
 	bo16_t reply1st;
-} __PACKED_ATTR__;
+} __PACKED_ATTR_SUFF__;
 
 class TArea_Msg_PvtObject
 {

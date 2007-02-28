@@ -77,11 +77,18 @@
 #	error "Unknown endianness."
 #endif
 
-#define __PACKED_ATTR__		__attribute__((packed))
+#if defined(_MSC_VER)
+#	warning "FIXME: What true pack values for MSVC?"
+#	define __PACKED_ATTR_PREF__
+#	define __PACKED_ATTR_SUFF__
+#else
+#	define __PACKED_ATTR_PREF__
+#	define __PACKED_ATTR_SUFF__	__attribute__((packed))
+#endif
 
-#define sizeofrec(a,b)		sizeof(((a*)0)->b)
+#define sizeofrec(a,b)			sizeof(((a*)0)->b)
 
-struct bo16_t {
+__PACKED_ATTR_PREF__ struct bo16_t {
 	uint16_t unordered;
 	inline operator uint32_t() const
 	{
@@ -92,9 +99,9 @@ struct bo16_t {
 		unordered = _TO_BO_U16_((uint16_t)o);
 		return *this;
 	}
-} __PACKED_ATTR__;
+} __PACKED_ATTR_SUFF__;
 
-struct bo32_t {
+__PACKED_ATTR_PREF__ struct bo32_t {
 	uint32_t unordered;
 	inline operator uint32_t() const
 	{
@@ -105,24 +112,24 @@ struct bo32_t {
 		unordered = _TO_BO_U32_(o);
 		return *this;
 	}
-} __PACKED_ATTR__;
+} __PACKED_ATTR_SUFF__;
 
-struct fidoaddr
+__PACKED_ATTR_PREF__ struct fidoaddr
 {
 	bo16_t zone;
 	bo16_t net;
 	bo16_t node;
 	bo16_t point;
-} __PACKED_ATTR__;
+} __PACKED_ATTR_SUFF__;
 
-struct opusstamp {
+__PACKED_ATTR_PREF__ struct opusstamp {
 	unsigned ts_day  :5;
 	unsigned ts_month:4;
 	unsigned ts_year :7;
 	unsigned ts_sec  :5;
 	unsigned ts_min  :6;
 	unsigned ts_hour :5;
-} __PACKED_ATTR__;
+} __PACKED_ATTR_SUFF__;
 
 enum Area_Type
 {
