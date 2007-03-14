@@ -51,7 +51,7 @@ win32:QMAKE_CLEAN += qferc.o object_ld_script objmoc_ld_script
 
 release {
 	QMAKE_CLEAN += ts/*.qm
-	langsupport:QMAKE_POST_LINK = @$$QT_DIR_BIN/lrelease -verbose src.pri
+	langsupport:QMAKE_POST_LINK += @$$QT_DIR_BIN/lrelease -verbose src.pri
 }
 
 gcc {
@@ -199,9 +199,13 @@ unix {
 	}
 }
 
+gcc:release {
+	QMAKE_POST_LINK += ; strip --strip-debug --strip-unneeded -R .comment $(TARGET)
+}
+
 win32 {
 	RC_FILE += qferc.rc
-	pack:QMAKE_POST_LINK = upx -8 $(TARGET)
+	pack:QMAKE_POST_LINK += ; upx -8 $(TARGET)
 }
 
 mac {

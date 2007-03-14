@@ -709,9 +709,11 @@ bool ParseCommand(QObject *parent, QString *val)
 				} else
 					fprintf(stdout, "Can`t start command: %s.\n", cmd.ascii());
 			}
+
 			return true;
 		}
 	}
+
 	return false;
 }
 

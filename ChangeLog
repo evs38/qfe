@@ -1,4 +1,5 @@
 QFE version SVN ==============================================================
+- Fix decode "FMPT" and "TOPT" kludges in MSG-areas.
 - Fixes to compile on FreeBSD.
 ...
 

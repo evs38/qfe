@@ -219,7 +219,7 @@ bool ReadArea_Msg(TArea *Base, uint32_t Index)
 			{
 				tmppnt = kl.mid(5).toUShort();
 				if (tmppnt > 0)
-					it->destaddr.point = tmpaddr.point;
+					it->destaddr.point = tmppnt;
 			}
 
 			kl = GetKludge(Base->CtlBuff, "FMPT ");
@@ -227,7 +227,7 @@ bool ReadArea_Msg(TArea *Base, uint32_t Index)
 			{
 				tmppnt = kl.mid(5).toUShort();
 				if (tmppnt > 0)
-					it->origaddr.point = tmpaddr.point;
+					it->origaddr.point = tmppnt;
 			}
 
 			it->attr = ExtendFlags(it->attr, GetKludge(Base->CtlBuff, "FLAGS "));
