@@ -113,7 +113,7 @@ QString EncodeQuotedPrintable(QString Str, QString ChrCodec)
 
 		for (uint32_t i = 0; i < raw.size(); i++)
 		{
-			if (((*cur > 32) && (*cur < 127)) && (QString("\n\r?=").find(*cur, 0) < 0))
+			if (((*cur > 32) && (*cur < 127) && (*cur != '=')) && (QString("\n\r?=").find(*cur, 0) < 0))
 				ret += QChar(*cur);
 			else
 				ret += "=" + QString::number((uint32_t)*cur, 0, 16).rightJustify(2, '0', true).upper();

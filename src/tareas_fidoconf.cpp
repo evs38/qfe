@@ -110,6 +110,12 @@ bool ReadIncludedFidoConfFile(TAreas *Base, QString FileName)
 
 				for (;;)
 				{
+					if (AreasStream.atEnd())
+					{
+						ret = true;
+						break;
+					}
+
 					QString tmp = AreasStream.readLine().simplifyWhiteSpace();
 					if (tmp.isEmpty())
 						continue;
@@ -259,12 +265,6 @@ bool ReadIncludedFidoConfFile(TAreas *Base, QString FileName)
 						{
 							b_obj->IfDefList.Delete();
 						}
-					}
-
-					if (AreasStream.atEnd())
-					{
-						ret = true;
-						break;
 					}
 				}
 

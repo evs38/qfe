@@ -1820,7 +1820,7 @@ void TMainWindow::DecodeGeek(uint8_t *Buffer)
 
 void TMainWindow::MessageChanged(QListViewItem *Item)
 {
-	bool isHtml = false;
+	bool isHtml = false, gifDone = false;
 	QString gc, gif, charset = QString::null;
 
 	if (Item == NULL)
@@ -1985,36 +1985,54 @@ void TMainWindow::MessageChanged(QListViewItem *Item)
 				TBookItem *BookItem = Config->AddressBook->FindUser(FALabel->text(), FNLabel->text());
 				if (BookItem != NULL)
 					if (testexists(BookItem->Photo))
+					{
 						SetUserPixmap(QPixmap(BookItem->Photo));
+						gifDone = true;
+					}
 
-				// Find Photo from "GIF"-kludge
-				gif = GetKludge(Current->Area->CtlBuff, "GIF: ");
-				if (!gif.isEmpty())
+				if (!gifDone)
 				{
-					Buffer = gif.mid(5).stripWhiteSpace();
-					QFileInfo fi(Buffer);
-					if (fi.extension().isEmpty())
+					// Find Photo from "GIF"-kludge
+					gif = GetKludge(Current->Area->CtlBuff, "GIF: ");
+					if (!gif.isEmpty())
 					{
-						tmp = QString::null;
-						if (fmts.findIndex("GIF") > -1)
-							tmp = FindMatchedFile(QDir(Config->MediaDir), Buffer + ".gif");
-						if (fmts.findIndex("BMP") > -1)
-							if (tmp.isEmpty())
-								tmp = FindMatchedFile(QDir(Config->MediaDir), Buffer + ".bmp");
-						if (fmts.findIndex("JPEG") > -1)
+						Buffer = gif.mid(5).stripWhiteSpace();
+						QFileInfo fi(Buffer);
+						if (fi.extension().isEmpty())
 						{
-							if (tmp.isEmpty())
-								tmp = FindMatchedFile(QDir(Config->MediaDir), Buffer + ".jpg");
-							if (tmp.isEmpty())
-								tmp = FindMatchedFile(QDir(Config->MediaDir), Buffer + ".jpeg");
+							tmp = QString::null;
+							if (fmts.findIndex("GIF") > -1)
+								tmp = FindMatchedFile(QDir(Config->MediaDir), Buffer + ".gif");
+							if (fmts.findIndex("BMP") > -1)
+								if (tmp.isEmpty())
+									tmp = FindMatchedFile(QDir(Config->MediaDir), Buffer + ".bmp");
+							if (fmts.findIndex("JPEG") > -1)
+							{
+								if (tmp.isEmpty())
+									tmp = FindMatchedFile(QDir(Config->MediaDir), Buffer + ".jpg");
+								if (tmp.isEmpty())
+									tmp = FindMatchedFile(QDir(Config->MediaDir), Buffer + ".jpeg");
+							}
+						} else
+							tmp = FindMatchedFile(QDir(Config->MediaDir), Buffer);
+
+						Buffer = tmp;
+						if (!Buffer.isEmpty())
+						{
+							Buffer.prepend(Config->MediaDir + QDir::separator());
+							SetUserPixmap(QPixmap(Buffer));
+							gifDone = true;
 						}
-					} else
-						tmp = FindMatchedFile(QDir(Config->MediaDir), Buffer);
-					Buffer = tmp;
-					if (!Buffer.isEmpty())
+					}
+				}
+				if (!gifDone)
+				{
+					// Find Photo from "X-Face"-kludge
+					gif = GetKludge(Current->Area->CtlBuff, "X-Face: ");
+					if (!gif.isEmpty())
 					{
-						Buffer.prepend(Config->MediaDir + QDir::separator());
-						SetUserPixmap(QPixmap(Buffer));
+						// TODO:
+						debugmessage("X-Face not supported yet.");
 					}
 				}
 			}
@@ -2038,13 +2056,14 @@ void TMainWindow::MessageChanged(QListViewItem *Item)
 								sound_play(Buffer);
 							}
 						}
-					} else if (Config->GetBool(QString::null, CONFIG_MEDIA_IMAGES, true) && (fmts.findIndex("BMP") > -1))
+					} else if (Config->GetBool(QString::null, CONFIG_MEDIA_IMAGES, true) && (fmts.findIndex("BMP") > -1) && !gifDone)
 					{
 						Buffer = FindMatchedFile(QDir(Config->MediaDir), tmp.mid(5).append(".bmp"));
 						if (!Buffer.isEmpty())
 						{
 							Buffer.prepend(Config->MediaDir + QDir::separator());
 							SetUserPixmap(QPixmap(Buffer));
+							gifDone = true;
 						}
 					}
 				}
