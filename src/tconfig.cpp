@@ -104,7 +104,7 @@ TConfig::TConfig(QDir *Home, QDir *ManHome, QString UserHome)
 
 	SetStr(QString::null, CONFIG_VERSION, QFE_VERSION);
 
-	TextCodec = QTextCodec::codecForName(GetStr(CONFIG_SECTION_FIDO, CONFIG_FIDOCODEPAGE, "IBM 866"));
+	TextCodec = QTextCodec::codecForName(GetStr(CONFIG_SECTION_FIDO, CONFIG_FIDOCODEPAGE, "IBM 866").latin1());
 	FontDatabase = new QFontDatabase();
 	AddressBook = new TBook(ConfigPath + ADDRESSBOOK_NAME);
 

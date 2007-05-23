@@ -105,19 +105,17 @@ const uint8_t XXEncMap[64] =
 QString EncodeQuotedPrintable(QString Str, QString ChrCodec)
 {
 	QString ret = QString::null;
-	QTextCodec *qpcodec = QTextCodec::codecForName(ChrCodec);
+	QTextCodec *qpcodec = QTextCodec::codecForName(ChrCodec.latin1());
 	if ((qpcodec != NULL) && !Str.isEmpty())
 	{
 		QByteArray raw = qpcodec->fromUnicode(Str);
-		uint8_t *cur = (uint8_t*)raw.data();
 
 		for (uint32_t i = 0; i < raw.size(); i++)
 		{
-			if (((*cur > 32) && (*cur < 127) && (*cur != '=')) && (QString("\n\r?=").find(*cur, 0) < 0))
-				ret += QChar(*cur);
+			if (((raw.at(i) > 32) && (raw.at(i) < 127) && (raw.at(i) != '=')) && (QString("\n\r?=").find(raw.at(i), 0) < 0))
+				ret += QChar(raw.at(i));
 			else
-				ret += "=" + QString::number((uint32_t)*cur, 0, 16).rightJustify(2, '0', true).upper();
-			cur++;
+				ret += "=" + QString::number((uint32_t)raw.at(i), 0, 16).rightJustify(2, '0', true).upper();
 		}
 
 		ret = ret.prepend("=?" + ChrCodec.lower() + "?Q?").append("?=");
@@ -130,7 +128,7 @@ QString EncodeQuotedPrintable(QString Str, QString ChrCodec)
 QString DecodeQuotedPrintable(QString Str, QString ChrCodec)
 {
 	QByteArray ret(0);
-	QTextCodec *qpcodec = QTextCodec::codecForName(ChrCodec);
+	QTextCodec *qpcodec = QTextCodec::codecForName(ChrCodec.latin1());
 
 	if ((qpcodec != NULL) && !Str.isEmpty())
 	{
@@ -443,7 +441,7 @@ QString DecodeMIMELine(char *charval)
 						case 'B':
 						{
 							QByteArray arr(0);
-							QTextCodec *qpcodec = QTextCodec::codecForName(chrs);
+							QTextCodec *qpcodec = QTextCodec::codecForName(chrs.latin1());
 							if (qpcodec != NULL)
 								if (DecodeBase64(dec, &arr))
 								{
@@ -459,7 +457,7 @@ QString DecodeMIMELine(char *charval)
 						case 'U':
 						{
 							QByteArray arr(0);
-							QTextCodec *qpcodec = QTextCodec::codecForName(chrs);
+							QTextCodec *qpcodec = QTextCodec::codecForName(chrs.latin1());
 							if (qpcodec != NULL)
 								if (DecodeUUCode(dec, &arr))
 								{
