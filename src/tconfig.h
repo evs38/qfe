@@ -165,14 +165,13 @@ class TConfig;
 #define ERROR_INITFIDO_LOCK				2
 
 #if defined(Q_OS_MACX)
-#	warning "Put true values in fields bellow!!!"
 #	define PLATFORM_NAME				"MacOS"
 #	define SHORT_PLATFORM_NAME			"Mac"
 #	define DEFAULT_VIEW_FONT			"Monaco"
 #	define DEFAULT_VIEW_FONTSIZE			12
-#	define DEFAULT_EXT_BROWSER			"/Applications/Safari.app/Contents/MacOS/Safari"
+#	define DEFAULT_EXT_BROWSER			"open -a Safari"
 #	define DEFAULT_EXT_BROWSER_PRM			""
-#	define DEFAULT_EXT_EMAIL			"/Applications/Mail.app/Contents/MacOS/Mail"
+#	define DEFAULT_EXT_EMAIL			"open -a Mail"
 #	define DEFAULT_EXT_EMAIL_PRM			""
 #elif defined (Q_OS_WIN)
 #	define PLATFORM_NAME				"Windows"
