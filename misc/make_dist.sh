@@ -18,12 +18,12 @@ mkdir -p .tmp
 rm -f .tmp/$1
 
 PROGDIR=`pwd`
-PROGDIR=`basename $PROGDIR`
+PROGDIR=`basename "$PROGDIR"`
 OUTFILE=$PROGDIR/.tmp/$1
 
 cd ..
-tar --exclude=$PROGDIR/.distignore --exclude-from=$PROGDIR/.distignore -jcvf $OUTFILE $PROGDIR
-mv -f $OUTFILE $PROGDIR
-cd $PWDDIR
+tar --exclude="$PROGDIR/.distignore" --exclude-from="$PROGDIR/.distignore" -jcvf $OUTFILE "$PROGDIR"
+mv -f $OUTFILE "$PROGDIR"
+cd "$PWDDIR"
 
 exit 0

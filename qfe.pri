@@ -123,7 +123,7 @@ win32 {
 QMAKE_UIC = $$QMAKE_UIC -tr QObject::tr
 
 unix {
-	VERSION = $$system(awk '/QFE_VERSION/ {print $3}' <$$PWD/config.h | sed s/\"//g)
+	VERSION = $$system(awk '/QFE_VERSION/ {print $3}' <"$$PWD/config.h" | sed s/\"//g)
 }
 
 !win32 {

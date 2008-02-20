@@ -40,7 +40,6 @@ DEPENDPATH += doc src
 
 unix:!mac:exists(.distignore) {
 	DISTARCH = "$$MAINTARGET"-"$$VERSION".tar.bz2
-	DIRNAME = $$system(basename `pwd`)
 
 	dist.target = dist
 	dist.commands = @cd misc && sh -c "./make_dist.sh $$DISTARCH"
