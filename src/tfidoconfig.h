@@ -27,6 +27,12 @@ extern "C" {
 
 #define FIDOCONF_VER1_4
 
+#ifdef __cplusplus
+/* Workaround for use fidoconf.h in C++. */
+#	define export	_export
+#	define import	_import
+#endif
+
 #include <fidoconf/common.h>
 #include <fidoconf/fidoconf.h>
 #include <fidoconf/version.h>
@@ -38,6 +44,11 @@ extern "C" {
 #			include <huskylib/huskylib.h>
 #		endif
 #	endif
+#endif
+
+#ifdef __cplusplus
+#	undef export
+#	undef import
 #endif
 
 #ifdef __cplusplus
