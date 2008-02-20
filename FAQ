@@ -12,6 +12,6 @@ A: The QEmbed tool, found in qt/tools/qembed, converts arbitrary files into C++
 Q: When I trying to compile QFE, I receive error:
    /usr/include/fidoconf/fidoconf.h:131: error: expected unqualified-id before
    "export"...
-A: You must apply patches to husky before compile QFE. Patches located
+A: You must apply patch to husky before compile QFE. Patch located
    at qfe/misc/husky/patch.
 -------------------------------------------------------------------------------
