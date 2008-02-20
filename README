@@ -19,8 +19,7 @@ To compile QFE from sources You also need have installed Qt devel headers.
              Intel C++ (9.x).
  On MacOS X: GNU GCC (3.3.x).
  On Windows: MinGW GCC (3.3.x).
- Also You need fidoconfig package from husky project (http://husky.sourceforge.net/)
-and apply patch to husky for compile headers under C++ (located in qfe/misc/husky.patch).
+ Also You need fidoconfig package from husky project (http://husky.sourceforge.net/).
 
 [ *** License *** ]
  QFE is released under GNU General Public License (GPL).
