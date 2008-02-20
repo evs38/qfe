@@ -1,0 +1,48 @@
+--- husky.orig/fidoconf/fidoconf/fidoconf.h	2007-12-25 20:56:38.000000000 +0300
++++ husky/fidoconf/fidoconf/fidoconf.h	2008-02-20 12:24:04.000000000 +0300
+@@ -93,6 +93,16 @@
+ 
+ HUSKYEXT char *striptwhite(char *str);
+ 
++/* This is workaround for use this header file with C++ programs. */
++/* Because "import" & "export" is reserved word in C++. */
++#ifndef __cplusplus
++# define _export_var	export
++# define _import_var	import
++#else
++# define _export_var	_export
++# define _import_var	_import
++#endif
++
+ typedef struct  pack {
+    char    *packer;
+    char    *call;
+@@ -186,7 +196,7 @@
+                                  /*  bundle. Default 100 (used in bsopack) */
+     unsigned int packNetmail;    /*  allows to pack outbound */
+                                  /*  netmail. Default no (used in bsopack) */
+-    unsigned int export, import, mandatory, manual; /*  Default link's options */
++    unsigned int _export_var, _import_var, mandatory, manual; /*  Default link's options */
+     char **optGrp; /*  groups for this options */
+     unsigned int numOptGrp;
+     unsigned int delNotReceivedTIC; /* 1 - if file not recieved, then remove TIC */
+@@ -240,8 +250,8 @@
+ 
+ typedef struct arealink {
+    ps_link link;
+-   unsigned int export;		/*  1 - export yes, 0 - export no */
+-   unsigned int import;		/*  1 - import yes, 0 - import no */
++   unsigned int _export_var;	/*  1 - export yes, 0 - export no */
++   unsigned int _import_var;	/*  1 - import yes, 0 - import no */
+    unsigned int mandatory;	/*  1 - mandatory yes, 0 - mandatory no */
+    unsigned int manual;		/*  1 - manual yes, 0 - manual no */
+    unsigned int rescan;         /*  1 - rescan yes, 0 - rescan no */
+@@ -332,7 +342,7 @@
+    ps_area      area;     /*  area to copy messages */
+    hs_addr      addr;     /*  from addr to compare */
+    char         *areaName;/*  name of area to copy messages */
+-   int          export;   /*  export copied msg? */
++   int          _export_var; /*  export copied msg? */
+    int          netMail;  /*  do this in netmail, not echomail */
+    e_carbonaction  move;  /*  copy, move or delete original msg */
+    int          extspawn; /*  areaName is name of external program to exec */
