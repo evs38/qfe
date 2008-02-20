@@ -7,8 +7,8 @@ Name: ru; MessagesFile: "compiler:Default.isl,compiler:Languages\Russian.isl"
 
 [Setup]
 AppName=QFE
-AppVersion=0.5.1
-AppVerName=QFE Version 0.5.1
+AppVersion=0.5.2
+AppVerName=QFE Version 0.5.2
 AppCopyright=Copyright © 2005-2008 Alexander Shiyan
 AppPublisher=Alexander Shiyan, St.Petersburg, Russia
 VersionInfoCopyright=Alexander Shiyan, St.Petersburg, Russia
@@ -33,7 +33,7 @@ UninstallDisplayIcon={app}\qfe.exe
 DirExistsWarning=0
 MinVersion=4.9,5.0
 DiskSpanning=0
-OutputBaseFilename=qfe-0.5.1-install
+OutputBaseFilename=qfe-0.5.2-install
 WindowResizable=0
 WindowStartMaximized=1
 WindowVisible=0

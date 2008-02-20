@@ -1,6 +1,6 @@
 Name: qfe
-Version: 0.5.1
-Release: 0.fc6
+Version: 0.5.2
+Release: 0.fc7
 License: GPL
 Summary: Full-featured FTN message editor with a graphical interface.
 Group: Applications/Communications

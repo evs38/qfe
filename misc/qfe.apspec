@@ -8,7 +8,7 @@ APKG_BUILD_VERBOSE: 0
 [Meta]
 RootName: @fidonet.org/qfe:$SOFTWAREVERSION
 ShortName: qfe
-SoftwareVersion: 0.5.1
+SoftwareVersion: 0.5.2
 DisplayName: FTN message editor with a graphical interface.
 Summary: Full-featured FTN message editor with a graphical interface.
 Maintainer: Alexander Shiyan <shc@users.sourceforge.net>
