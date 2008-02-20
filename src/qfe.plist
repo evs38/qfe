@@ -13,9 +13,9 @@
 	<key>CFBundleShortVersionString</key>
 	<string>0.5</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>(C) 2005-2007 by Alexander Shiyan</string>
+	<string>(C) 2005-2008 by Alexander Shiyan</string>
         <key>CFBundleGetInfoString</key>
-	<string>0.5.1, (C) 2005-2007 by Alexander Shiyan</string>
+	<string>0.5.1, (C) 2005-2008 by Alexander Shiyan</string>
 	<key>CFBundleSignature</key>
 	<string>ttxt</string>
 	<key>CFBundleExecutable</key>

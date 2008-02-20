@@ -2,6 +2,7 @@ QFE version SVN ==============================================================
 - Fix decode "FMPT" and "TOPT" kludges in MSG-areas.
 - Fixes to compile on FreeBSD.
 - Fix crash on empty included file in fidoconfig.
+- Patch for HUSKY no more be needed.
 ...
 
 QFE version 0.5.1 === Released 27.01.2007 ======================================
